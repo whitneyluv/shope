@@ -24,3 +24,6 @@
     docker compose up -d --build - сборка перед стартом контейнеров
     docker compose up -d - запуск контейнеров (-d для запуска в фоне)
     docker compose down - остановка контейнеров
+
+
+
