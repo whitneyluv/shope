@@ -16,13 +16,6 @@
     origin/fixbugs/задача или номер задачи
     origin/feature/задача или номер задачи
 
-# rule for dump data
-    python fixtures_dumper.py
-
-# rule for load data
-    python manage.py migrate
-    python manage.py import_fixtures (-f filename -e email (не обязательные аргументы))
-
 # running Celery
     pip install -r requirements.txt
     celery -A shope worker --loglevel=info
