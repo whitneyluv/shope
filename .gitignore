@@ -1,5 +1,7 @@
 venv
 .idea
 __pycache__/
-/shope/db.sqlite3
-
+/megano/db.sqlite3
+**/migrations/**
+!**/migrations
+!**/migrations/__init__.py
