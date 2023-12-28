@@ -1,0 +1,2 @@
+class AddProductsToCart():
+    pass
