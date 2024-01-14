@@ -16,13 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.conf import settings
-from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("cart/", include("cart_app.urls", namespace="cart")),
     path('order/', include('order_app.urls')),
 ]
-
-urlpatterns.extend(static(settings.STATIC_URL, document_root=settings.STATIC_ROOT))
