@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'order_app',
+    'megano.catalog.apps.CatalogConfig',
 ]
 
 MIDDLEWARE = [
