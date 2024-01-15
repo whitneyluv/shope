@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'catalog.apps.CatalogConfig',
     'profile_app.apps.ProfileAppConfig',
+    'order_app.apps.OrderAppConfig',
+    'coreapp.apps.CoreAppConfig',
 ]
 
 MIDDLEWARE = [
@@ -56,7 +58,11 @@ ROOT_URLCONF = 'megano.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+<<<<<<< megano/megano/settings.py
         'DIRS': [BASE_DIR / 'templates'],
+=======
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+>>>>>>> megano/megano/settings.py
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -117,8 +123,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
+<<<<<<< megano/megano/settings.py
 STATIC_URL = 'static/'
 STATICFILES_DIRS = (BASE_DIR / 'static',)
+=======
+STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+>>>>>>> megano/megano/settings.py
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
