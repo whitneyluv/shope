@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'cart_app',
+    'cart_app.apps.CartAppConfig',
     'order_app',
     'coreapp.apps.CoreAppConfig',
     'megano.catalog.apps.CatalogConfig',
