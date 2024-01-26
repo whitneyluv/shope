@@ -7,6 +7,10 @@ class User(AbstractBaseUser):
     """
     Новая модель пользователя
     """
+
+    def __str__(self):
+        return f'Модель для пользователя {self.email}'
+
     username = models.CharField(_('username'), max_length=150, unique=False, blank=True)
     email = models.EmailField(
         max_length=60,

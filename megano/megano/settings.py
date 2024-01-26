@@ -118,7 +118,7 @@ USE_I18N = True
 USE_TZ = True
 
 
-AUTH_USER_MODEL = 'profile_app.User'
+AUTH_USER_MODEL = 'auth_app.User'
 
 
 # Static files (CSS, JavaScript, Images)
