@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'order_app.apps.OrderAppConfig',
     'cart_app.apps.CartAppConfig',
     'coreapp.apps.CoreAppConfig',
+    'taggit',
 ]
 
 MIDDLEWARE = [
