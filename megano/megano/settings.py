@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'catalog.apps.CatalogConfig',
+    'auth_app.apps.AuthAppConfig',
     'profile_app.apps.ProfileAppConfig',
     'order_app.apps.OrderAppConfig',
     'cart_app.apps.CartAppConfig',
@@ -116,6 +117,12 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
+
+AUTH_USER_MODEL = 'auth_app.User'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 
 # Static files (CSS, JavaScript, Images)
