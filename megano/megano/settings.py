@@ -118,6 +118,8 @@ USE_I18N = True
 USE_TZ = True
 
 
+AUTH_USER_MODEL = 'auth_app.User'
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
