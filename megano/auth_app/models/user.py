@@ -1,9 +1,10 @@
-from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.utils.translation import gettext_lazy as _
 from django.db import models
+from .usermanager import NewUserManager
 
 
-class User(AbstractBaseUser):
+class User(AbstractBaseUser, PermissionsMixin):
     """
     Новая модель пользователя
     """
@@ -16,13 +17,20 @@ class User(AbstractBaseUser):
         max_length=60,
         unique=True,
         error_messages={
-            "unique": _("A user with that username already exists."),
+            "unique": _("Пользователь с таким email уже существует"),
         }
     )
     middle_name = models.CharField(_('middle name'), max_length=30, blank=True)
     activation_key = models.CharField(max_length=60, blank=True)
     activation_name_set = models.CharField(max_length=60, blank=True)
     is_activation_key_expires = models.BooleanField(default=False)
+    is_staff = models.BooleanField(
+        _("staff status"),
+        default=False,
+        help_text=_("Означает может ли пользователь зайти на сайт от имени администратора"),
+    )
+
+    objects = NewUserManager()
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username"]
