@@ -139,3 +139,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CART_STATUSES = [
+    (1, "new"),
+    (2, "paid"),
+    (3, "not_paid"),
+    (4, "pending"),
+]
