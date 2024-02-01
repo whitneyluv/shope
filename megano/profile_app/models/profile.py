@@ -1,9 +1,10 @@
 from django.db import models
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
+from coreapp.models import BaseModel
 
 
-class Profile(models.Model):
+class Profile(BaseModel):
     """
     Модель профиля пользователя
     """

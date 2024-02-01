@@ -24,11 +24,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     activation_key = models.CharField(max_length=60, blank=True)
     activation_name_set = models.CharField(max_length=60, blank=True)
     is_activation_key_expires = models.BooleanField(default=False)
-    is_staff = models.BooleanField(
-        _("staff status"),
-        default=False,
-        help_text=_("Означает может ли пользователь зайти на сайт от имени администратора"),
-    )
 
     objects = NewUserManager()
 
