@@ -1,4 +1,4 @@
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, AbstractUser
 from django.utils.translation import gettext_lazy as _
 from django.db import models
 from .usermanager import NewUserManager
@@ -24,6 +24,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     activation_key = models.CharField(max_length=60, blank=True)
     activation_name_set = models.CharField(max_length=60, blank=True)
     is_activation_key_expires = models.BooleanField(default=False)
+    is_staff = models.BooleanField(
+        default=False,
+        help_text='Означает может ли пользователь зайти на сайт от имени администратора',
+        verbose_name='staff status'
+    )
 
     objects = NewUserManager()
 
