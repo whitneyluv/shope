@@ -5,8 +5,8 @@ from django.http import HttpRequest, HttpResponse
 from django.views.generic import FormView
 
 
-from ..interfaces.auth_interface import IAuth
-from ..models.user import User
+from interfaces.auth_interface import IAuth
+from models.user import User
 
 
 class RegisterView(FormView):

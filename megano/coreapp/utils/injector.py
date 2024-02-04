@@ -1,7 +1,7 @@
 import inject
 
-from shope.megano.auth_app.interfaces.auth_interface import IAuth
-from shope.megano.auth_app.repositories.auth_repositories import AuthRepository
+from auth_app.interfaces.auth_interface import IAuth
+from auth_app.repositories.auth_repositories import AuthRepository
 
 BINDS = (
     (IAuth, AuthRepository),
