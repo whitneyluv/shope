@@ -1,2 +1,2 @@
-class ListOfComparedProducts():
+class ListOfComparedProducts:
     pass

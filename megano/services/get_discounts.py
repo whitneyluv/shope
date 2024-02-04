@@ -1,7 +1,7 @@
 from typing import Dict
 
 
-class GetDiscounts():
+class GetDiscounts:
 
     def get_all_discounts(self, products: list) -> Dict:
         pass
