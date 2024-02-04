@@ -13,19 +13,17 @@ class RegisterView(FormView):
 
     _user: IAuth = inject.attr(IAuth)
 
-
-
     def get(self, request, *args, **kwargs) -> HttpResponse:
-
 
         email = request.POST['email']
 
-        # получили пользователя
+        # получить объетк
         get_user = self._user.get_user_by_email(_email=email)
 
-        # удалили пользователя
+        # удалить объект
         self._user.delete_user_by_email(_email=email)
 
+        # сохранить объетк
         user_without_commit = User(
             email='test@mail.ru',
             password='12345678',
@@ -35,5 +33,6 @@ class RegisterView(FormView):
           )
         self._user.save(user_without_commit)
 
+        return HttpResponse()
         
 
