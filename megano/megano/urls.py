@@ -19,6 +19,10 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+from shope.megano.coreapp.utils.injector import configure_inject
+
+configure_inject()
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('order/', include('order_app.urls')),

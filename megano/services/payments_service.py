@@ -1,2 +1,2 @@
-class PaymentsService():
+class PaymentsService:
     pass
