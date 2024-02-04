@@ -1,7 +1,7 @@
 from beartype import beartype
 
-from shope.megano.auth_app.interfaces.auth_interface import IAuth
-from shope.megano.auth_app.models.user import User
+from auth_app.interfaces.auth_interface import IAuth
+from auth_app.models.user import User
 
 
 class AuthRepository(IAuth):
