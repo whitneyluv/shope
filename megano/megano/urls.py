@@ -19,7 +19,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from shope.megano.coreapp.utils.injector import configure_inject
+from coreapp.utils.injector import configure_inject
 
 configure_inject()
 
@@ -29,7 +29,7 @@ urlpatterns = [
     path('auth/', include('auth_app.urls')),
     path('profile/', include('profile_app.urls')),
     path("cart/", include("cart_app.urls", namespace="cart")),
-    path('order/', include('order_app.urls')),
+    path('catalog/', include('catalog.urls')),
     path('core/', include('coreapp.urls')),
 ]
 

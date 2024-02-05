@@ -1,6 +1,6 @@
 from abc import abstractmethod
 
-from shope.megano.auth_app.models.user import User
+from auth_app.models.user import User
 
 
 class IAuth:
