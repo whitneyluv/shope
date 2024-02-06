@@ -1,2 +1,2 @@
-class RecentlyViewedProducts():
+class RecentlyViewedProducts:
     pass

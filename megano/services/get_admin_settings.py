@@ -1,2 +1,2 @@
-class GetAdminSettings():
+class GetAdminSettings:
     pass

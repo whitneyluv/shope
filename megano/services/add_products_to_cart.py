@@ -1,2 +1,2 @@
-class AddProductsToCart():
+class AddProductsToCart:
     pass
