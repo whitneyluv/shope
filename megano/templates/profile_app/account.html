@@ -77,9 +77,10 @@
                             {% if request.user.is_authenticated %}
                             <div class="row-block"><a class="ControlPanel-title" href="{% url 'auth_app:logout' %}">Выход</a>
                             {% else %}
-                            <div class="row-block"><a class="ControlPanel-title" href="{% url 'auth_app:login' %}">Вход</a>
+                            <div class="row-block">
+                                <a class="ControlPanel-title" href="{% url 'auth_app:login' %}">Вход</a>
+                                <a class="ControlPanel-title" href="{% url 'auth_app:registr' %}">Регистрация</a>
                             {% endif %}
-                                <a class="ControlPanel-title" href="../auth/registr.html">Регистрация</a>
                             </div>
                         </div>
                     </nav>
