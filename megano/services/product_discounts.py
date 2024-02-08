@@ -1,2 +1,2 @@
-class ProductDiscounts():
+class ProductDiscounts:
     pass

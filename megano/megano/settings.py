@@ -146,3 +146,10 @@ CART_STATUSES = [
     (3, "not_paid"),
     (4, "pending"),
 ]
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'unique-snowflake',
+    }
+}
