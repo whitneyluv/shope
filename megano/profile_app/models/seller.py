@@ -15,7 +15,7 @@ class Seller(models.Model):
         return self.user.email
 
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    name = models.CharField(_('Name'), unique=True)
+    name = models.CharField(_('Name'), max_length=256, unique=True)
     logo = models.ImageField(
         _('Logotype'),
         upload_to=f'seller/{get_email}/%Y/%m/%d',

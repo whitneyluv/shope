@@ -1,3 +1,9 @@
-from django.shortcuts import render
+from django.views import generic
+from .models import Product
 
-# Create your views here.
+
+class ProductDetailViews(generic.DetailView):
+    """Представление для отображения детальной страницы товара"""
+    model = Product
+    template_name = "catalog/product.html"
+    context_object_name = "product"
