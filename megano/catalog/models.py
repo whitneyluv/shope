@@ -27,9 +27,7 @@ class Category(models.Model):
 
 
 def product_images_directory_path(instance: 'Product', filename: str) -> str:
-    return 'product/product{pk}/images/{filename}'.format(
-        pk=instance.product.pk,
-        filename=filename)
+    return f'product/product{instance.category.pk}/images/{filename}'
 
 
 class Product(BaseModel):

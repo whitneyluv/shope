@@ -20,13 +20,17 @@ from django.conf import settings
 from django.conf.urls.static import static
 import debug_toolbar
 
+from coreapp.utils.injector import configure_inject
+
+configure_inject()
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('order/', include('order_app.urls')),
     path('auth/', include('auth_app.urls')),
     path('profile/', include('profile_app.urls')),
     path("cart/", include("cart_app.urls", namespace="cart")),
-    path('order/', include('order_app.urls')),
+    path('catalog/', include('catalog.urls')),
     path('core/', include('coreapp.urls')),
 ]
 
