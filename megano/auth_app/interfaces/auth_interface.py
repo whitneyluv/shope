@@ -1,5 +1,4 @@
 from abc import abstractmethod
-
 from auth_app.models.user import User
 
 

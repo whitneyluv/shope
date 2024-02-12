@@ -15,24 +15,13 @@ class UserRegisterForm(UserCreationForm):
         "password_mismatch": _("Пароли не совпадают! Введите пароль заново"),
     }
 
-    # username = forms.CharField(
-    #     label='Имя пользователя',
-    #     widget=forms.TextInput(
-    #         attrs={'placeholder': 'Введите имя пользователя'}
-    #     )
-    # )
     email = forms.EmailField(
         label='Адрес эл.почты',
         widget=forms.EmailInput(
             attrs={'placeholder': 'Введите адрес эл.почты'}
         )
     )
-    # middle_name = forms.CharField(
-    #     label='Ваше имя',
-    #     widget=forms.TextInput(
-    #         attrs={'placeholder': 'Введите ваше имя'}
-    #     )
-    # )
+
     password1 = forms.CharField(
         label='Введите пароль',
         widget=forms.PasswordInput(
@@ -49,14 +38,6 @@ class UserRegisterForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('email', 'password1', 'password2')
-
-    # def __init__(self, *args, **kwargs):
-    #     super(UserRegisterForm, self).__init__(*args, **kwargs)
-    #     self.fields['username'].widget.attrs({'placeholder': 'Введите имя пользователя'})
-    #     self.fields['email'].widget.attrs['placeholder'] = 'Введите адрес эл.почты'
-    #     self.fields['middle_name'].widget.attrs['placeholder'] = 'Введите имя'
-    #     self.fields['password1'].widget.attrs['placeholder'] = 'Введите пароль'
-    #     self.fields['password2'].widget.attrs['placeholder'] = 'Повторите пароль'
 
     def save(self, commit=True):
         user = super(UserRegisterForm, self).save()
