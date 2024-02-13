@@ -76,8 +76,8 @@
                 </div>
                 <nav class="row-block">
                     <div class="row ControlPanel-rowSplit">
-                        <div class="row-block"><a class="ControlPanel-title" href="login.html">Вход</a>
-                            <a class="ControlPanel-title" href="registr.html">Регистрация</a>
+                        <div class="row-block"><a class="ControlPanel-title" href="{% url 'auth_app:login' %}">Вход</a>
+                            <a class="ControlPanel-title" href="{% url 'auth_app:register' %}">Регистрация</a>
                         </div>
                     </div>
                 </nav>
