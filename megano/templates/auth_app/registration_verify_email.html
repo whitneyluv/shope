@@ -2,6 +2,6 @@
 
 Привет {{ user.get_username }},
 Пожалуйста перейдите по ссылке чтобы закончить регистрацию
-http://{{ domain }}{% url 'auth_app:registration_confirmation_email' activation_key=activation_key %}
+http://{{ domain }}{% url 'auth_app:registration_completed' activation_key=activation_key %}
 
 {% endautoescape %}

@@ -20,11 +20,11 @@ urlpatterns = [
         template_name='auth_app/registration_confirm_email.html'
     ), name='registration_confirm_email'),
 
-    path('registration/<activation_key>/', EmailVerify.as_view(), name='registration_confirmation_email'),
+    path('registration/<activation_key>/', EmailVerify.as_view(), name='registration_completed'),
 
     path('registration/invalid_verify/', TemplateView.as_view(
-            template_name='auth_app/registration_confirm_email.html'
-        ), name='registration_invalid'),
+            template_name='auth_app/registration_invalid_verify.html'
+        ), name='registration_completed'),
 
     path('reset_password/', UserPasswordResetView.as_view(), name='reset_password_request'),
 

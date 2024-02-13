@@ -7,5 +7,5 @@ class UserPasswordResetView(PasswordResetView):
     View функция отображения страницы восстановления пароля
     """
     template_name = 'auth_app/password_reset_request.html'
-    success_url = reverse_lazy("auth_app:confirm_email_reset_password_request")
+    success_url = reverse_lazy("auth_app:registration_confirm_email")
     email_template_name = "auth_app/password_reset_verification_cod_email.html"

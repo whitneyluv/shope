@@ -20,11 +20,12 @@ class AuthRepository(IAuth):
             return None
 
     @beartype
-    def delete_user_by_email(self, _email: str) -> Optional[User]:
+    def delete_user_by_email(self, _email: str) -> Optional[bool]:
         """Удаляем пользователя"""
         try:
             user = self.get_user_by_email(_email)
-            return user.delete()
+            user.delete()
+            return True
         except ObjectDoesNotExist:
             return None
 
