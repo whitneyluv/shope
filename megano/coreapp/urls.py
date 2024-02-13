@@ -1,5 +1,7 @@
 from django.urls import path
-from .views import *
+from coreapp.views.about_view import about_view
+from coreapp.views.base_view import base_view
+from coreapp.views.index_view import IndexView
 
 app_name = 'coreapp'
 

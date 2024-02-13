@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from coreapp.choices.cart_status import CART_STATUSES
-from coreapp.models import BaseModel
+from coreapp.models.basemodel import BaseModel
 from catalog.models import Product
 from profile_app.models.seller import Seller
 
