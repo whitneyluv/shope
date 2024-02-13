@@ -5,6 +5,7 @@ from ..models import User
 from ..utils import send_email_for_verify
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.core.exceptions import PermissionDenied
+from ..forms import UserRegisterForm
 
 
 class UserRegisterView(UserPassesTestMixin, FormView):
@@ -19,14 +20,15 @@ class UserRegisterView(UserPassesTestMixin, FormView):
         return True
 
     model = User
-    template_name = 'auth_app/register.html'
+    template_name = 'auth_app/registration.html'
+    form_class = UserRegisterForm
 
     def post(self, request: HttpRequest, *args, **kwargs) -> HttpRequest:
         form = self.form_class(data=request.POST)
         if form.is_valid():
             user = form.save()
             send_email_for_verify(request, user)
-            return redirect('/auth/confirm_email_account_registration')
+            return redirect('confirm_email/')
         return render(
             request=request,
             template_name=self.template_name,

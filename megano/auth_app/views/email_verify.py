@@ -18,4 +18,4 @@ class EmailVerify(View):
             self._user.save(user)
             login(request, user)
             return redirect('/profile/')
-        return redirect('/auth/invalid_verify')
+        return redirect('/auth/registration/invalid_verify/')

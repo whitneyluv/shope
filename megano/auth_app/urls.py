@@ -12,14 +12,19 @@ from .views import (
 app_name = 'auth_app'
 
 urlpatterns = [
-    path('', UserLoginView.as_view(), name='login'),
+    path('login/', UserLoginView.as_view(), name='login'),
     path('logout/', UserLogoutView.as_view(), name='logout'),
-    path('register/', UserRegisterView.as_view(), name='register'),
-    path('verify_email/<activation_key>/', EmailVerify.as_view(), name='verify_email'),
+    path('registration/', UserRegisterView.as_view(), name='registration'),
 
-    path('confirm_email/', TemplateView.as_view(
-        template_name='auth_app/confirm_email_account_registration.html'
-    ), name='confirm_email_account_registration'),
+    path('registration/confirm_email/', TemplateView.as_view(
+        template_name='auth_app/registration_confirm_email.html'
+    ), name='registration_confirm_email'),
+
+    path('registration/<activation_key>/', EmailVerify.as_view(), name='registration_confirmation_email'),
+
+    path('registration/invalid_verify/', TemplateView.as_view(
+            template_name='auth_app/registration_confirm_email.html'
+        ), name='registration_invalid'),
 
     path('reset_password/', UserPasswordResetView.as_view(), name='reset_password_request'),
 

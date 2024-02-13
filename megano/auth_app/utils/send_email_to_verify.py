@@ -17,7 +17,7 @@ def send_email_for_verify(request: HttpRequest, user: User) -> None:
         'activation_key': user.activation_key,
     }
     message = render_to_string(
-        'auth_app/verify_email.html',
+        'auth_app/registration_verify_email.html',
         context=context,
     )
     email = EmailMessage(

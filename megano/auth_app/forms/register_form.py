@@ -1,7 +1,7 @@
 import hashlib
 import random
 from django.contrib.auth.forms import UserCreationForm
-from auth_app.models.user import User
+from ..models.user import User
 from django.utils.translation import gettext_lazy as _
 from django import forms
 
