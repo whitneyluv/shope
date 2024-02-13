@@ -22,7 +22,6 @@
 
 {% load static %}
 
-
 <head>
     <title>
     {% block title %}
@@ -45,7 +44,6 @@
     <script src="{% static 'assets/plg/CountDown/countdown.js' %}"></script>
     <!--[if lt IE 9]>
   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-
 </head>
 
 <body class="Site">
@@ -80,8 +78,13 @@
                     </div>
                     <nav class="row-block">
                         <div class="row ControlPanel-rowSplit">
-                            <div class="row-block"><a class="ControlPanel-title" href="../auth/login.html">Вход</a>
-                                <a class="ControlPanel-title" href="../auth/registr.html">Регистрация</a>
+                            {% if request.user.is_authenticated %}
+                            <div class="row-block"><a class="ControlPanel-title" href="{% url 'auth_app:logout' %}">Выход</a>
+                            {% else %}
+                            <div class="row-block">
+                                <a class="ControlPanel-title" href="{% url 'auth_app:login' %}">Вход</a>
+                                <a class="ControlPanel-title" href="{% url 'auth_app:registr' %}">Регистрация</a>
+                            {% endif %}
                             </div>
                         </div>
                     </nav>
@@ -94,7 +97,7 @@
       //        ['Мои проекты','index.html'],
       //        ['Контакты','index.html']
       //    ], page === 'article'? 'Портфолио': 'Главная')._main
-
+      
       block
       -->
         </div>
