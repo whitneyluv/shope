@@ -15,7 +15,7 @@ class Profile(BaseModel):
     def get_email(self):
         return self.user.email
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='user_profile')
     phone = models.CharField(_('phone number'), max_length=10, blank=True)
     avatar = models.ImageField(
         _('profile avatar'),

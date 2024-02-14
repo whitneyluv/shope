@@ -1,14 +1,11 @@
-from django.http import HttpRequest, FileResponse
-from django.shortcuts import redirect, render
-from django.urls import reverse_lazy
 from ..models import Profile
 from django.views.generic import View, DetailView
 
 
-class AccountView(DetailView):
-    template_name = 'profile_app/account/html'
-
-
+class ProfileView(DetailView):
+    template_name = 'profile_app/profile.html'
+    model = Profile
+    context_object_name = 'profile'
 
 
 

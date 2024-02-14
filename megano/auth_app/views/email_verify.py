@@ -17,5 +17,5 @@ class EmailVerify(View):
             self._user.set_user_is_active(user, True)
             self._user.save(user)
             login(request, user)
-            return redirect('/profile/')
+            return redirect('profile_app:profile', pk=user.user_profile.pk)
         return redirect('/auth/registration/invalid_verify/')

@@ -19,9 +19,9 @@
                         <div class="Section-columnContent">
                             <div class="NavigateProfile">
                                 <ul class="menu menu_vt">
-                                    <li class="menu-item_ACTIVE menu-item"><a class="menu-link" href="{% url 'profile_app:account' %}">Личный кабинет</a>
+                                    <li class="menu-item_ACTIVE menu-item"><a class="menu-link" href="{% url 'profile_app:profile' pk=profile.pk %}">Личный кабинет</a>
                                     </li>
-                                    <li class="menu-item"><a class="menu-link" href="{% url 'profile_app:update_profile' %}">Профиль</a>
+                                    <li class="menu-item"><a class="menu-link" href="{% url 'profile_app:change_profile' pk=profile.pk %}">Профиль</a>
                                     </li>
                                     <li class="menu-item"><a class="menu-link" href="../order/historyorder.html">История заказов</a>
                                     </li>
@@ -58,7 +58,7 @@
                                     {% endif %}
                                 </div>
                                 <div class="Account-editLink">
-                                <a href="{% url 'profile_app:update_profile' %}">Редактировать профиль</a>
+                                <a href="{% url 'profile_app:change_profile' pk=profile.pk %}">Редактировать профиль</a>
                                 </div>
                             </div>
                         </div>
