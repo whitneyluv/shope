@@ -15,7 +15,7 @@ class IAuth:
         pass
 
     @abstractmethod
-    def delete_user(self, model: User):
+    def delete_user_by_email(self, _email: str):
         """Удаление пользователя по email"""
         pass
 

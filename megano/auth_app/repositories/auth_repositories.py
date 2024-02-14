@@ -20,9 +20,11 @@ class AuthRepository(IAuth):
             return None
 
     @beartype
-    def delete_user(self, model: User) -> None:
+    def delete_user(self, _email: str) -> None:
         """Удаляем пользователя"""
-        model.delete()
+        user = self.get_user_by_email(_email)
+        if user:
+            user.delete()
 
     @beartype
     def get_user_by_activation_key(self, _activation_key: str) -> Optional[User]:
