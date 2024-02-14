@@ -14,10 +14,13 @@ class UserRegisterView(UserPassesTestMixin, FormView):
     View функция регистрации пользователя
     """
 
-    def test_func(self):
+    def viewing_ban_authenticated_user(self):
         if self.request.user.is_authenticated:
             raise PermissionDenied
         return True
+
+    def get_test_func(self):
+        return self.viewing_ban_authenticated_user
 
     model = User
     template_name = 'auth_app/registration.html'
