@@ -3,6 +3,7 @@ from django.shortcuts import redirect
 import inject
 from ..interfaces.auth_interface import IAuth
 from django.contrib.auth import login
+from profile_app.models import Profile
 
 
 class EmailVerify(View):
@@ -17,5 +18,5 @@ class EmailVerify(View):
             self._user.set_user_is_active(user, True)
             self._user.save(user)
             login(request, user)
-            return redirect('profile_app:profile', pk=user.user_profile.pk)
+            return redirect('auth_app:login')
         return redirect('/auth/registration/invalid_verify/')

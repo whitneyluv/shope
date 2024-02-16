@@ -4,6 +4,10 @@ from django.utils.translation import gettext_lazy as _
 from coreapp.models import BaseModel
 
 
+def seller_images_directory_path(instance: 'Seller', filename: str) -> str:
+    return f'profile/{instance.user.email}/logo/{filename}'
+
+
 class Seller(BaseModel):
     """
     Модель профиля продавца
@@ -12,14 +16,11 @@ class Seller(BaseModel):
     def __str__(self):
         return f'Модель профиля для продавца {self.user}'
 
-    def get_email(self):
-        return self.user.email
-
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     name = models.CharField(_('Name'), unique=True, max_length=20)
     logo = models.ImageField(
         _('Logotype'),
-        upload_to=f'seller/{get_email}/%Y/%m/%d',
+        upload_to=seller_images_directory_path,
         blank=True
     )
     description = models.TextField(_('Description'), blank=True)

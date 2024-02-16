@@ -1,10 +1,9 @@
 from ..models import Profile
 from django.views.generic import UpdateView
-from ..forms import ProfileForm
+from ..forms import ProfileChangeForm
 
 
 class ChangeProfileView(UpdateView):
     model = Profile
     template_name = 'profile_app/change_profile.html'
-    # fields = ['phone', 'avatar']
-    form_class = ProfileForm
+    form_class = ProfileChangeForm

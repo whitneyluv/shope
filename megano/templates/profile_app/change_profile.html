@@ -39,43 +39,47 @@
                             <div class="row">
                                 <div class="row-block">
                                     <div class="form-group">
-                                        <label class="form-label" for="avatar">Аватар
+                                        <label class="form-label">Аватар
                                         </label>
                                         <div class="Profile-avatar Profile-avatar_noimg">
-
-                                            <label class="Profile-fileLabel" for="avatar"><img src="{% static 'assets/img/icons/upload.png' %}" alt="Upload" />Загрузить фото
+                                            <label class="Profile-fileLabel" for="{{ form.avatar.id_for_label }}">
+                                                <img src="{% static 'assets/img/icons/upload.png' %}" alt="Upload" />
+                                                Загрузить фото
                                             </label>
-                                            
-                                            <input class="Profile-file form-input" id="avatar" name="avatar" type="file" data-validate="onlyImgAvatar" />
+                                            {{ form.avatar }}
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="form-label" for="name">ФИО
+                                        <label class="form-label" for="{{ form.username.id_for_label }}">
+                                            {{ form.username.label }}
                                         </label>
-                                        <input class="form-input" id="name" name="name" type="text" value="" data-validate="require" />
+                                            {{ form.username }}
                                     </div>
                                 </div>
                                 <div class="row-block">
                                     <div class="form-group">
-                                        <label class="form-label">
-                                            Телефон
+                                        <label class="form-label" for="{{ form.phone.id_for_label }}">
+                                            {{ form.phone.label }}
                                         </label>
-                                        {{ form.phone }}
+                                            {{ form.phone }}
                                     </div>
                                     <div class="form-group">
-                                        <label class="form-label" for="mail">E-mail
+                                        <label class="form-label" for="{{ form.email.id_for_label }}">
+                                            {{ form.email.label }}
                                         </label>
-                                        <input class="form-input" id="mail" name="mail" type="text" value="send@test.test" data-validate="require" />
+                                            {{ form.email }}
                                     </div>
                                     <div class="form-group">
-                                        <label class="form-label" for="password">Пароль
+                                        <label class="form-label" for="{{ form.password1.id_for_label }}">
+                                            {{ form.password1.label }}
                                         </label>
-                                        {{ form.password1 }}
+                                            {{ form.password1 }}
                                     </div>
                                     <div class="form-group">
-                                        <label class="form-label" for="passwordReply">Подтверждение пароля
+                                        <label class="form-label" for="{{ form.password2.id_for_label }}">
+                                            {{ form.password2.label }}
                                         </label>
-                                        <input class="form-input" id="passwordReply" name="passwordReply" type="password" placeholder="Введите пароль повторно" />
+                                            {{ form.password2 }}
                                     </div>
                                     <div class="form-group">
                                         <div class="Profile-btn">

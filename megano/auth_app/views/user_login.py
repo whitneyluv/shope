@@ -1,12 +1,8 @@
 from django.contrib.auth.views import LoginView
 from django.shortcuts import redirect
 from django.contrib.auth import login as auth_login
-from django.http import HttpResponseRedirect
-from django.utils.decorators import method_decorator
-from django.views.decorators.cache import never_cache
-from django.views.decorators.csrf import csrf_protect
-from django.views.decorators.debug import sensitive_post_parameters
 from profile_app.models import Profile
+
 
 class UserLoginView(LoginView):
     """
