@@ -1,46 +1,55 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.cache import cache
-from .models import Category, Product, Seller
+from django.views import View
+from .models import Category, Product
 from .forms import ProductFilterForm
+from .repositories import ProductRepository
 
-def catalog_page(request, category_id=None):
-    category = None
+class CatalogPageView(View):
+    template_name = 'catalog/catalog.html'
 
-    if category_id is not None:
-        category = get_object_or_404(Category, pk=category_id)
-        cache_key = f'catalog_{category_id}_products'
-
-        products = cache.get(cache_key)
-        if not products:
-            products = Product.objects.filter(category=category)
-
-            sort_param = request.GET.get('sort')
-            if sort_param == 'prices__min':
-                products = products.order_by('prices__min')
-            elif sort_param == 'prices__max':
-                products = products.order_by('-prices__max')
-
-            cache.set(cache_key, products, 86400)
-
+    def get(self, request, category_id=None):
         filter_form = ProductFilterForm(request.GET)
+        category = None
+
+        if category_id is not None:
+            category = get_object_or_404(Category, pk=category_id)
+            cache_key = f'catalog_{category_id}_products'
+
+            products_in_category = cache.get(cache_key)
+            if not products_in_category:
+                products_in_category = ProductRepository.get_products_by_category(category)
+
+                sort_param = request.GET.get('sort')
+                if sort_param:
+                    products_in_category = ProductRepository.get_products_by_category(category, sort_param)
+
+                cache.set(cache_key, products_in_category, 86400)
+
+            products = products_in_category
+        else:
+            products = Product.objects.all().prefetch_related('prices')
 
         if filter_form.is_valid():
-            products = filter_form.filter_products(products)
+            price_min = None
+            price_max = None
+
+            if 'price_min' in request.GET:
+                price_min = float(request.GET['price_min'])
+
+            if 'price_max' in request.GET:
+                price_max = float(request.GET['price_max'])
+
+            products = ProductRepository.filter_products(products, filter_form, price_min, price_max)
         else:
-            print("Форма фильтра не допустима. Ошибки:", filter_form.errors)
+            print("Form is not valid. Errors:", filter_form.errors)
 
-        return render(request, 'catalog/catalog.html', {'category': category, 'products': products, 'filter_form': filter_form})
+        return render(request, self.template_name,
+                      {'category': category, 'products': products, 'filter_form': filter_form})
 
-    all_products = Product.objects.all()
-    filter_form = ProductFilterForm(request.GET)
 
-    if filter_form.is_valid():
-        print("Форма фильтра допустима. Данные:", filter_form.cleaned_data)
-        all_products = filter_form.filter_products(all_products)
-    else:
-        print("Форма фильтра не допустима. Ошибки:", filter_form.errors)
+class ComparisonPageView(View):
+    template_name = 'catalog/comparison.html'
 
-    return render(request, 'catalog/catalog.html', {'category': category, 'products': all_products, 'filter_form': filter_form})
-
-def comparison_page(request):
-    return render(request, 'catalog/comparison.html', {})
+    def get(self, request):
+        return render(request, self.template_name, context={})

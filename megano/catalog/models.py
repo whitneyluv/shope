@@ -2,10 +2,10 @@ from django.db import models
 from coreapp.models import BaseModel
 from taggit.managers import TaggableManager
 from django.utils.translation import gettext_lazy as _
+from django.db.models import Min, Max
 
 class Seller(BaseModel):
     pass
-
 
 class Category(models.Model):
     """
@@ -25,10 +25,8 @@ class Category(models.Model):
         },
     )
 
-
 def product_images_directory_path(instance: 'Product', filename: str) -> str:
     return f'product/product{instance.category.pk}/images/{filename}'
-
 
 class Product(BaseModel):
 
@@ -40,9 +38,13 @@ class Product(BaseModel):
     is_limited = models.BooleanField(default=False, verbose_name='is_limited')
     free_delivery = models.BooleanField(default=True, verbose_name='free_delivery')
 
+    def min_price(self):
+        return self.prices.aggregate(min_price=Min('price'))['min_price']
+
+    def max_price(self):
+        return self.prices.aggregate(max_price=Max('price'))['max_price']
 
 class Price(BaseModel):
     price = models.FloatField(null=True, blank=True, verbose_name='price')
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='prices')
     seller = models.ForeignKey(Seller, on_delete=models.CASCADE, related_name='prices')
-

@@ -1,9 +1,10 @@
 from django.urls import path
-from .views import catalog_page, comparison_page
+from .views import CatalogPageView, ComparisonPageView
+
 
 app_name = 'catalog'
 
 urlpatterns = [
-    path('', catalog_page, name='catalog'),
-    path('comparison/', comparison_page, name='comparison'),
+    path('', CatalogPageView.as_view(), name='catalog'),
+    path('comparison/', ComparisonPageView.as_view(), name='comparison'),
 ]

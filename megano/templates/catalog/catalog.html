@@ -160,14 +160,26 @@
                             <strong class="Section-title">Фильтр</strong>
                         </header>
                         <div class="Section-columnContent">
-                           <form class="form" action="{% url 'catalog:catalog' %}" method="get">
+                            <form class="form form_search" action="{% url 'catalog:catalog' %}" method="get">
                                 {% csrf_token %}
                                 <div class="form-group">
                                     <div class="range Section-columnRange">
-                                         <input class="range-line" id="price_min" name="price_min" type="text" data-type="double" data-min="0" data-max="500" data-from="{{ filter_form.cleaned_data.price_min }}" data-to="{{ filter_form.cleaned_data.price_max }}" />
-                                        <div class="range-price">Цена:&#32;
-                                            <div class="rangePrice"></div>
-                                        </div>
+                                        {% with price_min=filter_form.cleaned_data.price_min %}
+                                            {% with price_max=filter_form.cleaned_data.price_max %}
+                                                {% with price_min_float=price_min|default:0 %}
+                                                    {% with price_max_float=price_max|default:500 %}
+                                                        <input class="range-line" id="price_min" name="price_min" type="text" data-type="double" data-min="0" data-max="500" data-from="{{ price_min_float }}" data-to="{{ price_max_float }}" />
+                                                        <div class="range-price">Цена:&#32;
+                                                            <div class="rangePrice">
+                                                                {% if price_min_float is not None and price_max_float is not None %}
+                                                                    {{ price_min_float|floatformat }};{{ price_max_float|floatformat }}
+                                                                {% endif %}
+                                                            </div>
+                                                        </div>
+                                                    {% endwith %}
+                                                {% endwith %}
+                                            {% endwith %}
+                                        {% endwith %}
                                     </div>
                                 </div>
                                 <div class="form-group">
