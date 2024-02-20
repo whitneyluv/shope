@@ -1,9 +1,13 @@
 from django.urls import path
-from django.views.generic import TemplateView
+from coreapp.views.about_view import about_view
+from coreapp.views.base_view import base_view
+from coreapp.views.index_view import IndexView
 
 app_name = 'coreapp'
 
+
 urlpatterns = [
-    path('core/', TemplateView.as_view(template_name='coreapp/base.html'), name='core'),
-    path('index/', TemplateView.as_view(template_name='coreapp/index.html'), name='core'),
+    path("base/", base_view, name="base"),
+    path("about/", about_view, name="about"),
+    path("index/", IndexView.as_view(), name="index"),
 ]

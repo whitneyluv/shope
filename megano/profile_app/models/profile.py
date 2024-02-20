@@ -1,7 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
-from coreapp.models import BaseModel
+from coreapp.models.basemodel import BaseModel
 
 
 def profile_images_directory_path(instance: 'Profile', filename: str) -> str:
