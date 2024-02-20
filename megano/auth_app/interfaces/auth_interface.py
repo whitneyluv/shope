@@ -10,6 +10,11 @@ class IAuth:
         pass
 
     @abstractmethod
+    def get_user(self, model: User):
+        """Получаем пользователя"""
+        pass
+
+    @abstractmethod
     def get_user_by_email(self, _email: str):
         """Получаем пользователя"""
         pass
@@ -27,4 +32,14 @@ class IAuth:
     @abstractmethod
     def set_user_is_active(self, model: User, value: bool):
         """Установить значение параметра is_active пользователя"""
+        pass
+
+    @abstractmethod
+    def set_activation_key(self, model: User):
+        """Установить значение параметра activation_key пользователя"""
+        pass
+
+    @abstractmethod
+    def set_activation_key_will_expires(self, model: User):
+        """Установить значение параметра activation_key_will_expires пользователя"""
         pass
