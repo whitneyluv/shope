@@ -1,12 +1,11 @@
-from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from catalog.models import Product
+from coreapp.choices.cart_status import CART_STATUSES
 from coreapp.models.basemodel import BaseModel
 from profile_app.models.seller import Seller
-from coreapp.choices.cart_status import CART_STATUSES
 
 
 class Cart(BaseModel):

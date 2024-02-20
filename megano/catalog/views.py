@@ -1,10 +1,12 @@
 from django.core.cache import cache
 from django.core.handlers.wsgi import WSGIRequest
-from django.db.models import Min
+from django.db.models import Min, F
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
 
 from .models import Category, Product
+from services.add_products_to_cart import AddProductsToCart
+from services.recently_viewed_products import RecentlyViewedProducts
 
 
 def catalog_page(request, category_id=None):
@@ -46,10 +48,13 @@ class ProductDetailViews(generic.DetailView):
     def get_queryset(self):
         """Формирует запрос для получения объекта Product"""
         return Product.objects.annotate(
-            min_price=Min('prices__price')).prefetch_related(
+            min_price=Min('prices__price')).filter(
+            prices__price=F('min_price')).annotate(
+            min_price_seller_id=F('prices__seller')).prefetch_related(
             'prices', 'product_characteristics', 'product_images')
 
     def get_context_data(self, **kwargs):
+        """Формирует контекст для шаблона"""
         context = super().get_context_data(**kwargs)
         context['show_modal'] = self.show_modal
         self.show_modal = False
@@ -57,13 +62,15 @@ class ProductDetailViews(generic.DetailView):
 
     def get(self, request: WSGIRequest, *args, **kwargs):
         """Метод обработки GET запросов"""
-        product_id = kwargs.get('pk')
-        # TODO добавить вызов метода добавления товара в список просмотренных когда появится
+        RecentlyViewedProducts(user_id=request.user.pk).add(product_id=kwargs.get('pk'))
         return super().get(request, *args, **kwargs)
 
     def post(self, request: WSGIRequest, *args, **kwargs):
         """Метод обработки POST запросов"""
         self.show_modal = True
-        num_products = int(request.POST.get('num_products'))
-        # TODO добавить вызов метода добавления товара в корзину когда появится
+        AddProductsToCart(user_id=request.user.pk)(
+            quantity=int(request.POST.get('num_products')),
+            product_id=kwargs.get("pk"),
+            seller_id=int(request.POST.get('seller_id'))
+        )
         return self.get(request, *args, **kwargs)
