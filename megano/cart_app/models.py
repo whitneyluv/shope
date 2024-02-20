@@ -4,7 +4,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from catalog.models import Product
-from coreapp.models import BaseModel
+from coreapp.models.basemodel import BaseModel
 from profile_app.models.seller import Seller
 from coreapp.choices.cart_status import CART_STATUSES
 

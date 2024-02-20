@@ -2,9 +2,10 @@ from django.contrib.auth.models import AbstractBaseUser
 from django.utils.translation import gettext_lazy as _
 from django.db import models
 from .usermanager import NewUserManager
+from django.contrib.auth.models import PermissionsMixin
 
 
-class User(AbstractBaseUser):
+class User(AbstractBaseUser, PermissionsMixin):
     """
     Новая модель пользователя
     """
@@ -24,7 +25,10 @@ class User(AbstractBaseUser):
     activation_key = models.CharField(max_length=60, blank=True)
     activation_name_set = models.CharField(max_length=60, blank=True)
     is_activation_key_expires = models.BooleanField(default=False)
-
+    is_staff = models.BooleanField(
+        default=False,
+        verbose_name='staff status'
+    )
     objects = NewUserManager()
 
     USERNAME_FIELD = "email"
