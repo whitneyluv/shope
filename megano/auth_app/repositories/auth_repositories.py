@@ -43,9 +43,9 @@ class AuthRepository(IAuth):
             return None
 
     @beartype
-    def set_user_is_active(self, model: User, value: bool) -> None:
+    def set_user_is_active(self, model: User) -> None:
         """Установить значение параметра is_active пользователя"""
-        model.is_active = value
+        model.is_active = True
         self.save(model)
 
     @beartype
