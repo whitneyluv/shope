@@ -6,6 +6,7 @@ from django.utils.translation import gettext_lazy as _
 from catalog.models import Product
 from coreapp.models import BaseModel
 from profile_app.models.seller import Seller
+from coreapp.choices.cart_status import CART_STATUSES
 
 
 class Cart(BaseModel):
@@ -20,7 +21,7 @@ class Cart(BaseModel):
     status = models.PositiveSmallIntegerField(
         blank=True,
         null=False,
-        choices=settings.CART_STATUSES,
+        choices=CART_STATUSES,
         default=1,
         verbose_name=_("status")
     )
