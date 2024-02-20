@@ -19,7 +19,7 @@ class EmailVerify(View):
             if date.today() > user.activation_key_will_expires:
                 return redirect('activation_key_expires/')
 
-            self._user.set_user_is_active(user, True)
+            self._user.set_user_is_active(user)
             login(request, user)
             return redirect('/profile/')
 
