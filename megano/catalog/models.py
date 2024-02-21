@@ -1,11 +1,8 @@
 from django.db import models
-from coreapp.models import BaseModel
+from coreapp.models.basemodel import BaseModel
 from taggit.managers import TaggableManager
 from django.utils.translation import gettext_lazy as _
-from django.db.models import Min, Max
-
-class Seller(BaseModel):
-    pass
+from profile_app.models.seller import Seller
 
 class Category(models.Model):
     """
