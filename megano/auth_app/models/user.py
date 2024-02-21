@@ -29,12 +29,6 @@ class User(AbstractUser):
         }
     )
 
-    middle_name = models.CharField(
-        _('middle name'),
-        max_length=30,
-        blank=True
-    )
-
     activation_key = models.CharField(
         max_length=60,
         blank=True

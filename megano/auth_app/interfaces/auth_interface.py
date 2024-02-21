@@ -28,18 +28,3 @@ class IAuth:
     def get_user_by_activation_key(self, _activation_key: str):
         """Получаем пользователя по активационному ключу"""
         pass
-
-    @abstractmethod
-    def set_user_is_active(self, model: User, value: bool):
-        """Установить значение параметра is_active пользователя"""
-        pass
-
-    @abstractmethod
-    def set_activation_key(self, model: User):
-        """Установить значение параметра activation_key пользователя"""
-        pass
-
-    @abstractmethod
-    def set_activation_key_will_expires(self, model: User):
-        """Установить значение параметра activation_key_will_expires пользователя"""
-        pass
