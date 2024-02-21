@@ -54,8 +54,3 @@ class AuthRepository(IAuth):
         model.activation_key = get_activation_key(model.email)
         self.save(model)
 
-    @beartype
-    def set_activation_key_will_expires(self, model: User):
-        """Установить значение параметра activation_key_will_expires пользователя"""
-        model.activation_key_will_expires = date.today() + timedelta(2)
-        self.save(model)
