@@ -35,10 +35,10 @@ class CatalogPageView(View):
             price_max = None
 
             if 'price_min' in request.GET:
-                price_min = float(request.GET['price_min'])
+                price_min = float(request.GET['price_min'].replace(';', '.'))
 
             if 'price_max' in request.GET:
-                price_max = float(request.GET['price_max'])
+                price_max = float(request.GET['price_max'].replace(';', '.'))
 
             products = ProductRepository.filter_products(products, filter_form, price_min, price_max)
         else:
@@ -46,7 +46,6 @@ class CatalogPageView(View):
 
         return render(request, self.template_name,
                       {'category': category, 'products': products, 'filter_form': filter_form})
-
 
 class ComparisonPageView(View):
     template_name = 'catalog/comparison.html'

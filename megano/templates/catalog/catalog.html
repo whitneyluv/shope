@@ -164,19 +164,15 @@
                                 {% csrf_token %}
                                 <div class="form-group">
                                     <div class="range Section-columnRange">
-                                        {% with price_min=filter_form.cleaned_data.price_min %}
-                                            {% with price_max=filter_form.cleaned_data.price_max %}
-                                                {% with price_min_float=price_min|default:0 %}
-                                                    {% with price_max_float=price_max|default:500 %}
-                                                        <input class="range-line" id="price_min" name="price_min" type="text" data-type="double" data-min="0" data-max="500" data-from="{{ price_min_float }}" data-to="{{ price_max_float }}" />
-                                                        <div class="range-price">Цена:&#32;
-                                                            <div class="rangePrice">
-                                                                {% if price_min_float is not None and price_max_float is not None %}
-                                                                    {{ price_min_float|floatformat }};{{ price_max_float|floatformat }}
-                                                                {% endif %}
-                                                            </div>
+                                        {% with price_range=request.GET.price_range|default:"0;500" %}
+                                            {% with price_min=price_range|slice:":2"|floatformat %}
+                                                {% with price_max=price_range|slice:"2:"|floatformat %}
+                                                    <input class="range-line" id="price_min" name="price_min" type="text" data-type="double" data-min="0" data-max="500" data-from="{{ price_min }}" data-to="{{ price_max }}" />
+                                                    <div class="range-price">Цена:&#32;
+                                                        <div class="rangePrice">
+                                                            {{ price_min }};{{ price_max }}
                                                         </div>
-                                                    {% endwith %}
+                                                    </div>
                                                 {% endwith %}
                                             {% endwith %}
                                         {% endwith %}
