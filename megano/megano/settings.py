@@ -167,10 +167,10 @@ CART_STATUSES = [
     (4, "pending"),
 ]
 
-CACHES = {
-    "default": {
-        "BACKEND": "django.core.cache.backends.memcached.PyMemcacheCache",
-        "LOCATION": "127.0.0.1:11211",
-    }
-}
-CACHE_MIDDLEWARE_SECONDS = os.getenv("CACHE_MIDDLEWARE_SECONDS")
+# CACHES = {
+#     "default": {
+#         "BACKEND": "django.core.cache.backends.memcached.PyMemcacheCache",
+#         "LOCATION": "127.0.0.1:11211",
+#     }
+# }
+# CACHE_MIDDLEWARE_SECONDS = os.getenv("CACHE_MIDDLEWARE_SECONDS")

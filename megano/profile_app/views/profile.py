@@ -1,5 +1,5 @@
 from ..models import Profile
-from django.views.generic import View, DetailView
+from django.views.generic import DetailView
 
 
 class ProfileView(DetailView):

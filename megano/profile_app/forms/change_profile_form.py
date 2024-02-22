@@ -2,15 +2,17 @@ from django import forms
 from ..models import Profile
 
 
-class ProfileChangeForm(forms.ModelForm):
+class UserProfileChangeForm(forms.ModelForm):
 
-    avatar = forms.ImageField(widget=forms.FileInput(attrs={'class': 'Profile-file form-input'}))
-    username = forms.CharField(max_length=150, label='Имя пользователя')
-    email = forms.EmailField()
-    phone = forms.CharField(label='Телефон')
-    password1 = forms.CharField(widget=forms.PasswordInput(), label='Пароль')
-    password2 = forms.CharField(widget=forms.PasswordInput(), label='Подтверждение пароля')
+    username = forms.CharField(label='ФИО', required=False)
 
     class Meta:
         model = Profile
-        fields = 'avatar', 'username', 'email', 'phone', 'password1', 'password2'
+        fields = ['user', 'avatar', 'phone']
+        labels = {
+            'username': 'Имя пользователя',
+            'phone': 'Телефон',
+        }
+        widgets = {
+            'avatar': forms.FileInput(attrs={'class': 'Profile-file form-input'}),
+        }

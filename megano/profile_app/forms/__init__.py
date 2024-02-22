@@ -1,1 +1,1 @@
-from .change_profile_form import ProfileChangeForm
+from .change_profile_form import UserProfileChangeForm
