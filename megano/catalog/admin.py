@@ -1,5 +1,14 @@
 from django.contrib import admin
-from .models import Product, Category, Price, Characteristic, ProductCharacteristic, ProductImage
+from .models import (
+    Product,
+    Category,
+    Price,
+    Characteristic,
+    ProductCharacteristic,
+    ProductImage,
+    Review,
+    RecentlyViewedProducts
+)
 
 
 class ProductCharacteristicInline(admin.StackedInline):
@@ -10,6 +19,11 @@ class ProductCharacteristicInline(admin.StackedInline):
 class ProductImageInline(admin.StackedInline):
     """Добавление изображения в админке модели Product"""
     model = ProductImage
+
+
+class ProductReviewInline(admin.StackedInline):
+    """Добавление отзыва в админке модели Product"""
+    model = Review
 
 
 @admin.register(Category)
@@ -30,11 +44,23 @@ class CharacteristicAdmin(admin.ModelAdmin):
     ordering = 'title',
 
 
+@admin.register(Review)
+class ReviewAdmin(admin.ModelAdmin):
+    """Регистрация модели Review в админке"""
+    ordering = 'author',
+
+
+@admin.register(RecentlyViewedProducts)
+class RecentlyViewedProductsAdmin(admin.ModelAdmin):
+    """Регистрация модели RecentlyViewedProducts в админке"""
+    ordering = 'user', '-updated_at'
+
+
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     """Регистрация модели Product в админке"""
     actions = ['clear_cache']
-    inlines = [ProductCharacteristicInline, ProductImageInline]
+    inlines = [ProductCharacteristicInline, ProductImageInline, ProductReviewInline]
 
     def clear_cache(self, request, queryset):
         for product in queryset:

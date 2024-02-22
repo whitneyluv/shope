@@ -14,6 +14,6 @@ class AddProductsToCart:
         CartItem(
             cart=self.cart,
             product=Product.objects.get(id=product_id),
-            seller=Seller.objects.get(id=seller_id,),
+            seller=Seller.objects.get(id=seller_id),
             quantity=quantity
         ).save()

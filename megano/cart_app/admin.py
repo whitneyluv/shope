@@ -11,6 +11,7 @@ class CartItemInline(admin.TabularInline):
 @admin.register(Cart)
 class CartAdmin(admin.ModelAdmin):
     """Регистрация модели Cart в админке"""
+    readonly_fields = 'total_amount',
     inlines = [CartItemInline]
     ordering = ["user"]
 

@@ -1,8 +1,10 @@
+from decimal import Decimal
+
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from catalog.models import Product
+from catalog.models import Product, Price
 from coreapp.choices.cart_status import CART_STATUSES
 from coreapp.models.basemodel import BaseModel
 from profile_app.models.seller import Seller
@@ -10,6 +12,7 @@ from profile_app.models.seller import Seller
 
 class Cart(BaseModel):
     """Модель корзины пользователя"""
+
     user = models.ForeignKey(
         get_user_model(),
         on_delete=models.CASCADE,
@@ -25,14 +28,27 @@ class Cart(BaseModel):
         verbose_name=_("status")
     )
 
-    total_amount = models.DecimalField(
-        blank=True,
-        null=False,
-        default=0,
-        max_digits=11,
-        decimal_places=2,
-        verbose_name=_("total amount")
-    )
+    @property
+    def total_amount(self):
+        """Динамический расчёт общей стоимости корзины по актуальной цене продукта"""
+        total = Decimal("0.00")
+        products = []
+        sellers = []
+
+        items = CartItem.objects.filter(cart=self).all().select_related('product', 'seller')
+        [(products.append(item.product), sellers.append(item.seller)) for item in items]
+
+        prices = Price.objects.filter(
+            product__in=products,
+            seller__in=sellers
+        ).select_related('product', 'seller')
+
+        prices_dict = {(price.product.pk, price.seller.pk): price for price in prices}
+
+        for item in items:
+            price = prices_dict.get((item.product.pk, item.seller.pk))
+            total += item.quantity * price.price if price else 0
+        return total
 
     class Meta:
         db_table = "cart"

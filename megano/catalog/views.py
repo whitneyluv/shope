@@ -4,9 +4,10 @@ from django.db.models import Min, F
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
 
-from .models import Category, Product
 from services.add_products_to_cart import AddProductsToCart
-from services.recently_viewed_products import RecentlyViewedProducts
+from services.add_review import AddReview
+from services.recently_viewed_products import RecentlyViewedProductsService
+from .models import Category, Product
 
 
 def catalog_page(request, category_id=None):
@@ -43,7 +44,8 @@ class ProductDetailViews(generic.DetailView):
     model = Product
     template_name = "catalog/product.html"
     context_object_name = "product"
-    show_modal = False
+    show_buy_modal = False
+    show_review_modal = False
 
     def get_queryset(self):
         """Формирует запрос для получения объекта Product"""
@@ -51,26 +53,40 @@ class ProductDetailViews(generic.DetailView):
             min_price=Min('prices__price')).filter(
             prices__price=F('min_price')).annotate(
             min_price_seller_id=F('prices__seller')).prefetch_related(
-            'prices', 'product_characteristics', 'product_images')
+            'prices', 'product_characteristics', 'product_images', 'reviews')
 
     def get_context_data(self, **kwargs):
         """Формирует контекст для шаблона"""
         context = super().get_context_data(**kwargs)
-        context['show_modal'] = self.show_modal
-        self.show_modal = False
+        context['show_buy_modal'] = self.show_buy_modal
+        context['show_review_modal'] = self.show_review_modal
+        self.show_buy_modal = False
+        self.show_review_modal = False
         return context
 
     def get(self, request: WSGIRequest, *args, **kwargs):
         """Метод обработки GET запросов"""
-        RecentlyViewedProducts(user_id=request.user.pk).add(product_id=kwargs.get('pk'))
+        if request.user.is_authenticated:
+            RecentlyViewedProductsService(
+                user_id=request.user.pk
+            ).add(product_id=kwargs.get('pk'))
         return super().get(request, *args, **kwargs)
 
     def post(self, request: WSGIRequest, *args, **kwargs):
         """Метод обработки POST запросов"""
-        self.show_modal = True
-        AddProductsToCart(user_id=request.user.pk)(
-            quantity=int(request.POST.get('num_products')),
-            product_id=kwargs.get("pk"),
-            seller_id=int(request.POST.get('seller_id'))
-        )
+        if request.user.is_authenticated:
+            if review := request.POST.get('review'):
+                self.show_review_modal = True
+                AddReview()(
+                    product_id=kwargs.get("pk"),
+                    user_id=request.user.pk,
+                    review=review
+                )
+            else:
+                self.show_buy_modal = True
+                AddProductsToCart(user_id=request.user.pk)(
+                    quantity=int(request.POST.get('num_products')),
+                    product_id=kwargs.get("pk"),
+                    seller_id=int(request.POST.get('seller_id'))
+                )
         return self.get(request, *args, **kwargs)

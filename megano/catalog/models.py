@@ -3,6 +3,7 @@ from coreapp.models.basemodel import BaseModel
 from taggit.managers import TaggableManager
 from django.utils.translation import gettext_lazy as _
 from profile_app.models.seller import Seller
+from django.contrib.auth import get_user_model
 
 
 def product_images_directory_path(instance: 'Product', filename: str) -> str:
@@ -28,10 +29,6 @@ class Category(models.Model):
             "unique": _("A user with that username already exists."),
         },
     )
-
-
-def product_images_directory_path(instance: 'Product', filename: str) -> str:
-    return f'product/product{instance.category.pk}/images/{filename}'
 
 
 class Product(BaseModel):
@@ -111,7 +108,7 @@ class Characteristic(BaseModel):
         return self.title
 
 
-class ProductCharacteristic(models.Model):
+class ProductCharacteristic(BaseModel):
     """Значение характеристики продукта"""
     product = models.ForeignKey(
         Product,
@@ -133,3 +130,53 @@ class ProductCharacteristic(models.Model):
 
     def __str__(self):
         return f'{self.product} | {self.characteristic}'
+
+
+class Review(BaseModel):
+    """Отзыв к продукту"""
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        related_name='reviews',
+        verbose_name=_('product')
+    )
+    author = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.SET_NULL,
+        null=True,
+        verbose_name=_('author')
+    )
+    review = models.TextField(null=False, blank=False, verbose_name=_('review'))
+
+    class Meta:
+        verbose_name = _('review')
+        verbose_name_plural = _('reviews')
+
+    def __str__(self):
+        return f'product: {self.product.title} | author: {self.author.username}'
+
+
+class RecentlyViewedProducts(BaseModel):
+    """Недавно просмотренные продукты"""
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        related_name='views',
+        verbose_name=_('product')
+    )
+    user = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE,
+        null=True,
+        verbose_name=_('user')
+    )
+
+    class Meta:
+        verbose_name = _('recently viewed product')
+        verbose_name_plural = _('recently viewed products')
+
+    def __str__(self):
+        return (f'product: {self.product.title} | '
+                f'user: {self.user.username} | date: {self.updated_at}')
+
+
