@@ -20,7 +20,8 @@ class EmailVerify(View):
             if date.today() > user.activation_key_will_expires:
                 return redirect('activation_key_expires/')
 
-            self._user.set_user_is_active(user, True)
+            user.is_active = True
+            self._user.save(user)
             login(request, user)
             return redirect('auth_app:login')
         return redirect('/auth/registration/invalid_verify/')
