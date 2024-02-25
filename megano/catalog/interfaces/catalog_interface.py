@@ -1,21 +1,21 @@
-from catalog.models import Product
+from typing import List, Dict, Union
+from django.db.models import QuerySet
+from ..models import Product
 from abc import ABC, abstractmethod
-from typing import List
 
 class ICatalogRepository(ABC):
 
     @abstractmethod
-    def get_products_by_category(self, category_id):
+    def get_products_by_category(self, category_id: int) -> QuerySet[Product]:
         """Сортировка товаров по категориям."""
         pass
 
     @abstractmethod
-    def get_all_products(self):
+    def get_all_products(self) -> QuerySet[Product]:
         """Все продукты"""
         pass
 
     @abstractmethod
-    def filter_products(self, title: str, price_min: float, price_max: float, available: str,
-                        free_delivery: str, seller: List[int], is_limited: str, tag: str, category: List[int]):
+    def filter_products(self, filters: Dict[str, Union[str, float, List[int]]]) -> QuerySet[Product]:
         """Фильтр продуктов"""
         pass
