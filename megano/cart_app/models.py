@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-from django.conf import settings
-from coreapp.models import BaseModel
+from coreapp.choices.cart_status import CART_STATUSES
+from coreapp.models.basemodel import BaseModel
 from catalog.models import Product
 from profile_app.models.seller import Seller
 
@@ -18,7 +18,7 @@ class Cart(BaseModel):
     status = models.PositiveSmallIntegerField(
         blank=True,
         null=False,
-        choices=settings.CART_STATUSES,
+        choices=CART_STATUSES,
         default=1,
         verbose_name="статус"
     )
