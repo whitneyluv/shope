@@ -1,5 +1,5 @@
+from catalog.models import Product
 from abc import ABC, abstractmethod
-from catalog.models import Product  # Update the import statement
 from typing import List
 
 class ICatalogRepository(ABC):
@@ -19,4 +19,3 @@ class ICatalogRepository(ABC):
                         free_delivery: str, seller: List[int], is_limited: str, tag: str, category: List[int]):
         """Фильтр продуктов"""
         pass
-
