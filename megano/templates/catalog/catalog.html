@@ -157,51 +157,38 @@
                 <div class="Section-column">
                     <div class="Section-columnSection">
                         <header class="Section-header">
-                            <strong class="Section-title">Фильтр</strong>
+                            <strong class="Section-title">Фильтр
+                            </strong>
                         </header>
                         <div class="Section-columnContent">
-                            <form class="form form_search" action="{% url 'catalog:catalog' %}" method="get">
-                                {% csrf_token %}
+                            <form class="form" action="#" method="post">
                                 <div class="form-group">
                                     <div class="range Section-columnRange">
-                                        {% with price_range=request.GET.price_range|default:"0;500" %}
-                                            {% with price_min=price_range|slice:":2"|floatformat %}
-                                                {% with price_max=price_range|slice:"2:"|floatformat %}
-                                                    <input class="range-line" id="price_min" name="price_min" type="text" data-type="double" data-min="0" data-max="500" data-from="{{ price_min }}" data-to="{{ price_max }}" />
-                                                    <div class="range-price">Цена:&#32;
-                                                        <div class="rangePrice">
-                                                            {{ price_min }};{{ price_max }}
-                                                        </div>
-                                                    </div>
-                                                {% endwith %}
-                                            {% endwith %}
-                                        {% endwith %}
+                                        <input class="range-line" id="price" name="price" type="text" data-type="double" data-min="70" data-max="500" data-from="70" data-to="270" />
+                                        <div class="range-price">Цена:&#32;
+                                            <div class="rangePrice">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-input form-input_full" id="title" name="title" type="text" placeholder="Название" value="{{ filter_form.cleaned_data.title }}" />
+                                    <input class="form-input form-input_full" id="title" name="title" type="text" placeholder="Название" />
                                 </div>
                                 <div class="form-group">
-                                    <label for="seller">Продавцы:</label>
-                                    <select id="seller" name="seller" multiple>
-                                        {% for seller in filter_form.fields.seller.queryset %}
-                                            <option value="{{ seller.id }}" {% if seller.id in filter_form.cleaned_data.seller %}selected{% endif %}>{{ seller.name }}</option>
-                                        {% endfor %}
-                                    </select>
+                                    <!-- - var options = setOptions(items, ['value', 'selected', 'disabled']);-->
                                 </div>
                                 <div class="form-group">
                                     <label class="toggle">
-                                        <input type="checkbox" {% if filter_form.cleaned_data.available %}checked{% endif %}><span class="toggle-box"></span><span class="toggle-text">Только товары в наличии</span>
+                                        <input type="checkbox" /><span class="toggle-box"></span><span class="toggle-text">Только товары в наличии</span>
                                     </label>
                                 </div>
                                 <div class="form-group">
                                     <label class="toggle">
-                                        <input type="checkbox" {% if filter_form.cleaned_data.free_delivery %}checked{% endif %}><span class="toggle-box"></span><span class="toggle-text">С бесплатной доставкой</span>
+                                        <input type="checkbox" /><span class="toggle-box"></span><span class="toggle-text">С бесплатной доставкой</span>
                                     </label>
                                 </div>
                                 <div class="form-group">
-                                    <div class="buttons">
-                                        <button type="submit" class="btn btn_square btn_dark btn_narrow">Фильтр</button>
+                                    <div class="buttons"><a class="btn btn_square btn_dark btn_narrow" href="#">Фильтр</a>
                                     </div>
                                 </div>
                             </form>
