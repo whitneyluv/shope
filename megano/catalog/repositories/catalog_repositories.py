@@ -82,3 +82,4 @@ class CatalogRepository(ICatalogRepository):
         print(f"Filtered products count: {products.count()}")
 
         return products
+

@@ -19,3 +19,4 @@ class ICatalogRepository(ABC):
                         free_delivery: str, seller: List[int], is_limited: str, tag: str, category: List[int]):
         """Фильтр продуктов"""
         pass
+
