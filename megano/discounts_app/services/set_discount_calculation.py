@@ -47,22 +47,25 @@ class SetDiscountsCalculations:
         """
 
         set_disc = cls.check_discount_implementation(cart)
-        total_sum_of_cart = []
+        if set_disc is not None and set_disc is not False:
+            total_sum_of_cart = []
 
-        if set_disc is not None:
-            for discount in set_disc:
-                prices_for_disc = 0
-                for key, values in discount.items():
-                    for id_product in values:
-                        for item in cart:
-                            if item['product_id'] == id_product:
-                                prices_for_disc += item['price']
-                                cart.remove(item)
-                    result = (CartDiscountCalculations.calculate_cart_sum(cart) + CartDiscountCalculations.
-                              apply_discount(key, prices_for_disc))
-                    total_sum_of_cart.append(result)
-                    print(total_sum_of_cart)
-            return min(total_sum_of_cart)
+            if set_disc is not None:
+                for discount in set_disc:
+                    prices_for_disc = 0
+                    for key, values in discount.items():
+                        for id_product in values:
+                            for item in cart:
+                                if item['product_id'] == id_product:
+                                    prices_for_disc += item['price']
+                                    cart.remove(item)
+                        result = (CartDiscountCalculations.calculate_cart_sum(cart) + CartDiscountCalculations.
+                                  apply_discount(key, prices_for_disc))
+                        total_sum_of_cart.append(result)
+                        print(total_sum_of_cart)
+                return min(total_sum_of_cart)
 
+            else:
+                return None
         else:
             return None
