@@ -1,109 +1,111 @@
 # from megano.wsgi import *
-from discounts_app.models.cart_discount import CartDiscount
-from cart_app.models import CartItem
-from catalog.models import Price
+import decimal
+
+import inject
+from discounts_app.interfaces.discounts_interface import IDiscounts
 
 
-def apply_discount(discount, price):
+class CartDiscountCalculations:
 
-    """Расчет скидки на товар/корзину в зависимости от типа скидки"""
+    _discount: IDiscounts = inject.attr(IDiscounts)
 
-    if discount.type_of_discount == 'per':
-        percent_of_discount = discount.amount / 100
-        final_price = price * (1 - percent_of_discount)
-        return final_price
+    @classmethod
+    def apply_discount(cls, discount, price):
 
-    elif discount.type_of_discount == 'fa':
-        fixed_discount = discount.amount
-        if price <= fixed_discount:
-            final_price = 1
+        """Расчет скидки на товар/корзину в зависимости от типа скидки"""
+
+        if discount.type_of_discount == 'per':
+            percent_of_discount = discount.amount / 100
+            final_price = decimal.Decimal(price) * (1 - percent_of_discount)
+            return final_price
+
+        elif discount.type_of_discount == 'fa':
+            fixed_discount = discount.amount
+            if price <= fixed_discount:
+                final_price = 1
+
+            else:
+                final_price = decimal.Decimal(price) - fixed_discount
+            return final_price
 
         else:
-            final_price = price - fixed_discount
-        return final_price
+            fixed_price_for_product = discount.amount
 
-    else:
-        fixed_price_for_product = discount.amount
+            return fixed_price_for_product
 
-        return fixed_price_for_product
+    @classmethod
+    def calculate_cart_sum(cls, cart: list):
 
+        """ Подсчет итоговой цены корзины"""
 
-def calculate_cart_sum(cart: list):
+        total_sum = 0
+        for product in cart:
+            total_sum += decimal.Decimal(product['price']) * product['quantity']
 
-    """ Подсчет итоговой цены корзины"""
+        return total_sum
 
-    total_sum = 0
-    for product in cart:
-        total_sum += product['price'] * product['quantity']
+    @classmethod
+    def check_conditions_cart_discount(cls, discount, cart: list):
 
-    return total_sum
+        """Проверка соблюдения условий скидки на корзину"""
 
+        cart_sum = cls.calculate_cart_sum(cart)
+        if len(cart) >= discount.products_quantity:
+            return True
+        elif discount.final_sum_max >= cart_sum >= discount.final_sum_min:
+            return True
+        else:
+            return False
 
-def check_conditions_cart_discount(discount, cart: list):
+    @classmethod
+    def apply_cart_discount(cls, cart: list):
 
-    """Проверка соблюдения условий скидки на корзину"""
+        """Расчет минимальной цены корзины со скидкой"""
 
-    cart_sum = calculate_cart_sum(cart)
-    if len(cart) >= discount.products_quantity:
-        return True
-    elif discount.final_sum_max >= cart_sum >= discount.final_sum_min:
-        return True
-    else:
-        return False
+        total_sum_of_cart = []
+        all_active_cart_discounts = cls._discount.get_all_active_cart_discounts()
+        res = cls.calculate_cart_sum(cart)
 
+        if all_active_cart_discounts:
+            for discount in all_active_cart_discounts:
+                if cls.check_conditions_cart_discount(discount, cart):
+                    result = cls.apply_discount(discount, res)
+                else:
+                    result = res
+                total_sum_of_cart.append(result)
 
-def apply_cart_discount(cart: list):
+            return min(total_sum_of_cart)
+        else:
+            return None
 
-    """Расчет минимальной цены корзины со скидкой"""
+    @classmethod
+    def get_items_with_prices(cls, user_id) -> list:
 
-    total_sum_of_cart = []
-    all_active_cart_discounts = CartDiscount.objects.filter(is_active=True).all()
-    res = calculate_cart_sum(cart)
+        """
+        Обрабатывает корзину, формирует список товаров в корзине с ценой и количеством
 
-    if all_active_cart_discounts:
-        for discount in all_active_cart_discounts:
-            if check_conditions_cart_discount(discount, cart):
-                result = apply_discount(discount, res)
-            else:
-                result = res
-            total_sum_of_cart.append(result)
+        """
 
-        return min(total_sum_of_cart)
-    else:
-        return None
+        cart_items = cls._discount.get_cartitems_by_user_id(user_id)
 
+        ids = []
+        cart_data = []
 
-def get_items_with_prices(user_id) -> list:
+        for item in cart_items:
+            ids.append(item['product_id'])
 
-    """
-    Обрабатывает корзину, формирует список товаров в корзине с ценой и количеством
+            data_to_add = {
+                'item_id': item['id'],
+                'product_id': item['product_id'],
+                'quantity': item['quantity'],
+                'seller_id': item['seller_id']
+            }
+            cart_data.append(data_to_add)
 
-    """
-
-    cart_items = CartItem.objects.values().filter(cart__user=user_id)
-
-    ids = []
-    cart_data = []
-
-    for item in cart_items:
-        ids.append(item['product_id'])
-
-        data_to_add = {
-            'item_id': item['id'],
-            'product_id': item['product_id'],
-            'quantity': item['quantity'],
-            'seller_id': item['seller_id']
-        }
-        cart_data.append(data_to_add)
-
-    prices_for_cart = Price.objects.values().filter(product__id__in=ids)
-    for cart_item in cart_data:
-        for price in prices_for_cart:
-            if cart_item['product_id'] == price['product_id'] and cart_item['seller_id'] == price['seller_id']:
-                cart_item['price_id'] = price['id']
-                cart_item['price'] = price['price']
-    return cart_data
-
-
-a = Price.objects.all().prefatch_related('product').filter(product_id=1)
-print(a)
+        prices_for_cart = cls._discount.get_prices_by_group_of_products_ids(ids)
+        for cart_item in cart_data:
+            for price in prices_for_cart:
+                if cart_item['product_id'] == price['product_id'] and cart_item['seller_id'] == price['seller_id']:
+                    cart_item['price_id'] = price['id']
+                    cart_item['price'] = price['price']
+        return cart_data

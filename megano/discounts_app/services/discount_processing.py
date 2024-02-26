@@ -1,8 +1,8 @@
 # from megano.wsgi import *
-from set_discount_calculation import apply_set_discount
-from product_discount_calculation import apply_product_discount
-from cart_discount_calculations import calculate_cart_sum, get_items_with_prices, apply_cart_discount
-from discounts_app.models import SetDiscount, ProductSet
+from discounts_app.services.set_discount_calculation import SetDiscountsCalculations
+from discounts_app.services.product_discount_calculation import ProductDiscountCalculations
+from discounts_app.services.cart_discount_calculations import CartDiscountCalculations
+
 
 """Функция высчитывает скидки на товары
 
@@ -39,31 +39,39 @@ from discounts_app.models import SetDiscount, ProductSet
 """
 
 
-def get_cart_sum_with_discounts(user_id):
-    """
-    Функция рассчитывает итоговую стоимость корзины с применением скидок по условиям задания
-    cart_sum_with_cart_discounts - применяются скидки типа CartDiscount
-    cart_with_set_discounts - применяются скидки типа SetDiscount
-    cart_with_products_discounts - применяются скидки типа ProductDiscount
+class DiscountProcessing:
 
-    """
-    final_sums = []
-    cart_items = get_items_with_prices(user_id)
-    cart_without_discounts = calculate_cart_sum(cart_items)
+    @classmethod
+    def get_cart_sum_with_discounts(cls, user_id):
+        """
+        Функция рассчитывает итоговую стоимость корзины с применением скидок по условиям задания
+        cart_sum_with_cart_discounts - применяются скидки типа CartDiscount
+        cart_with_set_discounts - применяются скидки типа SetDiscount
+        cart_with_products_discounts - применяются скидки типа ProductDiscount
 
-    cart_sum_with_cart_discounts = apply_cart_discount(cart_items)
-    if cart_sum_with_cart_discounts is not None:
-        final_sums.append(cart_sum_with_cart_discounts)
+        """
+        final_sums = []
+        cart_items = CartDiscountCalculations.get_items_with_prices(user_id=user_id)
+        cart_without_discounts = CartDiscountCalculations.calculate_cart_sum(cart_items)
+        discount_type = str
+        cart_sum_with_cart_discounts = CartDiscountCalculations.apply_cart_discount(cart_items)
+        if cart_sum_with_cart_discounts is not None and cart_sum_with_cart_discounts > 0:
+            final_sums.append(cart_sum_with_cart_discounts)
+            discount_type = 'cart_disc'
 
-    cart_with_set_discounts = apply_set_discount(cart_items)
-    if cart_with_set_discounts is not None:
-        final_sums.append(cart_with_set_discounts)
+        cart_with_set_discounts = SetDiscountsCalculations.apply_set_discount(cart_items)
+        if cart_with_set_discounts is not None and cart_with_set_discounts > 0:
+            final_sums.append(cart_with_set_discounts)
+            discount_type = 'set_discount'
 
-    if final_sums:
-        return min(final_sums)
-    else:
-        cart_with_products_discounts = apply_product_discount(cart_items)
-        if cart_with_products_discounts is not None and cart_with_products_discounts < cart_without_discounts:
-            return cart_with_products_discounts
+        if final_sums:
+            return min(final_sums), discount_type
+
         else:
-            return cart_without_discounts
+            cart_with_products_discounts = ProductDiscountCalculations.apply_product_discount(cart_items)
+            if cart_with_products_discounts is not None and cart_with_products_discounts < cart_without_discounts:
+                discount_type = 'product_discount'
+                return cart_with_products_discounts, discount_type
+            else:
+                discount_type = 'no_discount'
+                return cart_without_discounts, discount_type
