@@ -53,25 +53,23 @@ class DiscountProcessing:
         final_sums = []
         cart_items = CartDiscountCalculations.get_items_with_prices(user_id=user_id)
         cart_without_discounts = CartDiscountCalculations.calculate_cart_sum(cart_items)
-        discount_type = str
+
         cart_sum_with_cart_discounts = CartDiscountCalculations.apply_cart_discount(cart_items)
         if cart_sum_with_cart_discounts is not None and cart_sum_with_cart_discounts > 0:
             final_sums.append(cart_sum_with_cart_discounts)
-            discount_type = 'cart_disc'
 
         cart_with_set_discounts = SetDiscountsCalculations.apply_set_discount(cart_items)
         if cart_with_set_discounts is not None and cart_with_set_discounts > 0:
             final_sums.append(cart_with_set_discounts)
-            discount_type = 'set_discount'
 
         if final_sums:
-            return min(final_sums), discount_type
+            return min(final_sums)
 
         else:
             cart_with_products_discounts = ProductDiscountCalculations.apply_product_discount(cart_items)
             if cart_with_products_discounts is not None and cart_with_products_discounts < cart_without_discounts:
-                discount_type = 'product_discount'
-                return cart_with_products_discounts, discount_type
+
+                return cart_with_products_discounts
             else:
                 discount_type = 'no_discount'
                 return cart_without_discounts, discount_type
