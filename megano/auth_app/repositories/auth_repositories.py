@@ -1,8 +1,10 @@
+from typing import Optional
+
 from beartype import beartype
+from django.core.exceptions import ObjectDoesNotExist
+
 from auth_app.interfaces.auth_interface import IAuth
 from auth_app.models.user import User
-from django.core.exceptions import ObjectDoesNotExist
-from typing import Optional
 
 
 class AuthRepository(IAuth):
@@ -20,10 +22,12 @@ class AuthRepository(IAuth):
             return None
 
     @beartype
-    def get_user(self, model: User) -> User:
+    def get_user(self, pk: int) -> Optional[User]:
         """Получаем пользователя"""
-        user = model
-        return user
+        try:
+            return User.objects.get(pk=pk)
+        except ObjectDoesNotExist:
+            return None
 
     @beartype
     def delete_user_by_email(self, _email: str) -> None:

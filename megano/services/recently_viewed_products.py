@@ -1,21 +1,35 @@
-from django.contrib.auth import get_user_model
-from catalog.models import Product, RecentlyViewedProducts
+import inject
+
+from auth_app.models.user import User
+from catalog.interfaces.product_interface import IProduct
+from catalog.interfaces.recently_viewed_products_interface import IRecentlyViewedProducts
+from catalog.models import RecentlyViewedProducts
+from catalog.repositories.product_repositories import ProductRepository
+from catalog.repositories.recently_viewed_products_repositories import (
+    RecentlyViewedProductsRepository)
 
 
 class RecentlyViewedProductsService:
     """Класс для реализации методов работы с недавно просмотренными товарами"""
+    __product: IProduct = inject.attr(ProductRepository)
+    __rec_view_products: IRecentlyViewedProducts = inject.attr(
+        RecentlyViewedProductsRepository)
 
-    def __init__(self, user_id: int) -> None:
-        self.user = get_user_model().objects.get(id=user_id)
+    def __init__(self, user: User) -> None:
+        self.user = user
 
     def add(self, product_id: int) -> None:
         """Метод добавления продукта в список недавно просмотренных или обновления поля updated_at
         модели RecentlyViewedProducts если данный продукт ранее просматривался пользователем"""
-        product = Product.objects.get(id=product_id)
-        if view := RecentlyViewedProducts.objects.filter(user=self.user, product=product).first():
-            view.save()
-        else:
-            RecentlyViewedProducts(
+        product = self.__product.get_product(pk=product_id)
+        if view := self.__rec_view_products.get_recently_viewed_products_by_user_and_product(
                 user=self.user,
                 product=product
-            ).save()
+        ):
+            self.__rec_view_products.save(model=view)
+        else:
+            self.__rec_view_products.save(
+                model=RecentlyViewedProducts(
+                    user=self.user, product=product
+                )
+            )

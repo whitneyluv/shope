@@ -1,4 +1,5 @@
 from abc import abstractmethod
+
 from auth_app.models.user import User
 
 
@@ -10,7 +11,7 @@ class IAuth:
         pass
 
     @abstractmethod
-    def get_user(self, model: User):
+    def get_user(self, pk: int):
         """Получаем пользователя"""
         pass
 
