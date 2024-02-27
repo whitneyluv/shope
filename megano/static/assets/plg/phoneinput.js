@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 formattedInputValue += '-' + inputNumbersValue.substring(9, 11);
             }
         } else {
-            formattedInputValue = '+' + inputNumbersValue.substring(0, 16);
+            formattedInputValue = '';
         }
         input.value = formattedInputValue;
     }

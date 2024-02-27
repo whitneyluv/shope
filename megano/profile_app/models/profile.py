@@ -17,7 +17,7 @@ class Profile(BaseModel):
         return f'Модель профиля для пользователя {self.user.email}'
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='user_profile')
-    phone = models.CharField(_('phone number'), max_length=10, blank=True)
+    phone = models.CharField(_('phone number'), max_length=12, blank=True)
     avatar = models.ImageField(
         _('profile avatar'),
         upload_to=profile_images_directory_path,
