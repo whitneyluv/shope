@@ -14,7 +14,7 @@ class Profile(BaseModel):
     """
 
     def __str__(self):
-        return f'Модель профиля для пользователя {self.user}'
+        return f'Модель профиля для пользователя {self.user.email}'
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='user_profile')
     phone = models.CharField(_('phone number'), max_length=10, blank=True)
