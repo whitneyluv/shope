@@ -4,8 +4,7 @@ from django.shortcuts import redirect
 from django.http import HttpRequest
 from ..interfaces.auth_interface import IAuth
 from django.contrib.auth import login
-from datetime import date, timedelta
-from profile_app.models import Profile
+from datetime import date
 
 
 class EmailVerify(View):
