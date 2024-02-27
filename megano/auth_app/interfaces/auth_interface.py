@@ -10,11 +10,6 @@ class IAuth:
         pass
 
     @abstractmethod
-    def get_user(self, model: User):
-        """Получаем пользователя"""
-        pass
-
-    @abstractmethod
     def get_user_by_email(self, _email: str):
         """Получаем пользователя"""
         pass
