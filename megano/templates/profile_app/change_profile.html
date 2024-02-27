@@ -34,7 +34,7 @@
 
                 <div class="Section-content">
                     <div class="Profile">
-                        <form class="form Profile-form" method="post">
+                        <form class="form Profile-form" method="post" enctype="multipart/form-data">
                             {% csrf_token %}
                             <div class="row">
                                 <div class="row-block">
@@ -49,12 +49,6 @@
                                             {{ form.avatar }}
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="form-label" for="{{ form.username.id_for_label }}">
-                                            {{ form.username.label }}
-                                        </label>
-                                            {{ form.username }}
-                                    </div>
                                 </div>
                                 <div class="row-block">
                                     <div class="form-group">
@@ -64,30 +58,22 @@
                                             {{ form.phone }}
                                     </div>
                                     <div class="form-group">
-                                        <label class="form-label" for="{{ form.email.id_for_label }}">
-                                            {{ form.email.label }}
+                                        <label class="form-label" for="{{ form.username.id_for_label }}">
+                                            {{ form.username.label }}
                                         </label>
-                                            {{ form.email }}
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label" for="{{ form.password1.id_for_label }}">
-                                            {{ form.password1.label }}
-                                        </label>
-                                            {{ form.password1 }}
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label" for="{{ form.password2.id_for_label }}">
-                                            {{ form.password2.label }}
-                                        </label>
-                                            {{ form.password2 }}
+                                            {{ form.username }}
                                     </div>
                                     <div class="form-group">
                                         <div class="Profile-btn">
-                                            <button class="btn btn_success" type="submit">Сохранить
+                                            <button class="btn btn_success" type="submit">
+                                                Сохранить
                                             </button>
                                         </div>
-                                        <div class="Profile-success">Профиль успешно сохранен
+                                        {% if message %}
+                                        <div class="Profile-success">
+                                            {{ message }}
                                         </div>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>

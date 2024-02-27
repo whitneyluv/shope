@@ -2,15 +2,29 @@ from django import forms
 from ..models import Profile
 
 
-class ProfileChangeForm(forms.ModelForm):
+class UserProfileChangeForm(forms.ModelForm):
 
-    avatar = forms.ImageField(widget=forms.FileInput(attrs={'class': 'Profile-file form-input'}))
-    username = forms.CharField(max_length=150, label='Имя пользователя')
-    email = forms.EmailField()
-    phone = forms.CharField(label='Телефон', widget=forms.NumberInput(attrs={'type': 'tel', 'class': 'data-tel-input'}))
-    password1 = forms.CharField(widget=forms.PasswordInput(), label='Пароль')
-    password2 = forms.CharField(widget=forms.PasswordInput(), label='Подтверждение пароля')
+    username = forms.CharField(max_length=150, label='ФИО', required=False)
 
     class Meta:
         model = Profile
-        fields = 'avatar', 'username', 'email', 'phone', 'password1', 'password2'
+        fields = ['avatar', 'phone']
+        labels = {
+            'username': 'Имя пользователя',
+            'phone': 'Телефон',
+        }
+        widgets = {
+            'avatar': forms.FileInput(attrs={'class': 'Profile-file form-input'}),
+        }
+
+    def save(self, commit=True):
+        profile = super().save(commit=False)
+        username = self.cleaned_data.get('username')
+        if username:
+            profile.user.username = username
+            profile.user.save()
+        profile.avatar = self.cleaned_data.get('avatar')
+        profile.phone = self.cleaned_data.get('phone')
+        if commit:
+            profile.save()
+        return profile
