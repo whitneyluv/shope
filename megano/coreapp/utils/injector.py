@@ -4,10 +4,13 @@ from auth_app.interfaces.auth_interface import IAuth
 from auth_app.repositories.auth_repositories import AuthRepository
 from coreapp.interfaces.core_interface import ICore
 from coreapp.repositories.core_repositories import CoreRepository
+from discounts_app.interfaces.discounts_interface import IDiscounts
+from discounts_app.repositories.discounts_repositories import DiscountsRepository
 
 BINDS = (
     (IAuth, AuthRepository),
     (ICore, CoreRepository),
+    (IDiscounts, DiscountsRepository),
 
 )
 
