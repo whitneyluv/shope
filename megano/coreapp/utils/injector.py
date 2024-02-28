@@ -6,11 +6,14 @@ from profile_app.interfaces import IProfile
 from profile_app.repositories import ProfileRepository
 from coreapp.interfaces.core_interface import ICore
 from coreapp.repositories.core_repositories import CoreRepository
+from discounts_app.interfaces.discounts_interface import IDiscounts
+from discounts_app.repositories.discounts_repositories import DiscountsRepository
 
 BINDS = (
     (IAuth, AuthRepository),
     (IProfile, ProfileRepository),
     (ICore, CoreRepository),
+    (IDiscounts, DiscountsRepository),
 
 )
 

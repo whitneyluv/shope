@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'coreapp.apps.CoreAppConfig',
     'taggit',
     'debug_toolbar',
+    'discounts_app.apps.DiscountsAppConfig',
 ]
 
 
@@ -66,7 +67,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    "django.middleware.cache.FetchFromCacheMiddleware",
+    # "django.middleware.cache.FetchFromCacheMiddleware",
 ]
 
 ROOT_URLCONF = 'megano.urls'
