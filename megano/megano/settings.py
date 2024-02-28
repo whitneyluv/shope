@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'coreapp.apps.CoreAppConfig',
     'taggit',
     'debug_toolbar',
+    'discounts_app.apps.DiscountsAppConfig',
 ]
 
 

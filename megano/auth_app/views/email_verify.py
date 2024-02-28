@@ -4,7 +4,7 @@ from django.shortcuts import redirect
 from django.http import HttpRequest
 from ..interfaces.auth_interface import IAuth
 from django.contrib.auth import login
-from datetime import date, timedelta
+from datetime import date
 
 
 class EmailVerify(View):
@@ -22,6 +22,5 @@ class EmailVerify(View):
             user.is_active = True
             self._user.save(user)
             login(request, user)
-            return redirect('/profile/')
-
+            return redirect('auth_app:login')
         return redirect('/auth/registration/invalid_verify/')

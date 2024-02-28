@@ -1,10 +1,8 @@
-from typing import Optional
-
 from beartype import beartype
-from django.core.exceptions import ObjectDoesNotExist
-
 from auth_app.interfaces.auth_interface import IAuth
 from auth_app.models.user import User
+from django.core.exceptions import ObjectDoesNotExist
+from typing import Optional
 
 
 class AuthRepository(IAuth):

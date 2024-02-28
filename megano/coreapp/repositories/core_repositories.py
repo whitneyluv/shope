@@ -4,6 +4,6 @@ from coreapp.models.banner import Banner
 
 
 class CoreRepository(ICore):
-
+    @beartype
     def get_banners(self):
         return Banner.objects.all().filter(is_active=True)

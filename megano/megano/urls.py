@@ -33,6 +33,7 @@ urlpatterns = [
     path("catalog/", include("catalog.urls", namespace="catalog")),
     path('order/', include('order_app.urls')),
     path('core/', include('coreapp.urls')),
+    path('discounts/', include('discounts_app.urls')),
 ]
 
 
