@@ -1,7 +1,8 @@
 from beartype import beartype
 
 from cart_app.interfaces.cart_item_interface import ICartItem
-from cart_app.models import CartItem
+from cart_app.models import CartItem, Cart
+from django.db.models import QuerySet
 
 
 class CartItemRepository(ICartItem):
@@ -12,3 +13,9 @@ class CartItemRepository(ICartItem):
     def save(self, model: CartItem) -> None:
         """Сохранить экземпляр модели CartItem"""
         model.save()
+
+    @beartype
+    def get_items_for_calc_total_amount_cart(self, cart: Cart) -> QuerySet[CartItem]:
+        """Получить экземпляры модели CartItem связанные с корзиной cart,
+        для расчёта общей стоимости корзины"""
+        return CartItem.objects.filter(cart=cart).all().select_related('product', 'seller')
