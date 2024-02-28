@@ -14,8 +14,6 @@ class ProfileRepository(IProfile):
     @beartype
     def get_profile_by_user_id(self, _user_id: int):
         """Получаем пользователя"""
-        print(_user_id)
-        print(Profile.objects.get(user_id=_user_id))
         return Profile.objects.get(user_id=_user_id)
 
     @beartype
