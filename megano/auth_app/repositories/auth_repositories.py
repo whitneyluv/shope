@@ -20,12 +20,6 @@ class AuthRepository(IAuth):
             return None
 
     @beartype
-    def get_user(self, model: User) -> User:
-        """Получаем пользователя"""
-        user = model
-        return user
-
-    @beartype
     def delete_user_by_email(self, _email: str) -> None:
         """Удаляем пользователя"""
         user = self.get_user_by_email(_email)
