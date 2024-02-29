@@ -1,4 +1,5 @@
 from abc import abstractmethod
+
 from auth_app.models.user import User
 
 
@@ -7,6 +8,11 @@ class IAuth:
     @abstractmethod
     def save(self, model: User) -> None:
         """Сохранить пользователя."""
+        pass
+
+    @abstractmethod
+    def get_user(self, pk: int):
+        """Получаем пользователя"""
         pass
 
     @abstractmethod
