@@ -17,8 +17,7 @@ class ResendActivationKey(View):
     def post(self, request: HttpRequest, activation_key: str):
         user = self._user.get_user_by_activation_key(activation_key)
         user.activation_key = get_activation_key(user.email)
-        user.activation_key_will_expires = date.today() + timedelta(2)
+        user.activation_key_will_expires = date.today()
         self._user.save(user)
         send_email_for_verify(request, user)
         return redirect('confirm_email/')
-
