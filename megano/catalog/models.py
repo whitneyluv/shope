@@ -4,6 +4,7 @@ from taggit.managers import TaggableManager
 from django.utils.translation import gettext_lazy as _
 from profile_app.models.seller import Seller
 
+
 class Category(models.Model):
     """
     Модель категории товара
@@ -22,8 +23,10 @@ class Category(models.Model):
         },
     )
 
+
 def product_images_directory_path(instance: 'Product', filename: str) -> str:
     return f'product/product{instance.category.pk}/images/{filename}'
+
 
 class Product(BaseModel):
 
@@ -34,6 +37,7 @@ class Product(BaseModel):
     tag = TaggableManager()
     is_limited = models.BooleanField(default=False, verbose_name='is_limited')
     free_delivery = models.BooleanField(default=True, verbose_name='free_delivery')
+
 
 class Price(BaseModel):
     price = models.FloatField(null=True, blank=True, verbose_name='price')
