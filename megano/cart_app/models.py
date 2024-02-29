@@ -26,12 +26,6 @@ class Cart(BaseModel):
         verbose_name=_("status")
     )
 
-    @property
-    def total_amount(self):
-        """Динамический расчёт общей стоимости корзины по актуальной цене продукта"""
-        from services.calculating_total_amount_cart import CalculatingTotalAmountCart
-        return CalculatingTotalAmountCart(cart=self)()
-
     class Meta:
         db_table = "cart"
         verbose_name = _("cart")
