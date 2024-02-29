@@ -2,12 +2,29 @@ import inject
 
 from auth_app.interfaces.auth_interface import IAuth
 from auth_app.repositories.auth_repositories import AuthRepository
+<<<<<<< megano/coreapp/utils/injector.py
 from catalog.interfaces.catalog_interface import ICatalogRepository
 from catalog.repositories.catalog_repositories import CatalogRepository
 
 BINDS = (
     (IAuth, AuthRepository),
     (ICatalogRepository, CatalogRepository),
+=======
+from profile_app.interfaces import IProfile
+from profile_app.repositories import ProfileRepository
+from coreapp.interfaces.core_interface import ICore
+from coreapp.repositories.core_repositories import CoreRepository
+from discounts_app.interfaces.discounts_interface import IDiscounts
+from discounts_app.repositories.discounts_repositories import DiscountsRepository
+
+BINDS = (
+    (IAuth, AuthRepository),
+    (ICatalogRepository, CatalogRepository),
+    (IProfile, ProfileRepository),
+    (ICore, CoreRepository),
+    (IDiscounts, DiscountsRepository),
+
+>>>>>>> megano/coreapp/utils/injector.py
 )
 
 

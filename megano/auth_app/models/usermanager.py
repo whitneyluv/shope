@@ -23,7 +23,7 @@ class NewUserManager(BaseUserManager):
 
     def create_user(self, email, password, username=None, **extra_fields):
         """
-        Функция обертка создания обычного пользователя, без привилегий суперпользователя или персонала
+        Функция обертка создания обычного пользователя, без привилегий суперпользователя или персонала (к примеру админ)
         """
         extra_fields.setdefault("is_staff", False)
         extra_fields.setdefault("is_superuser", False)
