@@ -2,14 +2,8 @@ import inject
 
 from auth_app.interfaces.auth_interface import IAuth
 from auth_app.repositories.auth_repositories import AuthRepository
-<<<<<<< megano/coreapp/utils/injector.py
 from catalog.interfaces.catalog_interface import ICatalogRepository
 from catalog.repositories.catalog_repositories import CatalogRepository
-
-BINDS = (
-    (IAuth, AuthRepository),
-    (ICatalogRepository, CatalogRepository),
-=======
 from profile_app.interfaces import IProfile
 from profile_app.repositories import ProfileRepository
 from coreapp.interfaces.core_interface import ICore
@@ -23,16 +17,12 @@ BINDS = (
     (IProfile, ProfileRepository),
     (ICore, CoreRepository),
     (IDiscounts, DiscountsRepository),
-
->>>>>>> megano/coreapp/utils/injector.py
 )
-
 
 def config(binder):
     """Конфигуратор для inject."""
     for interface, implementation in BINDS:
         binder.bind(interface, implementation())
-
 
 def configure_inject():
     """Конфигурирует зависимости для проекта."""
