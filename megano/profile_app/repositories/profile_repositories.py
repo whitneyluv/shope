@@ -1,7 +1,6 @@
 from beartype import beartype
 from ..interfaces import IProfile
 from ..models.profile import Profile
-from typing import Optional
 
 
 class ProfileRepository(IProfile):
