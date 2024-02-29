@@ -16,4 +16,4 @@ class ProfileAdmin(admin.ModelAdmin):
 
 @admin.register(Seller)
 class SellerAdmin(admin.ModelAdmin):
-    pass
+    ordering = 'name',
