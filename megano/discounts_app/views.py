@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from discounts_app.services.discount_processing import DiscountProcessing
+from megano.discounts_app.services.discount_processing import DiscountProcessing
 
 
 def get_discount(request):
