@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'profile_app.apps.ProfileAppConfig',
     'order_app.apps.OrderAppConfig',
     'cart_app.apps.CartAppConfig',
-    'coreapp.apps.CoreAppConfig',
+    'coreapp.apps.CoreAppConfig'
     'taggit',
     'debug_toolbar',
     'discounts_app.apps.DiscountsAppConfig',

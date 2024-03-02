@@ -20,7 +20,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 import debug_toolbar
 
-from coreapp.utils.injector import configure_inject
+from megano.coreapp.utils.injector import configure_inject
 
 configure_inject()
 

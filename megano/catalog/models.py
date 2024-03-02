@@ -1,8 +1,8 @@
 from django.db import models
-from coreapp.models.basemodel import BaseModel
+from megano.coreapp.models.basemodel import BaseModel
 from taggit.managers import TaggableManager
 from django.utils.translation import gettext_lazy as _
-from profile_app.models.seller import Seller
+from megano.profile_app.models.seller import Seller
 from django.contrib.auth import get_user_model
 
 
@@ -12,7 +12,7 @@ def product_images_directory_path(instance: 'Product', filename: str) -> str:
             f'images/product-{instance.product.pk}_{filename}')
 
 
-class Category(models.Model):
+class Category(BaseModel):
     """
     Модель категории товара
     """
