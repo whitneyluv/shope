@@ -41,7 +41,7 @@ class User(AbstractUser):
 
     activation_key_will_expires = models.DateField(
         _("date of creation activation key"),
-        default=date.today() + timedelta(2)
+        auto_now_add=True
     )
 
     objects = NewUserManager()
