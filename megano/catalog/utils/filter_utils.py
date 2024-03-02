@@ -18,16 +18,16 @@ def filter_products(products: List[Product], filters: Dict[str, Union[str, float
     if price_min is not None:
         products = products.filter(prices__price__gte=float(price_min))
 
-    if price_max is not None and price_max != 'None':
+    if price_max not in (None, 'None'):
         products = products.filter(prices__price__lte=float(price_max))
 
-    if available != 'Не учитывать':
+    if available and available != 'Не учитывать':
         products = products.filter(is_active=(available == 'True'))
 
-    if free_delivery != 'Не учитывать':
+    if free_delivery and free_delivery != 'Не учитывать':
         products = products.filter(free_delivery=(free_delivery == 'True'))
 
-    if is_limited != 'Не учитывать':
+    if is_limited and is_limited != 'Не учитывать':
         products = products.filter(is_limited=(is_limited == 'True'))
 
     if tag:

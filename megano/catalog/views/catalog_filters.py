@@ -6,7 +6,8 @@ from ..interfaces.catalog_interface import ICatalogRepository
 from catalog.forms import ProductFilterForm
 from django.views.generic.base import TemplateView
 from django.db.models import Q
-from ..utils.filter_utils import filter_products
+from catalog.utils.filter_utils import filter_products
+from catalog.models import Product, Category, Price
 
 
 class CatalogPageView(FormView):
@@ -26,7 +27,8 @@ class CatalogPageView(FormView):
             if sort_by == 'price':
                 products = products.order_by('prices__price')
 
-            return render(request, self.template_name, {'category': None, 'products': products, 'form': form})
+            context = {'category': None, 'products': products, 'form': form}
+            return render(request, self.template_name, context)
 
         return render(request, self.template_name, {'category': None, 'form': form})
 
