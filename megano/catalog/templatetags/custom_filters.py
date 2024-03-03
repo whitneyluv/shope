@@ -13,4 +13,4 @@ def price_format(value):
         formatted_value = decimal_value.quantize(Decimal('.00'))
         return f'{formatted_value:,} {settings.CURRENCY_SYMBOL}'.replace(',', ' ')
     except (InvalidOperation, TypeError, ValueError):
-        return f'0 {settings.CURRENCY_SYMBOL}'  # или другое значение по умолчанию
+        return f'0 {settings.CURRENCY_SYMBOL}'

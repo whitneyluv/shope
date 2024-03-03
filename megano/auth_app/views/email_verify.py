@@ -4,7 +4,7 @@ from django.shortcuts import redirect
 from django.http import HttpRequest
 from ..interfaces.auth_interface import IAuth
 from django.contrib.auth import login
-from datetime import date
+from datetime import date, timedelta
 
 
 class EmailVerify(View):
@@ -16,7 +16,7 @@ class EmailVerify(View):
     def get(self, request: HttpRequest, activation_key: str):
         user = self._user.get_user_by_activation_key(activation_key)
         if user:
-            if date.today() > user.activation_key_will_expires:
+            if user.activation_key_will_expires > date.today() + timedelta(2):
                 return redirect('activation_key_expires/')
 
             user.is_active = True
