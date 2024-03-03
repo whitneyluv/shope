@@ -1,14 +1,16 @@
-from decimal import Decimal
-
+from decimal import Decimal, InvalidOperation
 from django import template
 from django.conf import settings
 
 register = template.Library()
 
-
 @register.filter
 def price_format(value):
     """Разделяет пробелами разряды цены, ограничивает двумя знаками
     после запятой и добавляет символ валюты"""
-    value = Decimal(value).quantize(Decimal('.00'))
-    return f'{value:,} {settings.CURRENCY_SYMBOL}'.replace(',', ' ')
+    try:
+        decimal_value = Decimal(value)
+        formatted_value = decimal_value.quantize(Decimal('.00'))
+        return f'{formatted_value:,} {settings.CURRENCY_SYMBOL}'.replace(',', ' ')
+    except (InvalidOperation, TypeError, ValueError):
+        return f'0 {settings.CURRENCY_SYMBOL}'

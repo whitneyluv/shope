@@ -2,6 +2,8 @@ import inject
 
 from megano.auth_app.interfaces.auth_interface import IAuth
 from megano.auth_app.repositories.auth_repositories import AuthRepository
+from megano.catalog.interfaces.catalog_interface import ICatalogRepository
+from megano.catalog.repositories.catalog_repositories import CatalogReposito
 from megano.profile_app.interfaces import IProfile
 from megano.profile_app.repositories import ProfileRepository
 from megano.coreapp.interfaces.core_interface import ICore
@@ -13,6 +15,7 @@ from megano.order_app.repositeries.order_repositories import OrderRepository
 
 BINDS = (
     (IAuth, AuthRepository),
+    (ICatalogRepository, CatalogRepository),
     (IProfile, ProfileRepository),
     (ICore, CoreRepository),
     (IDiscounts, DiscountsRepository),
