@@ -9,28 +9,32 @@ from django.db.models import Q
 from catalog.utils.filter_utils import filter_products
 from catalog.models import Product, Category, Price
 
-
 class CatalogPageView(FormView):
     form_class = ProductFilterForm
     _catalog_repository: ICatalogRepository = inject.attr(ICatalogRepository)
+    template_name = 'catalog/catalog.html'
 
-    def get(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
-        category_id = request.GET.get('category_id')
-        form = self.form_class(request.GET)
-        sort_by = request.GET.get('sort_by')
+    class CatalogPageView(FormView):
+        form_class = ProductFilterForm
+        _catalog_repository: ICatalogRepository = inject.attr(ICatalogRepository)
+        template_name = 'catalog/catalog.html'
 
-        if form.is_valid():
-            products = self._catalog_repository.filter_products(**form.cleaned_data)
+        def get(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
+            form = self.form_class(request.GET)
+            sort_by = request.GET.get('sort', 'popularity')
 
-            products = filter_products(products, form.cleaned_data)
+            if form.is_valid():
+                products = self._catalog_repository.filter_products(**form.cleaned_data)
 
-            if sort_by == 'price':
-                products = products.order_by('prices__price')
+                if sort_by == 'price':
+                    products = products.order_by('prices__price')
+                    if request.GET.get('sort_direction') == 'desc':
+                        products = products.reverse()
 
-            context = {'category': None, 'products': products, 'form': form}
-            return render(request, self.template_name, context)
+                context = {'category': None, 'products': products, 'form': form}
+                return render(request, self.template_name, context)
 
-        return render(request, self.template_name, {'category': None, 'form': form})
+            return render(request, self.template_name, {'category': None, 'form': form})
 
 class ComparisonPageView(TemplateView):
     pass

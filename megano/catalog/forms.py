@@ -16,4 +16,10 @@ class ProductFilterForm(forms.Form):
     tag = forms.CharField(label='Тег', required=False)
     category = forms.ModelMultipleChoiceField(queryset=Category.objects.all(), widget=forms.CheckboxSelectMultiple,
                                               required=False)
-    sort_by = forms.ChoiceField(choices=[('', 'Не учитывать'), ('price', 'Цена')], label='Сортировать по', required=False)
+    sort_by = forms.ChoiceField(choices=[
+        ('', 'Не учитывать'),
+        ('price', 'Цена (по возрастанию)'),
+        ('-price', 'Цена (по убыванию)'),
+        ('popularity', 'Популярность (по убыванию)'),
+        ('-created_at', 'Новизне (по убыванию)'),
+    ], label='Сортировать по', required=False)

@@ -21,12 +21,8 @@ class CatalogRepository(ICatalogRepository):
 
     @beartype
     def filter_products(self, **filters) -> QuerySet[Product]:
-        print(f"Before filtering - filters: {filters}")
 
         products = self.get_all_products()
-
         products = filter_products(products, filters)
-
-        print(f"Filtered products count: {products.count()}")
 
         return products
