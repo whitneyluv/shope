@@ -14,27 +14,22 @@ class CatalogPageView(FormView):
     _catalog_repository: ICatalogRepository = inject.attr(ICatalogRepository)
     template_name = 'catalog/catalog.html'
 
-    class CatalogPageView(FormView):
-        form_class = ProductFilterForm
-        _catalog_repository: ICatalogRepository = inject.attr(ICatalogRepository)
-        template_name = 'catalog/catalog.html'
+    def get(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
+        form = self.get_form()
+        sort = request.GET.get('sort', 'popularity')
 
-        def get(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
-            form = self.form_class(request.GET)
-            sort_by = request.GET.get('sort', 'popularity')
+        if form.is_valid():
+            products = self._catalog_repository.filter_products(**form.cleaned_data)
 
-            if form.is_valid():
-                products = self._catalog_repository.filter_products(**form.cleaned_data)
+            if sort == 'price':
+                products = products.order_by('prices__price')
+                if request.GET.get('sort_direction') == 'desc':
+                    products = products.reverse()
 
-                if sort_by == 'price':
-                    products = products.order_by('prices__price')
-                    if request.GET.get('sort_direction') == 'desc':
-                        products = products.reverse()
+            context = {'category': None, 'products': products, 'form': form}
+            return render(request, self.template_name, context)
 
-                context = {'category': None, 'products': products, 'form': form}
-                return render(request, self.template_name, context)
-
-            return render(request, self.template_name, {'category': None, 'form': form})
+        return render(request, self.template_name, {'category': None, 'form': form})
 
 class ComparisonPageView(TemplateView):
     pass

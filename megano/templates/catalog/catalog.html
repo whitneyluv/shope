@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block main %}
-    <script>
+        <script>
         document.addEventListener("DOMContentLoaded", function () {
             var sortLinks = document.querySelectorAll('.Sort-variants a');
 
@@ -16,7 +16,7 @@
 
                     var sortValue = link.getAttribute('href').split('=')[1];
                     var currentUrl = window.location.href;
-                    var url = updateQueryStringParameter(currentUrl, 'sort_by', sortValue);
+                    var url = updateQueryStringParameter(currentUrl, 'sort', sortValue);
 
                     window.location.href = url;
                 });
