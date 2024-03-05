@@ -33,4 +33,7 @@ class CatalogPageView(FormView):
         return render(request, self.template_name, {'category': None, 'form': form})
 
 class ComparisonPageView(TemplateView):
-    pass
+
+
+    def get(self, request, *args, **kwargs):
+        return render(request, 'catalog/comparison.html', {})
