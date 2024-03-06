@@ -60,7 +60,7 @@ class RecentlyViewedProductsAdmin(admin.ModelAdmin):
 class ProductAdmin(admin.ModelAdmin):
     inlines = [ProductImageInline, ProductCharacteristicInline, ProductReviewInline]
     # actions = ['clear_cache']
-    #
+
     # def clear_cache(self, request, queryset):
     #     for product in queryset:
     #         cache_key = f'catalog_{product.category_id}_products'
