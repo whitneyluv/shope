@@ -1,6 +1,6 @@
 from django.urls import path
 from .views.catalog_filters import CatalogPageView, ComparisonPageView
-from .views import  ProductDetailView
+from .views import ProductDetailView
 
 
 app_name = 'catalog'
