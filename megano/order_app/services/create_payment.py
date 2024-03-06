@@ -57,18 +57,3 @@ class OrderPayment:
 
         return res.confirmation.confirmation_url
 
-
-# def payment_info(payment_id):
-#     res = Payment.find_one(payment_id)
-#
-#     a = var_dump.var_dump(res)
-#     return a
-
-
-# order_item = Order.objects.get(pk=1)
-# print(order_item)
-# a = payment_create(order_item)
-# print(a)
-
-# b = payment_info('2d4b380d-000f-5000-8000-1c40aa5a7407')
-# print(b)
