@@ -16,7 +16,7 @@ class ProductDetailView(generic.DetailView):
     context_object_name = "product"
     show_buy_modal = False
     show_review_modal = False
-    __product: IProduct = inject.attr(ProductRepository)
+    __product: IProduct = inject.attr(IProduct)
 
     def get_object(self, *args, **kwargs):
         return self.__product.get_product_for_detail_view(pk=self.kwargs['pk'])
