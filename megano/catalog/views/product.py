@@ -1,10 +1,8 @@
-
 import inject
 from django.core.handlers.wsgi import WSGIRequest
 from django.views import generic
 
 from catalog.interfaces.product_interface import IProduct
-from catalog.repositories.product_repositories import ProductRepository
 from services.add_products_to_cart import AddProductsToCart
 from services.add_review import AddReview
 from services.recently_viewed_products import RecentlyViewedProductsService
