@@ -7,6 +7,6 @@ app_name = 'catalog'
 
 urlpatterns = [
     path('', CatalogPageView.as_view(template_name='catalog/catalog.html'), name='catalog'),
-    path('comparison/', ComparisonPageView.as_view(template_name='catalog/comparison.html'), name='comparison'),
-    path('product/<int:product_id>/', ProductDetailView.as_view(), name='product'),
+    path('comparison/', ComparisonPageView.as_view(), name='comparison'),
+    path('item/<int:pk>/', ProductDetailView.as_view(), name='product_detail'),
 ]
