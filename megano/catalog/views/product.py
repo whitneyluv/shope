@@ -1,14 +1,14 @@
 import inject
 from django.core.handlers.wsgi import WSGIRequest
-from django.views.generic import DetailView
+from django.views import generic
 
-from megano.catalog.interfaces.product_interface import IProduct
-from megano.services.add_products_to_cart import AddProductsToCart
-from megano.services.add_review import AddReview
-from megano.services.recently_viewed_products import RecentlyViewedProductsService
+from catalog.interfaces.product_interface import IProduct
+from services.add_products_to_cart import AddProductsToCart
+from services.add_review import AddReview
+from services.recently_viewed_products import RecentlyViewedProductsService
 
 
-class ProductDetailView(DetailView):
+class ProductDetailView(generic.DetailView):
     """Представление для отображения детальной страницы товара"""
     template_name = "catalog/product.html"
     context_object_name = "product"
