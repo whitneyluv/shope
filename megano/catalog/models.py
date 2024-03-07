@@ -64,6 +64,7 @@ class Product(BaseModel):
     tag = TaggableManager()
     is_limited = models.BooleanField(default=False, verbose_name='is_limited')
     free_delivery = models.BooleanField(default=True, verbose_name='free_delivery')
+    popularity = models.IntegerField(default=0, verbose_name='popularity')
 
     class Meta:
         verbose_name = _('product')

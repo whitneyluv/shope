@@ -4,8 +4,8 @@ from django.db.models import QuerySet
 import inject
 from beartype import beartype
 from catalog.interfaces.catalog_interface import ICatalogRepository
-from ..models import Product
-from ..utils.filter_utils import filter_products
+from catalog.models import Product
+from catalog.utils.filter_utils import filter_products
 
 class CatalogRepository(ICatalogRepository):
 
