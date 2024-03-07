@@ -1,8 +1,8 @@
 from django.db import models
-from megano.coreapp.models.basemodel import BaseModel
+from coreapp.models.basemodel import BaseModel
 from taggit.managers import TaggableManager
 from django.utils.translation import gettext_lazy as _
-from megano.profile_app.models.seller import Seller
+from profile_app.models.seller import Seller
 from django.contrib.auth import get_user_model
 
 
@@ -12,7 +12,19 @@ def product_images_directory_path(instance: 'Product', filename: str) -> str:
             f'images/product-{instance.product.pk}_{filename}')
 
 
-class Category(BaseModel):
+class Characteristic(BaseModel):
+    """Характеристика продукта"""
+    title = models.CharField(max_length=64, verbose_name=_('title'))
+
+    class Meta:
+        verbose_name = _('characteristic')
+        verbose_name_plural = _('characteristics')
+
+    def __str__(self):
+        return self.title
+
+
+class Category(models.Model):
     """
     Модель категории товара
     """
@@ -30,30 +42,23 @@ class Category(BaseModel):
         },
     )
 
-
 class Product(BaseModel):
     """Продукт"""
+
     title = models.CharField(max_length=30, null=True, blank=True, verbose_name='title')
-    category = models.ForeignKey(
-        Category,
-        on_delete=models.CASCADE,
-        related_name='products'
-    )
-    description = models.TextField(
-        max_length=256,
-        null=True,
-        blank=True,
-        verbose_name=_('description')
-    )
+    description = models.TextField(max_length=200, null=True, blank=True, verbose_name='description')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
+    image = models.ImageField(upload_to=product_images_directory_path, blank=True, null=True, verbose_name='images')
+    tag = TaggableManager()
+    is_limited = models.BooleanField(default=False, verbose_name='is_limited')
+    free_delivery = models.BooleanField(default=True, verbose_name='free_delivery')
     characteristic = models.ManyToManyField(
         'Characteristic',
         through='ProductCharacteristic',
         related_name='products',
         verbose_name=_('characteristic')
     )
-    tag = TaggableManager()
-    is_limited = models.BooleanField(default=False, verbose_name='is_limited')
-    free_delivery = models.BooleanField(default=True, verbose_name='free_delivery')
+
 
     class Meta:
         verbose_name = _('product')
@@ -61,52 +66,6 @@ class Product(BaseModel):
 
     def __str__(self):
         return self.title
-
-
-class ProductImage(BaseModel):
-    """Изображение продукта"""
-    product = models.ForeignKey(
-        Product,
-        on_delete=models.CASCADE,
-        related_name='product_images',
-        verbose_name=_('product')
-    )
-    image = models.ImageField(upload_to=product_images_directory_path, verbose_name=_('image'))
-    description = models.TextField(blank=True, max_length=2048, verbose_name=_('description'))
-
-    class Meta:
-        verbose_name = _('image')
-        verbose_name_plural = _('images')
-
-
-class Price(BaseModel):
-    """Цена продукта"""
-    price = models.DecimalField(
-        max_digits=12,
-        decimal_places=2,
-        null=False,
-        blank=True,
-        default=0,
-        verbose_name=_('price')
-    )
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='prices')
-    seller = models.ForeignKey(Seller, on_delete=models.CASCADE, related_name='prices')
-
-    def __str__(self):
-        return f'{self.product} | {self.price}'
-
-
-class Characteristic(BaseModel):
-    """Характеристика продукта"""
-    title = models.CharField(max_length=64, verbose_name=_('title'))
-
-    class Meta:
-        verbose_name = _('characteristic')
-        verbose_name_plural = _('characteristics')
-
-    def __str__(self):
-        return self.title
-
 
 class ProductCharacteristic(BaseModel):
     """Значение характеристики продукта"""
@@ -130,6 +89,37 @@ class ProductCharacteristic(BaseModel):
 
     def __str__(self):
         return f'{self.product} | {self.characteristic}'
+
+class ProductImage(BaseModel):
+    """Изображение продукта"""
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        related_name='product_images',
+        verbose_name=_('product')
+    )
+    image = models.ImageField(upload_to=product_images_directory_path, verbose_name=_('image'))
+    description = models.TextField(blank=True, max_length=2048, verbose_name=_('description'))
+
+    class Meta:
+        verbose_name = _('image')
+        verbose_name_plural = _('images')
+
+
+class Price(BaseModel):
+    price = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        null=False,
+        blank=True,
+        default=0,
+        verbose_name=_('price')
+    )
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='prices')
+    seller = models.ForeignKey(Seller, on_delete=models.CASCADE, related_name='prices')
+
+    def __str__(self):
+        return f'{self.product} | {self.price}'
 
 
 class Review(BaseModel):
@@ -178,5 +168,3 @@ class RecentlyViewedProducts(BaseModel):
     def __str__(self):
         return (f'product: {self.product.title} | '
                 f'user: {self.user.username} | date: {self.updated_at}')
-
-
