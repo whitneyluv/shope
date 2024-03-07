@@ -140,7 +140,6 @@
                             {% else %}
                                 <span class="Pagination-element Pagination-element_prev_disabled"><img src="/static/assets/img/icons/prevPagination.svg" alt="prevPagination.svg" /></span>
                             {% endif %}
-
                             {% if products.paginator.num_pages > 0 %}
                                 {% for num in products.paginator.page_range %}
                                     <a class="Pagination-element{% if num == products.number %} Pagination-element_current{% endif %}" href="?page={{ num }}"><span class="Pagination-text">{{ num }}</span></a>
@@ -148,7 +147,6 @@
                             {% else %}
                                 <span class="Pagination-element Pagination-element_current"><span class="Pagination-text">1</span></span>
                             {% endif %}
-
                             {% if products.has_next %}
                                 <a class="Pagination-element" href="?page={{ products.next_page_number }}"><img src="/static/assets/img/icons/nextPagination.svg" alt="nextPagination.svg" /></a>
                             {% else %}

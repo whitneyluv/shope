@@ -29,6 +29,7 @@ class CatalogPageView(FormView):
 
             page = request.GET.get('page', 1)
             paginator = Paginator(products, 10)
+
             try:
                 products = paginator.page(page)
             except PageNotAnInteger:
