@@ -1,6 +1,7 @@
 <!--END-->
 <!--END--><!DOCTYPE html><!--[if IE 7]>
 {% load static %}
+{% load i18n %}
 <html class="ie7" lang="ru">
 <![endif]-->
 <!--[if IE 8]>
@@ -114,6 +115,9 @@
             <div class="dropdown-content">
                 <a class="dropdown-content-a" href="account.html">Личный кабинет</a>
                 <a class="dropdown-content-a" href="account.html">Административный раздел</a>
+                {% if request.user.is_staff %}
+                  <a class="dropdown-content-a" href="/admin">{% translate "Seller profile" %}</a>
+                {% endif %}
                 <a class="dropdown-content-a" href="account.html">Выход</a>
             </div>
         </div>

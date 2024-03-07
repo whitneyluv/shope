@@ -1,6 +1,7 @@
 from django import forms
 from .models import Seller, Category
 
+
 class ProductFilterForm(forms.Form):
     title = forms.CharField(label='Название', required=False)
     price_min = forms.FloatField(label='Цена от', required=False)
@@ -23,3 +24,12 @@ class ProductFilterForm(forms.Form):
         ('popularity', 'Популярность (по убыванию)'),
         ('-created_at', 'Новизне (по убыванию)'),
     ], label='Сортировать по', required=False)
+
+
+class PriceModelAdminForm(forms.ModelForm):
+    """Форма для создания модели Price админке с ограничением выбора
+    поля seller в зависимости от прав пользователя"""
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if not self.user.is_superuser:
+            self.fields['seller'].queryset = self.fields['seller'].queryset.filter(user=self.user)

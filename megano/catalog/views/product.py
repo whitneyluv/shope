@@ -6,6 +6,7 @@ from catalog.interfaces.product_interface import IProduct
 from services.add_products_to_cart import AddProductsToCart
 from services.add_review import AddReview
 from services.recently_viewed_products import RecentlyViewedProductsService
+from catalog.repositories.product_repositories import ProductRepository
 
 
 class ProductDetailView(generic.DetailView):
@@ -14,7 +15,8 @@ class ProductDetailView(generic.DetailView):
     context_object_name = "product"
     show_buy_modal = False
     show_review_modal = False
-    __product: IProduct = inject.attr(IProduct)
+    # __product: IProduct = inject.attr(IProduct)
+    __product: IProduct = inject.attr(ProductRepository)
 
     def get_object(self, *args, **kwargs):
         return self.__product.get_product_for_detail_view(pk=self.kwargs['pk'])
