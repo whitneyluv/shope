@@ -8,6 +8,7 @@ from django.views.generic.base import TemplateView
 from django.db.models import Q
 from catalog.utils.filter_utils import filter_products
 from catalog.models import Product, Category, Price
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 class CatalogPageView(FormView):
     form_class = ProductFilterForm
@@ -25,6 +26,16 @@ class CatalogPageView(FormView):
                 products = products.order_by('prices__price')
                 if request.GET.get('sort_direction') == 'desc':
                     products = products.reverse()
+
+            page = request.GET.get('page', 1)
+            paginator = Paginator(products, 10)
+
+            try:
+                products = paginator.page(page)
+            except PageNotAnInteger:
+                products = paginator.page(1)
+            except EmptyPage:
+                products = paginator.page(paginator.num_pages)
 
             context = {'category': None, 'products': products, 'form': form}
             return render(request, self.template_name, context)
