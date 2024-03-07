@@ -4,10 +4,12 @@
 
 
 {% block main %}
+{% cache time_out_banners banner_index %}
+    {% if banners %}:
         <div class="Header-slider">
             <div class="Slider Slider_main">
               <div class="Slider-box">
-              {% cache {{time_out_banners}} banner_index %}
+
                 {% for banner in banners %}
                     <div class="Slider-item">
                       <div class="Slider-content">
@@ -34,7 +36,6 @@
                   </div>
                 </div>
                 {% endfor %}
-              {% endcache %}
               </div>
               <div class="Slider-navigateWrap">
                 <div class="Slider-navigate">
@@ -42,7 +43,9 @@
               </div>
             </div>
         </div>
-    </header>
+    {% endif %}
+{% endcache %}
+
     <div class="Middle">
         <div class="Section">
             <div class="wrap">

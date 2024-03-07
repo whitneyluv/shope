@@ -58,8 +58,8 @@ class RecentlyViewedProductsAdmin(admin.ModelAdmin):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
+    inlines = [ProductImageInline, ProductCharacteristicInline, ProductReviewInline]
     actions = ['clear_cache']
-    inlines = [ProductCharacteristicInline, ProductImageInline, ProductReviewInline]
 
     def clear_cache(self, request, queryset):
         for product in queryset:

@@ -25,9 +25,7 @@ class Characteristic(BaseModel):
 
 
 class Category(models.Model):
-    """
-    Модель категории товара
-    """
+    """Модель категории продукта"""
 
     def __str__(self):
         return f'Модель категории {self.title}'
@@ -42,23 +40,30 @@ class Category(models.Model):
         },
     )
 
+
 class Product(BaseModel):
     """Продукт"""
-
     title = models.CharField(max_length=30, null=True, blank=True, verbose_name='title')
-    description = models.TextField(max_length=200, null=True, blank=True, verbose_name='description')
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
-    image = models.ImageField(upload_to=product_images_directory_path, blank=True, null=True, verbose_name='images')
-    tag = TaggableManager()
-    is_limited = models.BooleanField(default=False, verbose_name='is_limited')
-    free_delivery = models.BooleanField(default=True, verbose_name='free_delivery')
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.CASCADE,
+        related_name='products'
+    )
+    description = models.TextField(
+        max_length=256,
+        null=True,
+        blank=True,
+        verbose_name=_('description')
+    )
     characteristic = models.ManyToManyField(
         'Characteristic',
         through='ProductCharacteristic',
         related_name='products',
         verbose_name=_('characteristic')
     )
-
+    tag = TaggableManager()
+    is_limited = models.BooleanField(default=False, verbose_name='is_limited')
+    free_delivery = models.BooleanField(default=True, verbose_name='free_delivery')
 
     class Meta:
         verbose_name = _('product')
@@ -66,6 +71,7 @@ class Product(BaseModel):
 
     def __str__(self):
         return self.title
+
 
 class ProductCharacteristic(BaseModel):
     """Значение характеристики продукта"""
@@ -89,6 +95,7 @@ class ProductCharacteristic(BaseModel):
 
     def __str__(self):
         return f'{self.product} | {self.characteristic}'
+
 
 class ProductImage(BaseModel):
     """Изображение продукта"""

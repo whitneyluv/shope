@@ -1,4 +1,4 @@
-from random import random
+import random
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.views import View
@@ -19,15 +19,20 @@ class IndexView(View):
         Берутся случайные баннеры в количестве _BANNERS из активных на данный момент (is_active=True).
         Выбранные баннеры закешированы на десять минут (параметр берётся из сервиса получения настроек).
         """
-        get_banners = self._banner.get_banners(self.request)
-        pks = list(get_banners.values_list('pk', flat=True))
-        ln_p = len(pks)
-        if self._BANNERS > ln_p:
-            self._BANNERS = ln_p
-        random_pk = random.sample(pks, k=self._BANNERS)
+        get_banners = self._banner.get_banners()
 
-        context = {"banners": get_banners.filter(pk__in=random_pk),
-                   "time_out_banners": os.getenv("TIME_OUT_BANNERS"),
-                   }
+        if get_banners.count() > 0:
+            pks = list(get_banners.values_list('pk', flat=True))
+            ln_p = len(pks)
+            if self._BANNERS > ln_p:
+                self._BANNERS = ln_p
+            random_pk = random.sample(pks, k=self._BANNERS)
+
+            context = {"banners": get_banners.filter(pk__in=random_pk),
+                       "time_out_banners": os.getenv("TIME_OUT_BANNERS"),
+                           }
+        else:
+            context = {"banners": None,
+                       }
 
         return render(request, "coreapp/index.html", context=context)
