@@ -1,13 +1,13 @@
 from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, reverse
-from megano.order_app.forms import OrderForm
+from order_app.forms import OrderForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
-from megano.cart_app.models import Cart, CartItem
-from megano.order_app.models.order import Order
-from megano.order_app.models.order_item import OrderItem
-from megano.discounts_app.services.discount_processing import DiscountProcessing
-from megano.order_app.services.create_payment import OrderPayment
+from cart_app.models import Cart, CartItem
+from order_app.models.order import Order
+from order_app.models.order_item import OrderItem
+from discounts_app.services.discount_processing import DiscountProcessing
+from order_app.services.create_payment import OrderPayment
 
 
 class CreateOrder(LoginRequiredMixin, View):
@@ -43,3 +43,6 @@ class CreateOrder(LoginRequiredMixin, View):
                 except Exception as e:
                     print(str(e))
                     return JsonResponse({"Ошибка": "Произошла ошибка. Попробуйте еще раз"}, status=500)
+        else:
+            form = OrderForm(request.POST)
+            return render(request, 'order_app/order.html', {'form': form})
