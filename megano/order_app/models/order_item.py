@@ -1,8 +1,8 @@
 from django.db import models
-from megano.profile_app.models.seller import Seller
-from megano.catalog.models import Product
+from profile_app.models.seller import Seller
+from catalog.models import Product
 from django.utils.translation import gettext_lazy as _
-from megano.coreapp.models.basemodel import BaseModel
+from coreapp.models.basemodel import BaseModel
 from .order import Order
 
 

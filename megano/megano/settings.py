@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
 from pathlib import Path
+
+from django.urls import reverse_lazy
 from dotenv import load_dotenv, find_dotenv
 
 
@@ -175,3 +177,5 @@ CACHES = {
 CACHE_MIDDLEWARE_SECONDS = int(os.getenv("CACHE_MIDDLEWARE_SECONDS"))
 
 CURRENCY_SYMBOL = '₽'
+
+LOGIN_URL = reverse_lazy("auth_app:login")

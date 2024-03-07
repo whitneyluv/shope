@@ -10,7 +10,7 @@ from discounts_app.services.discount_processing import DiscountProcessing
 from order_app.services.create_payment import OrderPayment
 
 
-class CreateOrder(LoginRequiredMixin, View):
+class CreateOrderView(View):
 
     def create_order(self, request: HttpRequest) -> HttpResponse:
 
@@ -44,5 +44,5 @@ class CreateOrder(LoginRequiredMixin, View):
                     print(str(e))
                     return JsonResponse({"Ошибка": "Произошла ошибка. Попробуйте еще раз"}, status=500)
         else:
-            form = OrderForm(request.POST)
+            form = OrderForm()
             return render(request, 'order_app/order.html', {'form': form})

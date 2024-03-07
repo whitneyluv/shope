@@ -29,7 +29,7 @@ class IndexView(View):
             random_pk = random.sample(pks, k=self._BANNERS)
 
             context = {"banners": get_banners.filter(pk__in=random_pk),
-                       "time_out_banners": os.getenv("TIME_OUT_BANNERS"),
+                       "time_out_banners": int(os.getenv("TIME_OUT_BANNERS")),
                            }
         else:
             context = {"banners": None,
