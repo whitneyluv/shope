@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views import View
-from megano.order_app.services.create_payment import OrderPayment
+from order_app.services.create_payment import OrderPayment
 
 
 class PaymentCreateView(View):

@@ -17,7 +17,7 @@
 import var_dump as var_dump
 from yookassa import Payment, Configuration
 import inject
-from megano.order_app.interface.order_interface import IOrder
+from order_app.interface.order_interface import IOrder
 
 
 Configuration.configure('325975', 'test_ickkaiUFF3G5QKquognLgIOjSKCLEevmyGJc8Vk_u_Y')

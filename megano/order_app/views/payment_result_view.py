@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views import View
-from megano.order_app.services.confimation_payment import PaymentConfirmation
+from order_app.services.confimation_payment import PaymentConfirmation
 
 
 class PaymentResult(View):

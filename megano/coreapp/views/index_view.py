@@ -2,10 +2,9 @@ from random import random
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.views import View
-from megano.coreapp.models.banner import Banner
 import os
 import inject
-from megano.coreapp.interfaces.core_interface import ICore
+from coreapp.interfaces.core_interface import ICore
 
 
 class IndexView(View):

@@ -1,12 +1,11 @@
 from django.db import models
 
 
-from megano.coreapp.models.basemodel import BaseModel
-from megano.auth_app.models.user import User
-
-from megano.coreapp.choices.delivery_choices import DELIVERY_CHOICES
-from megano.coreapp.choices.payment_type import PAYMENT_TYPE_CHOICES
-from megano.coreapp.choices.payment_status import PAYMENT_STATUS_CHOICES
+from coreapp.models.basemodel import BaseModel
+from auth_app.models.user import User
+from coreapp.choices.delivery_choices import DELIVERY_CHOICES
+from coreapp.choices.payment_type import PAYMENT_TYPE_CHOICES
+from coreapp.choices.payment_status import PAYMENT_STATUS_CHOICES
 
 
 class Order(BaseModel):

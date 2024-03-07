@@ -1,5 +1,5 @@
 from abc import abstractmethod
-from megano.order_app.models.order import Order
+from order_app.models.order import Order
 
 
 class IOrder:

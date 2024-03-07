@@ -1,10 +1,10 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from megano.catalog.models import Product
-from megano.coreapp.choices.cart_status import CART_STATUSES
-from megano.coreapp.models.basemodel import BaseModel
-from megano.profile_app.models.seller import Seller
+from catalog.models import Product
+from coreapp.choices.cart_status import CART_STATUSES
+from coreapp.models.basemodel import BaseModel
+from profile_app.models.seller import Seller
 
 
 class Cart(BaseModel):

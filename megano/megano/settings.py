@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'profile_app.apps.ProfileAppConfig',
     'order_app.apps.OrderAppConfig',
     'cart_app.apps.CartAppConfig',
-    'coreapp.apps.CoreAppConfig'
+    'coreapp.apps.CoreAppConfig',
     'taggit',
     'debug_toolbar',
     'discounts_app.apps.DiscountsAppConfig',
@@ -167,7 +167,8 @@ CART_STATUSES = [
 
 CACHES = {
    "default": {
-       "BACKEND": "django.core.cache.backends.memcached.PyMemcacheCache",
+       "BACKEND": "django.core.cache.backends.dummy.DummyCache",
+       # "BACKEND": "django.core.cache.backends.memcached.PyMemcacheCache",
        "LOCATION": "127.0.0.1:11211",
    }
 }

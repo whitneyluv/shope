@@ -1,6 +1,6 @@
 from beartype import beartype
-from megano.order_app.interface.order_interface import IOrder
-from megano.order_app.models.order import Order
+from order_app.interface.order_interface import IOrder
+from order_app.models.order import Order
 from django.shortcuts import get_object_or_404
 
 
