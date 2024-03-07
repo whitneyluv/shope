@@ -18,7 +18,6 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-
 from coreapp.utils.injector import configure_inject
 
 configure_inject()
@@ -31,7 +30,7 @@ urlpatterns = [
     path("cart/", include("cart_app.urls", namespace="cart")),
     path("catalog/", include("catalog.urls", namespace="catalog")),
     path('order/', include('order_app.urls')),
-    path('core/', include('coreapp.urls')),
+    path('', include('coreapp.urls')),
     path('discounts/', include('discounts_app.urls')),
 ]
 

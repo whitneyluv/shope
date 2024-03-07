@@ -1,10 +1,10 @@
 from abc import abstractmethod
-from coreapp.models.banner import Banner
+
 
 
 class ICore:
 
     @abstractmethod
-    def get_banners(self, model: Banner):
+    def get_banners(self):
         """Получить все активные баннеры"""
         pass
