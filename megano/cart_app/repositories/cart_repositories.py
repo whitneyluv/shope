@@ -1,3 +1,5 @@
+from typing import Optional
+
 from beartype import beartype
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -11,7 +13,7 @@ class CartRepository(ICart):
     модели Cart на основании интерфейса ICart"""
 
     @beartype
-    def get_cart_by_user(self, user: User) -> Cart | None:
+    def get_cart_by_user(self, user: User) -> Optional[Cart]:
         """Получить экземпляр модели Cart"""
         try:
             cart = Cart.objects.get(user=user)

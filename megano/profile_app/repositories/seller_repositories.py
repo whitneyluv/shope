@@ -1,3 +1,5 @@
+from typing import Optional
+
 from beartype import beartype
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -11,7 +13,7 @@ class SellerRepository(ISeller):
     модели Seller на основании интерфейса ISeller"""
 
     @beartype
-    def get_seller(self, pk: int) -> Seller | None:
+    def get_seller(self, pk: int) -> Optional[Seller]:
         """Получить экземпляр модели Product"""
         try:
             return Seller.objects.get(pk=pk)
@@ -19,7 +21,7 @@ class SellerRepository(ISeller):
             return None
 
     @beartype
-    def get_seller_by_user(self, user: User) -> Seller | None:
+    def get_seller_by_user(self, user: User) -> Optional[Seller]:
         """Получить экземпляр модели Seller связанный с экземпляром модели User"""
         try:
             return Seller.objects.get(user=user)
