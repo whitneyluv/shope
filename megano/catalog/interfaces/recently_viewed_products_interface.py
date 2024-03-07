@@ -1,4 +1,5 @@
 from abc import abstractmethod, ABC
+from typing import Optional
 
 from auth_app.models.user import User
 from catalog.models import Product
@@ -11,7 +12,7 @@ class IRecentlyViewedProducts(ABC):
     @abstractmethod
     def get_recently_viewed_products_by_user_and_product(
             self, user: User, product: Product
-    ) -> RecentlyViewedProducts | None:
+    ) -> Optional[RecentlyViewedProducts]:
         """Получить экземпляр модели RecentlyViewedProducts"""
         pass
 
