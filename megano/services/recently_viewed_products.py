@@ -4,16 +4,12 @@ from auth_app.models.user import User
 from catalog.interfaces.product_interface import IProduct
 from catalog.interfaces.recently_viewed_products_interface import IRecentlyViewedProducts
 from catalog.models import RecentlyViewedProducts
-from catalog.repositories.product_repositories import ProductRepository
-from catalog.repositories.recently_viewed_products_repositories import (
-    RecentlyViewedProductsRepository)
 
 
 class RecentlyViewedProductsService:
     """Класс для реализации методов работы с недавно просмотренными товарами"""
-    __product: IProduct = inject.attr(ProductRepository)
-    __rec_view_products: IRecentlyViewedProducts = inject.attr(
-        RecentlyViewedProductsRepository)
+    __product: IProduct = inject.attr(IProduct)
+    __rec_view_products: IRecentlyViewedProducts = inject.attr(IRecentlyViewedProducts)
 
     def __init__(self, user: User) -> None:
         self.user = user

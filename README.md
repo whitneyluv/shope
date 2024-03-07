@@ -88,9 +88,3 @@
                 core[optional]
                 handlers
                 requestes
-
-
-# Load fixtures
-```shell
-python manage.py loaddata fixtures/*.json
-```

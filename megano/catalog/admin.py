@@ -3,7 +3,6 @@ from django.contrib import admin
 
 from catalog.forms import PriceModelAdminForm
 from profile_app.interfaces.seller_interface import ISeller
-from profile_app.repositories.seller_repositories import SellerRepository
 from .models import (
     Product,
     Category,
@@ -42,7 +41,7 @@ class PriceAdmin(admin.ModelAdmin):
     """Регистрация модели Price в админке"""
     form = PriceModelAdminForm
     ordering = 'product',
-    __seller: ISeller = inject.attr(SellerRepository)
+    __seller: ISeller = inject.attr(ISeller)
 
     def get_form(self, request, obj=None, **kwargs):
         """Добавляет request для обработки данных в классе формы"""

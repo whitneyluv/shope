@@ -4,16 +4,14 @@ import inject
 
 from cart_app.interfaces.cart_item_interface import ICartItem
 from cart_app.models import Cart
-from cart_app.repositories.cart_item_repositories import CartItemRepository
 from catalog.interfaces.price_interface import IPrice
-from catalog.repositories.price_repositories import PriceRepository
 
 
 class CalculatingTotalAmountCart:
     """Класс для реализации методов расчёта общей стоимости корзины"""
 
-    __cart_item: ICartItem = inject.attr(CartItemRepository)
-    __price: IPrice = inject.attr(PriceRepository)
+    __cart_item: ICartItem = inject.attr(ICartItem)
+    __price: IPrice = inject.attr(IPrice)
 
     def __init__(self, cart: Cart) -> None:
         self.cart = cart
