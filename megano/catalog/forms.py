@@ -1,5 +1,5 @@
 from django import forms
-from .models import Seller, Category
+from catalog.models import Seller, Category
 
 
 class ProductFilterForm(forms.Form):
@@ -17,7 +17,7 @@ class ProductFilterForm(forms.Form):
     tag = forms.CharField(label='Тег', required=False)
     category = forms.ModelMultipleChoiceField(queryset=Category.objects.all(), widget=forms.CheckboxSelectMultiple,
                                               required=False)
-    sort_by = forms.ChoiceField(choices=[
+    sort = forms.ChoiceField(choices=[
         ('', 'Не учитывать'),
         ('price', 'Цена (по возрастанию)'),
         ('-price', 'Цена (по убыванию)'),
