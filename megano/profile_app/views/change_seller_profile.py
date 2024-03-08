@@ -3,12 +3,12 @@ from django.shortcuts import redirect
 from django.views.generic import UpdateView
 from django.shortcuts import render
 from ..models import Seller
-from ..forms import SellerChangeForm
+from ..forms import SellerForm
 
 
 class SellerProfileChangeView(LoginRequiredMixin, UpdateView):
     model = Seller
-    form_class = SellerChangeForm
+    form_class = SellerForm
     template_name = 'profile_app/change_seller_profile.html'
 
     def post(self, request, *args, **kwargs):
@@ -26,8 +26,3 @@ class SellerProfileChangeView(LoginRequiredMixin, UpdateView):
                 'form': self.form_class
             }
         )
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['profile'] = self.request.user.profile.get(id=self.request.user.id)
-        return context

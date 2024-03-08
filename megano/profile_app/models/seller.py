@@ -17,7 +17,7 @@ class Seller(BaseModel):
         return f'Модель профиля для продавца {self.user}'
 
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='seller')
-    name = models.CharField(_('Name'), unique=True, max_length=20)
+    name = models.CharField(_('Name'), unique=True, max_length=20, blank=False)
     logo = models.ImageField(
         _('Logotype'),
         upload_to=seller_images_directory_path,
