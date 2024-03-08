@@ -1,3 +1,5 @@
+from typing import Optional
+
 from beartype import beartype
 
 from auth_app.models.user import User
@@ -13,7 +15,7 @@ class RecentlyViewedProductsRepository(IRecentlyViewedProducts):
     @beartype
     def get_recently_viewed_products_by_user_and_product(
             self, user: User, product: Product
-    ) -> RecentlyViewedProducts | None:
+    ) -> Optional[RecentlyViewedProducts]:
         """Получить экземпляр модели RecentlyViewedProducts
         с фильтрацией по полям user и product"""
         return RecentlyViewedProducts.objects.filter(user=user, product=product).first()

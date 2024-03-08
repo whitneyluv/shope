@@ -109,40 +109,52 @@
                             </div>
                     </div>
                     <div class="Cards">
-                        {% for product in products %}
-                            <div class="Card">
-                                <div class="Card">
-                                    <a class="Card-picture" href="#"><img src="{{ product.image.url }}" alt="{{ product.title }}" /></a>
-                                    <div class="Card-content">
-                                        <strong class="Card-title">
-                                            <a href="{% url 'catalog:product' product_id=product.id %}">{{ product.title }}</a>
-                                        </strong>
-                                        <div class="Card-description">
-                                            <div class="Card-cost">
-                                                <span class="Card-price">${{ product.prices.first.price }}</span>
-                                            </div>
-                                            <div class="Card-category">{{ product.category.title }}</div>
-                                            <div class="Card-hover">
-                                                <a class="Card-btn" href="{% url 'catalog:product' product_id=product.id %}">
-                                                    <img src="/static/assets/img/icons/card/cart.svg" alt="cart.svg" />
-                                                </a>
+                        <div class="Cards">
+                            <div class="row">
+                                {% for product in products_page %}
+                                    <div class="col-md-4 mb-4">
+                                        <div class="Card border rounded">
+                                            <a class="Card-picture" href="#"><img src="{{ product.image.url }}" alt="{{ product.title }}" class="img-fluid" /></a>
+                                            <div class="Card-content p-3">
+                                                <strong class="Card-title">
+                                                    <a href="{% url 'catalog:product' product_id=product.id %}" class="text-decoration-none text-dark">{{ product.title }}</a>
+                                                </strong>
+                                                <div class="Card-description mt-2">
+                                                    <div class="Card-cost">
+                                                        <span class="Card-price">${{ product.prices.first.price }}</span>
+                                                    </div>
+                                                    <div class="Card-category text-muted">{{ product.category.title }}</div>
+                                                    <div class="Card-hover mt-3">
+                                                        <a class="Card-btn btn btn-dark" href="{% url 'catalog:product' product_id=product.id %}">Add to Cart</a>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                    {% if forloop.counter|divisibleby:3 and not forloop.last %}
+                                        </div><div class="row">
+                                    {% endif %}
+                                {% endfor %}
                             </div>
-                        {% endfor %}
-                    </div>
-                    <div class="Pagination">
-                        <div class="Pagination-ins">
-                            <a class="Pagination-element Pagination-element_prev" href="#"><img src="/static/assets/img/icons/prevPagination.svg" alt="prevPagination.svg" /></a>
-                            <a class="Pagination-element Pagination-element_current" href="#"><span class="Pagination-text">1</span></a>
-                            <a class="Pagination-element" href="#"><span class="Pagination-text">2</span></a>
-                            <a class="Pagination-element" href="#"><span class="Pagination-text">3</span></a>
-                            <a class="Pagination-element Pagination-element_prev" href="#"><img src="/static/assets/img/icons/nextPagination.svg" alt="nextPagination.svg" /></a>
                         </div>
                     </div>
-                </div>
+                    <div class="Pagination mb-4">
+                        <div class="Pagination-ins">
+                            {% if products_page.has_previous %}
+                                <a class="Pagination-element Pagination-element_prev" href="?page={{ products_page.previous_page_number }}"><img src="/static/assets/img/icons/prevPagination.svg" alt="prevPagination.svg" /></a>
+                            {% else %}
+                                <span class="Pagination-element Pagination-element_prev_disabled"><img src="/static/assets/img/icons/prevPagination.svg" alt="prevPagination.svg" /></span>
+                            {% endif %}
+                            {% for num in products_page.paginator.page_range %}
+                                <a class="Pagination-element{% if num == products_page.number %} Pagination-element_current{% endif %}" href="?page={{ num }}"><span class="Pagination-text">{{ num }}</span></a>
+                            {% endfor %}
+                            {% if products_page.has_next %}
+                                <a class="Pagination-element" href="?page={{ products_page.next_page_number }}"><img src="/static/assets/img/icons/nextPagination.svg" alt="nextPagination.svg" /></a>
+                            {% else %}
+                                <span class="Pagination-element Pagination-element_next_disabled"><img src="/static/assets/img/icons/nextPagination.svg" alt="nextPagination.svg" /></span>
+                            {% endif %}
+                        </div>
+                    </div>
             </div>
         </div>
     </div>

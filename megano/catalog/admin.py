@@ -1,4 +1,8 @@
+import inject
 from django.contrib import admin
+
+from catalog.forms import PriceModelAdminForm
+from profile_app.interfaces.seller_interface import ISeller
 from .models import (
     Product,
     Category,
@@ -35,7 +39,22 @@ class CategoryAdmin(admin.ModelAdmin):
 @admin.register(Price)
 class PriceAdmin(admin.ModelAdmin):
     """Регистрация модели Price в админке"""
+    form = PriceModelAdminForm
     ordering = 'product',
+    __seller: ISeller = inject.attr(ISeller)
+
+    def get_form(self, request, obj=None, **kwargs):
+        """Добавляет request для обработки данных в классе формы"""
+        form = super().get_form(request, obj, **kwargs)
+        form.user = request.user
+        return form
+
+    def get_queryset(self, request):
+        """Возвращает набор экземпляров модели Price в зависимости от прав пользователя"""
+        queryset = super().get_queryset(request)
+        if request.user.is_superuser:
+            return queryset
+        return queryset.filter(seller=self.__seller.get_seller_by_user(user=request.user))
 
 
 @admin.register(Characteristic)
