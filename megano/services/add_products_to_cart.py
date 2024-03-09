@@ -4,20 +4,16 @@ from auth_app.models.user import User
 from cart_app.interfaces.cart_interface import ICart
 from cart_app.interfaces.cart_item_interface import ICartItem
 from cart_app.models import CartItem
-from cart_app.repositories.cart_item_repositories import CartItemRepository
-from cart_app.repositories.cart_repositories import CartRepository
 from catalog.interfaces.product_interface import IProduct
-from catalog.repositories.product_repositories import ProductRepository
 from profile_app.interfaces.seller_interface import ISeller
-from profile_app.repositories.seller_repositories import SellerRepository
 
 
 class AddProductsToCart:
     """Класс для реализации методов добавления товаров в корзину"""
-    __product: IProduct = inject.attr(ProductRepository)
-    __seller: ISeller = inject.attr(SellerRepository)
-    __cart: ICart = inject.attr(CartRepository)
-    __cart_item: ICartItem = inject.attr(CartItemRepository)
+    __product: IProduct = inject.attr(IProduct)
+    __seller: ISeller = inject.attr(ISeller)
+    __cart: ICart = inject.attr(ICart)
+    __cart_item: ICartItem = inject.attr(ICartItem)
 
     def __init__(self, user: User) -> None:
         self.cart = self.__cart.get_cart_by_user(user=user)

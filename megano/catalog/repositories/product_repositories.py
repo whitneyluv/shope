@@ -1,3 +1,5 @@
+from typing import Optional
+
 from beartype import beartype
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Min, F
@@ -11,7 +13,7 @@ class ProductRepository(IProduct):
     модели Product на основании интерфейса IProduct"""
 
     @beartype
-    def get_product(self, pk: int) -> Product | None:
+    def get_product(self, pk: int) -> Optional[Product]:
         """Получить экземпляр модели Product"""
         try:
             return Product.objects.get(pk=pk)
@@ -19,7 +21,7 @@ class ProductRepository(IProduct):
             return None
 
     @beartype
-    def get_product_for_detail_view(self, pk: int) -> Product | None:
+    def get_product_for_detail_view(self, pk: int) -> Optional[Product]:
         """Получить экземпляр модели Product с необходимыми связями и аннотациями
         для отображения детальной страницы товара"""
         try:

@@ -1,5 +1,6 @@
 from django import forms
-from .models import Seller, Category
+from catalog.models import Seller, Category
+
 
 class ProductFilterForm(forms.Form):
     title = forms.CharField(label='Название', required=False)
@@ -16,10 +17,19 @@ class ProductFilterForm(forms.Form):
     tag = forms.CharField(label='Тег', required=False)
     category = forms.ModelMultipleChoiceField(queryset=Category.objects.all(), widget=forms.CheckboxSelectMultiple,
                                               required=False)
-    sort_by = forms.ChoiceField(choices=[
+    sort = forms.ChoiceField(choices=[
         ('', 'Не учитывать'),
         ('price', 'Цена (по возрастанию)'),
         ('-price', 'Цена (по убыванию)'),
         ('popularity', 'Популярность (по убыванию)'),
         ('-created_at', 'Новизне (по убыванию)'),
     ], label='Сортировать по', required=False)
+
+
+class PriceModelAdminForm(forms.ModelForm):
+    """Форма для создания модели Price админке с ограничением выбора
+    поля seller в зависимости от прав пользователя"""
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if not self.user.is_superuser:
+            self.fields['seller'].queryset = self.fields['seller'].queryset.filter(user=self.user)

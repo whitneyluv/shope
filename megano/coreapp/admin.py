@@ -1,9 +1,14 @@
 from django.contrib import admin
-from .models.banner import Banner
+
+from coreapp.models.banner import Banner
+from coreapp.models.setting import Setting
 
 
 @admin.register(Banner)
-class BannerInline(admin.ModelAdmin):
-    """Добавление характеристики в админке модели Banner"""
+class BannerAdmin(admin.ModelAdmin):
+   pass
 
 
+@admin.register(Setting)
+class SettingAdmin(admin.ModelAdmin):
+    pass
