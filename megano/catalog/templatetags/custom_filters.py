@@ -4,6 +4,9 @@ from django.conf import settings
 
 register = template.Library()
 
+@register.filter
+def first_image(product):
+    return product.product_images.first()
 
 @register.filter
 def price_format(value):
