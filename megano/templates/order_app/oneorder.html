@@ -2,6 +2,7 @@
 {% load static %}
 {% load cache %}
 {% block main %}
+{% load custom_filters %}
     <div class="Middle Middle_top">
         <div class="Middle-top">
             <div class="wrap">
@@ -110,8 +111,13 @@
                             <div class="Cart Cart_order">
                                 <div class="Cart-product">
                                     <div class="Cart-block Cart-block_row">
-                                        <div class="Cart-block Cart-block_pict"><a class="Cart-pict" href="{% url 'catalog:product' product_id=order_item.product.id %}"><img class="Cart-img" src="{{ order_item.product.image.url }}" alt={{order_item.product.title}} /></a>
+                                        {% with product_image=order_item.product|first_image %}
+                                            {% if product_image %}
+                                        <div class="Cart-block Cart-block_pict"><a class="Cart-pict" href="{% url 'catalog:product' product_id=order_item.product.id %}"><img class="Cart-img" src="{{product_image.image.url }}" alt={{order_item.product.title}} /></a>
                                         </div>
+                                            {% endif %}
+                                        {% endwith %}
+
                                         <div class="Cart-block Cart-block_info"><a class="Cart-title" href="{% url 'catalog:product' product_id=order_item.product.id %}">{{order_item.product.title}} </a>
                                             <div class="Cart-desc">{{order_item.product.description}}
                                             </div>

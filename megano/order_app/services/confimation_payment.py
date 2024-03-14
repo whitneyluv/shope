@@ -9,11 +9,6 @@ class PaymentConfirmation:
     _order: IOrder = inject.attr(IOrder)
 
     @classmethod
-    def payment_info(cls, payment_id):
-        res = Payment.find_one(payment_id)
-        return res
-
-    @classmethod
     def confirm_payment(cls, payment_info):
         try:
             order_pk = int(payment_info.metadata['orderNumber'])
