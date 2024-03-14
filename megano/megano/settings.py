@@ -33,7 +33,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["*",]
 
 
 # Application definition
@@ -160,17 +160,10 @@ DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')
 SERVER_EMAIL = os.getenv('SERVER_EMAIL')
 SERVER_ADMIN = os.getenv('SERVER_ADMIN')
 
-CART_STATUSES = [
-    (1, "new"),
-    (2, "paid"),
-    (3, "not_paid"),
-    (4, "pending"),
-]
 
 CACHES = {
    "default": {
-       "BACKEND": "django.core.cache.backends.dummy.DummyCache",
-       # "BACKEND": "django.core.cache.backends.memcached.PyMemcacheCache",
+       "BACKEND": "django.core.cache.backends.memcached.PyMemcacheCache",
        "LOCATION": "127.0.0.1:11211",
    }
 }
