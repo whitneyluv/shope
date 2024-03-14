@@ -1,4 +1,4 @@
 PAYMENT_TYPE_CHOICES = [
-    ("c", 'card'),
-    ('ch', 'cash'),
+    ('online', 'online'),
+    ('someone', 'someone'),
 ]

@@ -29,7 +29,7 @@ urlpatterns = [
     path('profile/', include('profile_app.urls')),
     path("cart/", include("cart_app.urls", namespace="cart")),
     path("catalog/", include("catalog.urls", namespace="catalog")),
-    path('order/', include('order_app.urls')),
+    path('order/', include(('order_app.urls', 'order'), namespace="order")),
     path('', include('coreapp.urls')),
     path('discounts/', include('discounts_app.urls')),
 ]

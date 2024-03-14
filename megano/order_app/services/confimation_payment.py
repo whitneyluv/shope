@@ -1,9 +1,12 @@
 from django.core.exceptions import ObjectDoesNotExist
 from yookassa import Payment
-from order_app.models.order import Order
+import inject
+from order_app.interface.order_interface import IOrder
 
 
 class PaymentConfirmation:
+
+    _order: IOrder = inject.attr(IOrder)
 
     @classmethod
     def payment_info(cls, payment_id):
@@ -11,34 +14,24 @@ class PaymentConfirmation:
         return res
 
     @classmethod
-    def confirm_payment(cls, order_pk):
-
+    def confirm_payment(cls, payment_info):
         try:
-            order = Order.objects.get(id=order_pk)
-            payment_id = order.payment_id
-            order_payment = cls.payment_info(payment_id)
+            order_pk = int(payment_info.metadata['orderNumber'])
+            order = cls._order.get_order_by_pk(pk=order_pk)
+
         except ObjectDoesNotExist:
             raise "Такого заказа нет"
 
-        if order_payment.status == 'succeeded':
-            order.payment_status = 'p'
+        if payment_info.status == 'succeeded':
+            order.payment_status = 'paid'
+            print("order paid")
             order.save()
             return True
-        else:
+        elif payment_info.status == 'canceled':
+            order.payment_status = 'canceled'
+            order.save()
+            print("order canceled")
             return False
 
-    # def confirm_payment(order_id):
-    #
-    #     try:
-    #         current_payment = PaymentData.objects.get(id=response['metadata']['orderNumber'])
-    #
-    #     except ObjectDoesNotExist:
-    #         raise "Такого заказа нет"
-    #
-    #     if response['event'] == 'payment.succeeded':
-    #         current_payment.payment_status = 'p'
-    #         current_payment.order.payment_status = 'p'
-    #         current_payment.save()
-    #         return True
-    #     elif response['event'] == 'payment.canceled':
-    #         return False
+        else:
+            print('Неизвестная ошибка')

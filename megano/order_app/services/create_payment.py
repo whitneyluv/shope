@@ -13,6 +13,7 @@
 Готово!
 
 """
+import os
 
 import var_dump as var_dump
 from yookassa import Payment, Configuration
@@ -21,7 +22,7 @@ from order_app.interface.order_interface import IOrder
 
 
 Configuration.configure('325975', 'test_ickkaiUFF3G5QKquognLgIOjSKCLEevmyGJc8Vk_u_Y')
-RETURN_URL = 'https://google.com/'
+URL = os.getenv("URL_FOR_PAYMENT")
 
 
 class OrderPayment:
@@ -29,9 +30,11 @@ class OrderPayment:
     _order: IOrder = inject.attr(IOrder)
 
     @classmethod
-    def payment_create(cls, order_pk):
+    def payment_create(cls,order_pk):
 
         order = cls._order.get_order_by_pk(order_pk)
+
+        return_url = f'{URL}/order/{order.pk}/'
 
         res = Payment.create(
             {
@@ -41,7 +44,7 @@ class OrderPayment:
                 },
                 "confirmation": {
                     "type": "redirect",
-                    "return_url": RETURN_URL,
+                    "return_url": return_url,
                 },
                 "capture": True,
                 "description": f"Заказ №{order.pk}",
@@ -55,5 +58,5 @@ class OrderPayment:
         order.save()
         var_dump.var_dump(res)
 
-        return res.confirmation.confirmation_url
+        return res
 

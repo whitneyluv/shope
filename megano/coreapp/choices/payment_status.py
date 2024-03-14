@@ -1,4 +1,5 @@
 PAYMENT_STATUS_CHOICES = [
-    ('p', "paid"),
-    ('unp', "unpaid")
+    ('paid', "paid"),
+    ('unpaid', "unpaid"),
+    ('canceled', 'canceled'),
 ]

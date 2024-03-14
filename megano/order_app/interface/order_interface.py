@@ -13,3 +13,18 @@ class IOrder:
     def get_order_by_pk(self, pk):
         """Получить заказ по ключу (pk)"""
         pass
+
+    @abstractmethod
+    def get_order_items(self, order_pk):
+        """Получить экземпляры модели OrderItems по конкретному заказу"""
+        pass
+
+    @abstractmethod
+    def get_all_users_orders(self, user_pk):
+        """Получить все заказы юзер"""
+        pass
+
+    @abstractmethod
+    def get_all_orders(self):
+        """Получить все заказы"""
+        pass

@@ -4,7 +4,7 @@
 
 
 {% block main %}
-{% cache time_out_banners banner_index %}
+{% cache 600 banner_index %}
     {% if banners %}:
         <div class="Header-slider">
             <div class="Slider Slider_main">

@@ -18,13 +18,15 @@ class OrderItem(BaseModel):
     seller = models.ForeignKey(
         Seller,
         on_delete=models.CASCADE,
-        verbose_name=_("seller")
+        verbose_name=_("seller"),
+        related_name="order_items",
     )
 
     product = models.ForeignKey(
         Product,
         on_delete=models.CASCADE,
-        verbose_name=_("product")
+        verbose_name=_("product"),
+        related_name="order_items",
     )
 
     quantity = models.PositiveIntegerField(
