@@ -1,5 +1,6 @@
 {% extends 'coreapp/base.html' %}
 {% load static %}
+{% load custom_filters %}
 
 {% block title %}
       Catalog
@@ -109,36 +110,40 @@
                             </div>
                     </div>
                     <div class="Cards">
-                        <div class="Cards">
-                            <div class="row">
-                                {% for product in products_page %}
-                                    <div class="col-md-4 mb-4">
-                                        <div class="Card border rounded">
-                                            <a class="Card-picture" href="#"><img src="{{ product.image.url }}" alt="{{ product.title }}" class="img-fluid" /></a>
-                                            <div class="Card-content p-3">
-                                                <strong class="Card-title">
-                                                    <a href="{% url 'catalog:product' product_id=product.id %}" class="text-decoration-none text-dark">{{ product.title }}</a>
-                                                </strong>
-                                                <div class="Card-description mt-2">
-                                                    <div class="Card-cost">
-                                                        <span class="Card-price">${{ product.prices.first.price }}</span>
-                                                    </div>
-                                                    <div class="Card-category text-muted">{{ product.category.title }}</div>
-                                                    <div class="Card-hover mt-3">
-                                                        <a class="Card-btn btn btn-dark" href="{% url 'catalog:product' product_id=product.id %}">Add to Cart</a>
-                                                    </div>
+                        <div class="row row-cols-1 row-cols-md-3 g-4">
+                            {% for product in products_page %}
+                                <div class="col mb-4">
+                                    <div class="Card border rounded">
+                                        {% with product_image=product|first_image %}
+                                            {% if product_image %}
+                                                <a class="Card-picture" href="{{ product_image.image.url }}" target="_blank">
+                                                    <img src="{{ product_image.image.url }}" alt="{{ product.title }}" class="img-fluid" />
+                                                </a>
+                                            {% endif %}
+                                        {% endwith %}
+                                        <div class="Card-content p-3">
+                                            <strong class="Card-title">
+                                                <a href="{% url 'catalog:product' product_id=product.id %}" class="text-decoration-none text-dark">{{ product.title }}</a>
+                                            </strong>
+                                            <div class="Card-description mt-2">
+                                                <div class="Card-cost">
+                                                    <span class="Card-price">${{ product.prices.first.price }}</span>
+                                                </div>
+                                                <div class="Card-category text-muted">{{ product.category.title }}</div>
+                                                <div class="Card-hover mt-3">
+                                                    <a class="Card-btn btn btn-dark" href="{% url 'catalog:product' product_id=product.id %}">Add to Cart</a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    {% if forloop.counter|divisibleby:3 and not forloop.last %}
-                                        </div><div class="row">
-                                    {% endif %}
-                                {% endfor %}
-                            </div>
+                                </div>
+                                {% if forloop.counter|divisibleby:3 %}
+                                    </div><div class="row row-cols-1 row-cols-md-3 g-4">
+                                {% endif %}
+                            {% endfor %}
                         </div>
                     </div>
-                    <div class="Pagination mb-4">
+                                        <div class="Pagination mb-4">
                         <div class="Pagination-ins">
                             {% if products_page.has_previous %}
                                 <a class="Pagination-element Pagination-element_prev" href="?page={{ products_page.previous_page_number }}"><img src="/static/assets/img/icons/prevPagination.svg" alt="prevPagination.svg" /></a>

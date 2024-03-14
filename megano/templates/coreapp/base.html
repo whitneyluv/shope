@@ -35,6 +35,21 @@
     <link rel="stylesheet" href="{% get_static_prefix %}assets/css/extra.css?v=35945634">
     <script src="{% get_static_prefix %}assets/plg/CountDown/countdown.js"></script><!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+<style>
+    .Card-picture {
+        width: 160px;
+        height: 160px;
+        overflow: hidden;
+    }
+
+    .Card-picture img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+    }
+</style>
+
+
 
   {% block css %}
   {% endblock %}
