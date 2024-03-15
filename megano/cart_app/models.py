@@ -11,10 +11,10 @@ from profile_app.models.seller import Seller
 class Cart(BaseModel):
     """Модель корзины пользователя"""
 
-    user = models.ForeignKey(
+    user = models.OneToOneField(
         get_user_model(),
         on_delete=models.CASCADE,
-        related_name="carts",
+        related_name="cart",
         verbose_name=_("user")
     )
 

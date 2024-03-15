@@ -2,7 +2,7 @@ import inject
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import login as auth_login
 from profile_app.interfaces import IProfile
-from ..utils import add_to_cart_from_session
+from ..utils import add_to_cart_from_session_cart
 from django.http import HttpResponseRedirect
 
 
