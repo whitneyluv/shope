@@ -1,11 +1,20 @@
 from django.urls import path
 from django.views.generic.base import TemplateView
-from .views import ProfileView, UserProfileChangeView
+from .views import (
+    ProfileView,
+    ProfileChangeView,
+    SellerCreateView,
+    SellerProfileView,
+    SellerProfileChangeView
+)
 
 app_name = 'profile_app'
 
 urlpatterns = [
-    path('<pk>/', ProfileView.as_view(), name='profile'),
-    path('<pk>/change_profile/', UserProfileChangeView.as_view(), name='change_profile'),
+    path('<int:pk>/', ProfileView.as_view(), name='profile'),
+    path('<int:pk>/change_profile/', ProfileChangeView.as_view(), name='change_profile'),
+    path('create_seller/', SellerCreateView.as_view(), name='create_seller_profile'),
+    path('seller/<int:pk>/', SellerProfileView.as_view(), name='seller_profile'),
+    path('seller/<int:pk>/change_seller/', SellerProfileChangeView.as_view(), name='change_seller_profile'),
 ]
 

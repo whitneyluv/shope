@@ -2,13 +2,8 @@
 {% load static %}
 
 {% block title %}
-      Change profile information
+      Create seller profile
 {% endblock %}
-
-{% block css %}
-<script src="{% static 'assets/plg/phoneinput.js' %}"></script>
-{% endblock %}
-
 
 {% block main %}
 
@@ -25,11 +20,9 @@
                         <div class="Section-columnContent">
                             <div class="NavigateProfile">
                                 <ul class="menu menu_vt">
-                                    <li class="menu-item"><a class="menu-link" href="{% url 'profile_app:profile' pk=profile.pk %}">Личный кабинет</a>
+                                    <li class="menu-item"><a class="menu-link" href="{% url 'profile_app:profile' pk=request.user.profile.pk %}">Личный кабинет</a>
                                     </li>
-                                    <li class="menu-item_ACTIVE menu-item"><a class="menu-link" href="{% url 'profile_app:change_profile' pk=profile.pk %}">Профиль</a>
-                                    </li>
-                                    <li class="menu-item"><a class="menu-link" href="../order/historyorder.html">История заказов</a>
+                                    <li class="menu-item_ACTIVE menu-item"><a class="menu-link" href="{% url 'profile_app:create_seller_profile'%}">Создание профиля продавца</a>
                                     </li>
                                 </ul>
                             </div>
@@ -44,29 +37,29 @@
                             <div class="row">
                                 <div class="row-block">
                                     <div class="form-group">
-                                        <label class="form-label">Аватар
+                                        <label class="form-label">Логотип
                                         </label>
                                         <div class="Profile-avatar Profile-avatar_noimg">
-                                            <label class="Profile-fileLabel" for="{{ form.avatar.id_for_label }}">
+                                            <label class="Profile-fileLabel" for="{{ form.logo.id_for_label }}">
                                                 <img src="{% static 'assets/img/icons/upload.png' %}" alt="Upload" />
                                                 Загрузить фото
                                             </label>
-                                            {{ form.avatar }}
+                                            {{ form.logo }}
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row-block">
                                     <div class="form-group">
-                                        <label class="form-label" for="{{ form.phone.id_for_label }}">
-                                            {{ form.phone.label }}
+                                        <label class="form-label" for="{{ form.name.id_for_label }}">
+                                            {{ form.name.label }}
                                         </label>
-                                            {{ form.phone }}
+                                            {{ form.name }}
                                     </div>
                                     <div class="form-group">
-                                        <label class="form-label" for="{{ form.username.id_for_label }}">
-                                            {{ form.username.label }}
+                                        <label class="form-label" for="{{ form.name.id_for_label }}">
+                                            {{ form.description.label }}
                                         </label>
-                                            {{ form.username }}
+                                            {{ form.description }}
                                     </div>
                                     <div class="form-group">
                                         <div class="Profile-btn">
