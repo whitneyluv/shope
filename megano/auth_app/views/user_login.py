@@ -21,6 +21,6 @@ class UserLoginView(LoginView):
 
     def get_success_url(self):
         if self.request.session.get('cart'):
-            add_to_cart_from_session(self.request)
+            add_to_cart_from_session_cart(self.request)
         profile = self._profile.get_profile_by_user_id(self.request.user.pk)
         return f'/profile/{profile.pk}/'

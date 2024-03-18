@@ -11,7 +11,7 @@ class IPrice(ABC):
 
     @abstractmethod
     def get_prices_for_calc_total_amount_cart(
-            self, products: list[Product], sellers: list[Seller]) -> QuerySet[Price]:
+            self, products: list[int], sellers: list[int]) -> QuerySet[Price]:
         """Получить экземпляры модели Price связанные с продуктами и продавцами из списков,
         для расчёта общей стоимости корзины"""
         pass

@@ -116,7 +116,7 @@
                                     <div class="Card border rounded">
                                         {% with product_image=product|first_image %}
                                             {% if product_image %}
-                                                <a class="Card-picture" href="{{ product_image.image.url }}" target="_blank">
+                                                <a class="Card-picture" href="{% url 'catalog:product' product_id=product.id %}">
                                                     <img src="{{ product_image.image.url }}" alt="{{ product.title }}" class="img-fluid" />
                                                 </a>
                                             {% endif %}
@@ -130,9 +130,13 @@
                                                     <span class="Card-price">${{ product.prices.first.price }}</span>
                                                 </div>
                                                 <div class="Card-category text-muted">{{ product.category.title }}</div>
-                                                <div class="Card-hover mt-3">
-                                                    <a class="Card-btn btn btn-dark" href="{% url 'catalog:product' product_id=product.id %}">Add to Cart</a>
+                                                <div class="Card-hover">
+                                                    <a class="Card-btn" href="{% url 'catalog:product' product_id=product.id %}">
+                                                <img src="/static/assets/img/icons/card/cart.svg" alt="cart.svg" /></a>
                                                 </div>
+<!--                                                <div class="Card-hover mt-3">-->
+<!--                                                    <a class="Card-btn btn btn-dark" href="{% url 'catalog:product' product_id=product.id %}">Add to Cart</a>-->
+<!--                                                </div>-->
                                             </div>
                                         </div>
                                     </div>

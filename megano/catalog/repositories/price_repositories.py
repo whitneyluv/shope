@@ -12,10 +12,10 @@ class PriceRepository(IPrice):
 
     @beartype
     def get_prices_for_calc_total_amount_cart(
-            self, products: list[Product], sellers: list[Seller]) -> QuerySet[Price]:
+            self, products: list[int], sellers: list[int]) -> QuerySet[Price]:
         """Получить экземпляры модели Price связанные с продуктами и продавцами из списков,
         для расчёта общей стоимости корзины"""
         return Price.objects.filter(
-            product__in=products,
-            seller__in=sellers
+            product__id=products,
+            seller__id=sellers
         ).select_related('product', 'seller')

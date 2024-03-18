@@ -12,13 +12,11 @@
                     <div class="Cart-product">
                         <div class="Cart-block Cart-block_row">
                             <div class="Cart-block Cart-block_pict">
-                            {% with product_image=item.product|first_image %}
-                                {% if product_image %}
-                                    <a class="Cart-pict" href="{{ product_image.image.url }}" target="_blank">
-                                        <img class="Cart-img" src="{{ product_image.image.url }}" alt="{{ product.title }}" />
+                                {% if item.product.image %}
+                                    <a class="Cart-pict" href="{{ item.product.image }}" target="_blank">
+                                        <img class="Cart-img" src="{{ item.product.image }}" alt="{{ item.product.title }}" />
                                     </a>
                                 {% endif %}
-                            {% endwith %}
                             </div>
                             <div class="Cart-block Cart-block_info">
                                 <a class="Cart-title" href="{% url 'catalog:product' product_id=item.product.id %}">
@@ -33,7 +31,7 @@
                             </div>
                             <div class="Cart-block Cart-block_price">
                                 <div class="Cart-price" style="width:150px">
-                                    {{ item.product.pk | get_last_price:item.seller.pk | price_format }}
+                                    {{ item.product.id | get_last_price:item.seller.id | price_format }}
                                 </div>
                             </div>
                         </div>
