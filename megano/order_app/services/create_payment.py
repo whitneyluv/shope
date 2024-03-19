@@ -19,10 +19,11 @@ import var_dump as var_dump
 from yookassa import Payment, Configuration
 import inject
 from order_app.interface.order_interface import IOrder
+from megano.settings import URL_FOR_PAYMENT, PAYMENT_ACCOUNT_ID, PAYMENT_SECRET_KEY
 
 
-Configuration.configure('325975', 'test_ickkaiUFF3G5QKquognLgIOjSKCLEevmyGJc8Vk_u_Y')
-URL = os.getenv("URL_FOR_PAYMENT")
+Configuration.configure(PAYMENT_ACCOUNT_ID, PAYMENT_SECRET_KEY)
+URL = URL_FOR_PAYMENT
 
 
 class OrderPayment:
@@ -55,7 +56,7 @@ class OrderPayment:
             })
 
         order.payment_id = res.id
-        order.save()
+        cls._order.save(order)
         var_dump.var_dump(res)
 
         return res

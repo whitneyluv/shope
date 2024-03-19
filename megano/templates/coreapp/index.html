@@ -2,9 +2,8 @@
 {% load static %}
 {% load cache %}
 
-
 {% block main %}
-{% cache 600 banner_index %}
+{% cache time_out_banners banner_index %}
     {% if banners %}:
         <div class="Header-slider">
             <div class="Slider Slider_main">
@@ -43,8 +42,8 @@
               </div>
             </div>
         </div>
-    {% endif %}
-{% endcache %}
+        {% endif %}
+    {% endcache %}
 
     <div class="Middle">
         <div class="Section">

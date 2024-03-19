@@ -8,6 +8,7 @@ from order_app.models.order_item import OrderItem
 from discounts_app.services.discount_processing import DiscountProcessing
 from order_app.interface.order_interface import IOrder
 import inject
+from order_app.forms import OrderForm
 
 
 class CreateOrderView(View, LoginRequiredMixin):
@@ -20,25 +21,30 @@ class CreateOrderView(View, LoginRequiredMixin):
     def post(self, request: HttpRequest) -> HttpResponse:
         user = request.user
         cart_items = self._order.get_cart_items(user_pk=user.pk)
+        data = {
+            'user': user,
+            'fio': request.POST.get('name'),
+            'delivery_type': request.POST.get('delivery'),
+            'city': request.POST.get('city'),
+            'address': request.POST.get('address'),
+            'payment_type': request.POST.get('pay'),
+            'total_amount': DiscountProcessing.get_cart_sum_with_discounts(user_id=user.pk)
+        }
+        form = OrderForm(data)
 
-        order = Order.objects.create(
-            user=user,
-            fio=request.POST.get('name'),
-            delivery_type=request.POST.get('delivery'),
-            city=request.POST.get('city'),
-            address=request.POST.get('address'),
-            payment_type=request.POST.get('pay'),
-            total_amount=DiscountProcessing.get_cart_sum_with_discounts(user_id=user.pk)
-        )
-        for cart_item in cart_items:
-            OrderItem.objects.create(
-                order=order,
-                product=cart_item.product,
-                quantity=cart_item.quantity,
-                seller=cart_item.seller)
-            self._order.delete_cart_item_from_cart(cart_item)
+        if form.is_valid():
+            order = form.save()
 
-        self._order.save(order)
+            for cart_item in cart_items:
+                OrderItem.objects.create(
+                    order=order,
+                    product=cart_item.product,
+                    quantity=cart_item.quantity,
+                    seller=cart_item.seller)
+                self._order.delete_cart_item_from_cart(cart_item)
 
+            self._order.save(order)
+        else:
+            return render(request, 'order_app/order.html')
         return redirect('order_details', pk=order.pk)
 

@@ -4,6 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 from yookassa import Configuration, Payment
 from yookassa.domain.notification import WebhookNotificationEventType, WebhookNotificationFactory
 from order_app.services.confimation_payment import PaymentConfirmation
+from megano.settings import PAYMENT_SECRET_KEY,PAYMENT_ACCOUNT_ID
 
 
 @csrf_exempt
@@ -66,7 +67,7 @@ def my_webhook_handler(request):
             print("Error in identifying")
             return HttpResponse(status=400)  # Сообщаем кассе об ошибке
 
-        Configuration.configure('325975', 'test_ickkaiUFF3G5QKquognLgIOjSKCLEevmyGJc8Vk_u_Y')
+        Configuration.configure(PAYMENT_ACCOUNT_ID, PAYMENT_SECRET_KEY)
         # Получим актуальную информацию о платеже
         payment_info = Payment.find_one(some_data['paymentId'])
 

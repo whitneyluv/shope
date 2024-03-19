@@ -33,7 +33,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*",]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -159,11 +159,12 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')
 SERVER_EMAIL = os.getenv('SERVER_EMAIL')
 SERVER_ADMIN = os.getenv('SERVER_ADMIN')
-
+TIME_OUT_BANNERS = int(os.getenv("TIME_OUT_BANNERS"))
 
 CACHES = {
    "default": {
-       "BACKEND": "django.core.cache.backends.memcached.PyMemcacheCache",
+        "BACKEND": "django.core.cache.backends.dummy.DummyCache",
+       # "BACKEND": "django.core.cache.backends.memcached.PyMemcacheCache",
        "LOCATION": "127.0.0.1:11211",
    }
 }
@@ -172,3 +173,8 @@ CACHE_MIDDLEWARE_SECONDS = int(os.getenv("CACHE_MIDDLEWARE_SECONDS"))
 CURRENCY_SYMBOL = '₽'
 
 LOGIN_URL = reverse_lazy("auth_app:login")
+
+WEBHOOKS_URL = os.getenv("URL_FOR_PAYMENT") + 'payment-notification/'
+URL_FOR_PAYMENT = os.getenv("URL_FOR_PAYMENT")
+PAYMENT_ACCOUNT_ID = os.getenv("PAYMENT_ACCOUNT_ID")
+PAYMENT_SECRET_KEY = os.getenv("PAYMENT_SECRET_KEY")

@@ -2,8 +2,9 @@ import os
 import var_dump as var_dump
 from yookassa import Webhook
 from yookassa.domain.notification import WebhookNotificationEventType
+from megano.settings import WEBHOOKS_URL
 
-whUrl = os.getenv("URL_FOR_PAYMENT") + 'payment-notification/'
+whUrl = WEBHOOKS_URL
 
 needWebhookList = [
     WebhookNotificationEventType.PAYMENT_SUCCEEDED,
