@@ -1,21 +1,20 @@
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import DetailView
+from django.views.generic import TemplateView
 from order_app.interface.order_interface import IOrder
 import inject
 from order_app.services.create_payment import OrderPayment
-from order_app.models.order import Order
 from order_app.repositeries.order_item_repositories import IOrderItem
 
 
-class OrderDetailView(DetailView):
+class OrderDetailView(TemplateView):
 
     _order: IOrder = inject.attr(IOrder)
     _order_item: IOrderItem = inject.attr(IOrderItem)
 
     template_name = "order_app/oneorder.html"
     context_object_name = "order"
-    queryset = Order.objects.all()
+
 
     @method_decorator(csrf_exempt)
     def get_context_data(self, **kwargs):

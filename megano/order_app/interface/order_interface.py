@@ -15,10 +15,6 @@ class IOrder:
         """Получить заказ по ключу (pk)"""
         pass
 
-    @abstractmethod
-    def get_order_items(self, order_pk):
-        """Получить экземпляры модели OrderItems по конкретному заказу"""
-        pass
 
     @abstractmethod
     def get_all_users_orders(self, user_pk):
@@ -30,12 +26,3 @@ class IOrder:
         """Получить все заказы"""
         pass
 
-    @abstractmethod
-    def get_cart_items(self, user_pk):
-        """Получить все экземпляры CartItem из корзины пользователя"""
-        pass
-
-    @abstractmethod
-    def delete_cart_item_from_cart(self, model: CartItem):
-        """Удаление элемента CartItem из корзины"""
-        pass
