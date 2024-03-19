@@ -23,7 +23,7 @@ class AddProductsToCart:
         cart_item = self.__cart_item.get_cart_item_by_product_and_seller(product_id=product_id, seller_id=seller_id)
         if cart_item:
             cart_item.quantity += quantity
-            cart_item.save()
+            self.__cart_item.save(cart_item)
         else:
             self.__cart_item.save(
                 CartItem(

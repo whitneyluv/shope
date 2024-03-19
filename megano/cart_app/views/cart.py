@@ -1,8 +1,4 @@
-import inject
-from django.views.generic import ListView, TemplateView
-from ..interfaces.cart_item_interface import ICartItem
-from services.dto_calculating_total_amount_cart import DTOCalculatingTotalAmountCart
-from ..dto import Product, Seller, CartDTO, CartItemDTO
+from django.views.generic import TemplateView
 
 
 class CartView(TemplateView):

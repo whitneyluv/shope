@@ -1,15 +1,13 @@
 from decimal import Decimal
 import inject
 from typing import List
-from cart_app.interfaces.cart_item_interface import ICartItem
-from cart_app.dto import CartItemDTO
+from cart_app.utils import CartItemDTO
 from catalog.interfaces.price_interface import IPrice
 
 
-class DTOCalculatingTotalAmountCart:
+class CalculatingTotalAmountCart:
     """Класс для реализации методов расчёта общей стоимости корзины"""
 
-    __cart_item: ICartItem = inject.attr(ICartItem)
     __price: IPrice = inject.attr(IPrice)
 
     def __init__(self, cart_items: List[CartItemDTO]) -> None:
