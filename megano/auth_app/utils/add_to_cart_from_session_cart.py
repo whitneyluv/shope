@@ -11,3 +11,4 @@ def add_to_cart_from_session_cart(request):
             product_id=item['product_id'],
             seller_id=item['seller_id']
         )
+    request.session['cart'] = []

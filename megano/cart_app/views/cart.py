@@ -1,8 +1,8 @@
 import inject
 from django.views.generic import ListView, TemplateView
-from .interfaces.cart_item_interface import ICartItem
+from ..interfaces.cart_item_interface import ICartItem
 from services.dto_calculating_total_amount_cart import DTOCalculatingTotalAmountCart
-from .dto import Product, Seller, CartDTO, CartItemDTO
+from ..dto import Product, Seller, CartDTO, CartItemDTO
 
 
 class CartView(TemplateView):
@@ -24,3 +24,4 @@ class CartView(TemplateView):
     #             seller = Seller().session_init(item['seller_id'])
     #             cart_items.append(CartItemDTO(seller=seller, product=product, quantity=item['num_products']))
     #     return CartDTO(cart_items=cart_items, total_amount=DTOCalculatingTotalAmountCart(cart_items)())
+

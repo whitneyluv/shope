@@ -20,11 +20,16 @@ class AddProductsToCart:
 
     def __call__(self, quantity: int, product_id: int, seller_id: int) -> None:
         """Метод добавления товаров в корзину"""
-        self.__cart_item.save(
-            CartItem(
-                cart=self.cart,
-                product=self.__product.get_product(pk=product_id),
-                seller=self.__seller.get_seller(pk=seller_id),
-                quantity=quantity
+        cart_item = self.__cart_item.get_cart_item_by_product_and_seller(product_id=product_id, seller_id=seller_id)
+        if cart_item:
+            cart_item.quantity += quantity
+            cart_item.save()
+        else:
+            self.__cart_item.save(
+                CartItem(
+                    cart=self.cart,
+                    product=self.__product.get_product(pk=product_id),
+                    seller=self.__seller.get_seller(pk=seller_id),
+                    quantity=quantity
+                )
             )
-        )

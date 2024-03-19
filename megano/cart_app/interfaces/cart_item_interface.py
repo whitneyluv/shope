@@ -1,7 +1,7 @@
 from abc import abstractmethod, ABC
 
 from django.db.models import QuerySet
-
+from typing import Optional
 from cart_app.models import CartItem, Cart
 
 
@@ -11,6 +11,20 @@ class ICartItem(ABC):
     @abstractmethod
     def save(self, model: CartItem) -> None:
         """Сохранить экземпляр модели CartItem"""
+        pass
+
+    @abstractmethod
+    def delete(self, product_id: int, seller_id: int) -> None:
+        """
+        Удалить экземпляр модели CartItem
+        """
+        pass
+
+    @abstractmethod
+    def get_cart_item_by_product_and_seller(self, product_id: int, seller_id: int) -> Optional[CartItem]:
+        """
+        Получить экземпляр модели CartItem по id продукта и продавца
+        """
         pass
 
     @abstractmethod

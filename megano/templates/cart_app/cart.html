@@ -49,7 +49,7 @@
                                 </div>
                             </div>
                             <div class="Cart-block Cart-block_delete">
-                                <a class="Cart-delete" href="#">
+                                <a class="Cart-delete" href="{% url 'cart:delete_item' %}?product_id={{item.product.id}}&seller_id={{item.seller.id}}">
                                     <img src='{% static "assets/img/icons/card/delete.svg" %}' alt="delete.svg" />
                                 </a>
                             </div>
