@@ -24,3 +24,9 @@ class ICartItem(ABC):
         """Получить экземпляры модели CartItem связанные с корзиной cart
         """
         pass
+
+    @abstractmethod
+    def sum_all_items_in_cart(self, cart: Cart) -> int:
+        """Получить количество товаров в корзине
+        """
+        pass

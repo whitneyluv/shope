@@ -26,3 +26,9 @@ class CartItemRepository(ICartItem):
         Получить экземпляры модели CartItem связанные с корзиной cart
         """
         return CartItem.objects.filter(cart=cart)
+
+    @beartype
+    def sum_all_items_in_cart(self, cart: Cart) -> int:
+        """Получить количество товаров в корзине
+        """
+        return sum([item.quantity for item in CartItem.objects.filter(cart=cart)])

@@ -1485,12 +1485,10 @@ a.Cart-title {
 }
 
 .CartBlock-price {
+    width: max-content;
     font-size: 13px;
     color: #777;
     font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 1.3px;
-    display: block;
 }
 
 .Categories {

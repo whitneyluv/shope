@@ -1,6 +1,7 @@
 <!--END-->
 <!--END--><!DOCTYPE html><!--[if IE 7]>
 {% load static %}
+{% load custom_filters %}
 <html class="ie7" lang="ru">
 <![endif]-->
 <!--[if IE 8]>
@@ -150,8 +151,12 @@
                 {% endif %}
             </div>
         </div>
-        <a class="CartBlock-block" href="{% url 'cart:cart' %}"><img class="CartBlock-img" src="/static/assets/img/icons/cart.svg" alt="cart.svg" /><span class="CartBlock-amount">0</span></a>
-        <div class="CartBlock-block"><span class="CartBlock-price">0.00$</span>
+        <a class="CartBlock-block" href="{% url 'cart:cart' %}"><img class="CartBlock-img" src="/static/assets/img/icons/cart.svg" alt="cart.svg" />
+          <span class="CartBlock-amount">
+            {{ amount_products_in_cart }}
+          </span>
+        </a>
+        <div class="CartBlock-block"><span class="CartBlock-price">{{ total_amount_cart | price_format }}</span>
         </div>
     </div>
 
