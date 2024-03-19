@@ -8,7 +8,7 @@
         <div class="Section">
             <div class="wrap">
                 <form class="form Cart" action="#" method="post">
-                    {% for item in cart_items %}
+                    {% for item in cart.cart_items %}
                     <div class="Cart-product">
                         <div class="Cart-block Cart-block_row">
                             <div class="Cart-block Cart-block_pict">
@@ -60,7 +60,7 @@
                     <div class="Cart-total">
                         <div class="Cart-block Cart-block_total">
                             <strong class="Cart-title">Итого:
-                            </strong><span class="Cart-price">{{ total_amount | price_format }}</span>
+                            </strong><span class="Cart-price">{{ cart.total_amount | price_format }}</span>
                         </div>
 
                         <div class="Cart-block"><a class="btn btn_success btn_lg" href="order.html">Оформить заказ</a>

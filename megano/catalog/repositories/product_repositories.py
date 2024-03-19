@@ -21,6 +21,14 @@ class ProductRepository(IProduct):
             return None
 
     @beartype
+    def get_product_with_image(self, pk: int) -> Optional[Product]:
+        """Получить экземпляр модели Product с изображениями"""
+        try:
+            return Product.objects.get(pk=pk).select_related('product_image')
+        except ObjectDoesNotExist:
+            return None
+
+    @beartype
     def get_product_for_detail_view(self, pk: int) -> Optional[Product]:
         """Получить экземпляр модели Product с необходимыми связями и аннотациями
         для отображения детальной страницы товара"""

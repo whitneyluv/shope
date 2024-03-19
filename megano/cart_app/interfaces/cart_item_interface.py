@@ -18,3 +18,9 @@ class ICartItem(ABC):
         """Получить экземпляры модели CartItem связанные с корзиной cart,
         для расчёта общей стоимости корзины"""
         pass
+
+    @abstractmethod
+    def get_all_items_in_cart(self, cart: Cart) -> QuerySet[CartItem]:
+        """Получить экземпляры модели CartItem связанные с корзиной cart
+        """
+        pass

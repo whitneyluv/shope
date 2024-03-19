@@ -19,3 +19,10 @@ class CartItemRepository(ICartItem):
         """Получить экземпляры модели CartItem связанные с корзиной cart,
         для расчёта общей стоимости корзины"""
         return CartItem.objects.filter(cart=cart).all().select_related('product', 'seller')
+
+    @beartype
+    def get_all_items_in_cart(self, cart: Cart) -> QuerySet[CartItem]:
+        """
+        Получить экземпляры модели CartItem связанные с корзиной cart
+        """
+        return CartItem.objects.filter(cart=cart)

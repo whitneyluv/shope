@@ -13,6 +13,11 @@ class IProduct(ABC):
         pass
 
     @abstractmethod
+    def get_product_with_image(self, pk: int) -> Optional[Product]:
+        """Получить экземпляр модели Product с изображениями"""
+        pass
+
+    @abstractmethod
     def get_product_for_detail_view(self, pk: int) -> Optional[Product]:
         """Получить экземпляр модели Product с необходимыми связями, агрегациями и аннотациями
         для отображения детальной страницы продукта"""
