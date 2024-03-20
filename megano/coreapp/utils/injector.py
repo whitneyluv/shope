@@ -7,11 +7,13 @@ from cart_app.interfaces.cart_item_interface import ICartItem
 from cart_app.repositories.cart_item_repositories import CartItemRepository
 from cart_app.repositories.cart_repositories import CartRepository
 from catalog.interfaces.catalog_interface import ICatalogRepository
+from catalog.interfaces.comparison_list_interface import IComparisonList
 from catalog.interfaces.price_interface import IPrice
 from catalog.interfaces.product_interface import IProduct
 from catalog.interfaces.recently_viewed_products_interface import IRecentlyViewedProducts
 from catalog.interfaces.review_interface import IReview
 from catalog.repositories.catalog_repositories import CatalogRepository
+from catalog.repositories.comparison_list_repositories import ComparisonListRepository
 from catalog.repositories.price_repositories import PriceRepository
 from catalog.repositories.product_repositories import ProductRepository
 from catalog.repositories.recently_viewed_products_repositories import \
@@ -39,6 +41,7 @@ BINDS = (
     (ICart, CartRepository),
     (ICartItem, CartItemRepository),
     (ISeller, SellerRepository),
+    (IComparisonList, ComparisonListRepository)
 )
 
 

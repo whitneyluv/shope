@@ -33,9 +33,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
+INTERNAL_IPS = []
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     'cart_app.apps.CartAppConfig',
     'coreapp.apps.CoreAppConfig',
     'taggit',
-    'debug_toolbar',
     'discounts_app.apps.DiscountsAppConfig',
 ]
 
@@ -60,12 +59,16 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "django.middleware.cache.FetchFromCacheMiddleware",
 ]
+
+if DEBUG:
+    INSTALLED_APPS.append("debug_toolbar")
+    MIDDLEWARE.append("debug_toolbar.middleware.DebugToolbarMiddleware")
+    INTERNAL_IPS.append('127.0.0.1')
 
 ROOT_URLCONF = 'megano.urls'
 
@@ -174,3 +177,6 @@ CACHES = {
 CACHE_MIDDLEWARE_SECONDS = int(os.getenv("CACHE_MIDDLEWARE_SECONDS"))
 
 CURRENCY_SYMBOL = '₽'
+
+DEFAULT_NUM_PRODUCTS_IN_COMPARISON_LIST = 3
+

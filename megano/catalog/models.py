@@ -4,6 +4,7 @@ from taggit.managers import TaggableManager
 from django.utils.translation import gettext_lazy as _
 from profile_app.models.seller import Seller
 from django.contrib.auth import get_user_model
+from django.urls import reverse
 
 
 def product_images_directory_path(instance: 'Product', filename: str) -> str:
@@ -64,6 +65,10 @@ class Product(BaseModel):
     tag = TaggableManager()
     is_limited = models.BooleanField(default=False, verbose_name='is_limited')
     free_delivery = models.BooleanField(default=True, verbose_name='free_delivery')
+
+    def get_absolute_url(self):
+        """ Метод для получения url детальной страницы товара """
+        return reverse('catalog:product', kwargs={'pk': self.pk})
 
     class Meta:
         verbose_name = _('product')

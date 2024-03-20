@@ -2,7 +2,7 @@ from typing import Optional
 
 from beartype import beartype
 from django.core.exceptions import ObjectDoesNotExist
-from django.db.models import Min, F
+from django.db.models import Min, F, QuerySet
 
 from catalog.interfaces.product_interface import IProduct
 from catalog.models import Product
@@ -32,3 +32,33 @@ class ProductRepository(IProduct):
                 'prices', 'product_characteristics', 'product_images', 'reviews').get(pk=pk)
         except ObjectDoesNotExist:
             return None
+
+    def get_products_for_comparison_list(self, list_pk: list) -> QuerySet:
+        """Получить набор экземпляров модели Product для сравнения согласно списка list_pk"""
+        queryset = Product.objects.annotate(
+            min_price=Min('prices__price')).filter(
+            prices__price=F('min_price')).annotate(
+            min_price_seller_id=F('prices__seller')).prefetch_related(
+            'product_images',
+            'product_characteristics',
+            'product_characteristics__characteristic').filter(pk__in=list_pk)
+
+        common_characteristics = []
+        for product in queryset:
+            product_characteristics = product.product_characteristics.all().values_list(
+                'characteristic__title', flat=True)
+            common_characteristics.extend(product_characteristics)
+
+        common_characteristics = [characteristic for characteristic in common_characteristics
+                                  if common_characteristics.count(characteristic) > 1]
+
+        for product in queryset:
+            if len(common_characteristics) > 1:
+                product.common_characteristics = product.product_characteristics.all().values(
+                    'characteristic__title', 'value').filter(
+                    characteristic__title__in=common_characteristics)
+            else:
+                product.common_characteristics = product.product_characteristics.all().values(
+                    'characteristic__title', 'value')
+
+        return queryset

@@ -17,3 +17,8 @@ class IProduct(ABC):
         """Получить экземпляр модели Product с необходимыми связями, агрегациями и аннотациями
         для отображения детальной страницы продукта"""
         pass
+
+    @abstractmethod
+    def get_products_for_comparison_list(self, list_pk: list):
+        """Получить набор экземпляров модели Product согласно списка list_pk"""
+        pass
