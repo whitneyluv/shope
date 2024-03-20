@@ -116,7 +116,7 @@
                                     <div class="Card border rounded">
                                         {% with product_image=product|first_image %}
                                             {% if product_image %}
-                                                <a class="Card-picture" href="{% url 'catalog:product' product_id=product.id %}">
+                                                <a class="Card-picture" href="{% url 'catalog:product' pk=product.id %}">
                                                     <img src="{{ product_image.image.url }}" alt="{{ product.title }}" class="img-fluid" />
                                                 </a>
                                             {% endif %}
