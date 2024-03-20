@@ -1,6 +1,5 @@
 from abc import abstractmethod, ABC
 from typing import Optional
-
 from auth_app.models.user import User
 from catalog.models import Product
 from catalog.models import RecentlyViewedProducts

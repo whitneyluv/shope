@@ -1,5 +1,4 @@
 from beartype import beartype
-
 from catalog.interfaces.review_interface import IReview
 from catalog.models import Review
 

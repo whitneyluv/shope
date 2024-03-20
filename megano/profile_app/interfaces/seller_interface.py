@@ -1,6 +1,5 @@
 from abc import abstractmethod, ABC
 from typing import Optional
-
 from profile_app.models.seller import Seller
 from auth_app.models import User
 

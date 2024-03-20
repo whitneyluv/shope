@@ -1,11 +1,11 @@
 from django.http import HttpRequest
 from django.shortcuts import render, redirect
 from django.views.generic import FormView
-from ..models import User
-from ..utils import send_email_for_verify
+from auth_app.models import User
+from auth_app.utils import send_email_for_verify
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.core.exceptions import PermissionDenied
-from ..forms import UserRegisterForm
+from auth_app.forms import UserRegisterForm
 
 
 class UserRegisterView(UserPassesTestMixin, FormView):

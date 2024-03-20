@@ -2,9 +2,8 @@ from django.shortcuts import render
 import inject
 from django.views.generic import ListView, TemplateView
 from django.db.models import Min  # Добавлен импорт для функции Min
-from ..interfaces.catalog_interface import ICatalogRepository
-from catalog.utils.filter_utils import filter_products
-from catalog.models import Product, Seller, Category
+from catalog.interfaces.catalog_interface import ICatalogRepository
+from catalog.models import Product
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 

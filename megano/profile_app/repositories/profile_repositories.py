@@ -1,6 +1,6 @@
 from beartype import beartype
-from ..interfaces import IProfile
-from ..models.profile import Profile
+from profile_app.interfaces import IProfile
+from profile_app.models.profile import Profile
 
 
 class ProfileRepository(IProfile):

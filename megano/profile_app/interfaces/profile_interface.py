@@ -1,5 +1,5 @@
 from abc import abstractmethod
-from ..models import Profile
+from profile_app.models import Profile
 
 
 class IProfile:
