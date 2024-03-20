@@ -1,8 +1,8 @@
 from django.contrib.auth.forms import UserCreationForm
-from ..models.user import User
+from auth_app.models import User
 from django.utils.translation import gettext_lazy as _
 from django import forms
-from ..utils import get_activation_key
+from auth_app.utils import get_activation_key
 
 
 class UserRegisterForm(UserCreationForm):

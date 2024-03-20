@@ -1,6 +1,5 @@
 from abc import abstractmethod, ABC
 from typing import Optional
-
 from catalog.models import Product
 
 
@@ -10,6 +9,11 @@ class IProduct(ABC):
     @abstractmethod
     def get_product(self, pk: int) -> Optional[Product]:
         """Получить экземпляр модели Product"""
+        pass
+
+    @abstractmethod
+    def get_product_with_image(self, pk: int) -> Optional[Product]:
+        """Получить экземпляр модели Product с изображениями"""
         pass
 
     @abstractmethod

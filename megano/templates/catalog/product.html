@@ -73,7 +73,6 @@
                                 </div>
                             </div>
                             <div class="ProductCard-text">{{ product.description }}</div>
-                            {% if request.user.is_authenticated %}
                                 <div class="ProductCard-cart">
                                     <form class="add_to_cart" method="post" id="add_to_cart_form">
                                         {% csrf_token %}
@@ -94,7 +93,6 @@
                                         </div>
                                     </form>
                                 </div>
-                            {% endif %}
                             <div class="ProductCard-footer">
                                 <div class="ProductCard-tags">
                                     <strong class="ProductCard-tagsTitle">{% translate "Tags" %}:
@@ -140,7 +138,6 @@
                                                                 {{ price.seller.name }}
                                                             </a>
                                                             <p></p>
-                                                            {% if request.user.is_authenticated %}
                                                                 <form class="add_to_cart" method="post" id="add_to_cart_form_from_sellers">
                                                                     {% csrf_token %}
                                                                     <input name="seller_id" type="text" value="{{price.seller.id}}" style="display: none"/>
@@ -159,7 +156,6 @@
                                                                         </button>
                                                                     </div>
                                                                 </form>
-                                                            {% endif %}
                                                         </div>
                                                         <div class="row-block">
                                                             <div class="Order-info Order-info_delivery">

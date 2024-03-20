@@ -1,1 +1,2 @@
 from .profile_repositories import ProfileRepository
+from .seller_repositories import SellerRepository

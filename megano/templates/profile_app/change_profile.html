@@ -1,11 +1,16 @@
-{% extends 'profile_app/base.html' %}
+{% extends 'coreapp/base.html' %}
 {% load static %}
 
 {% block title %}
       Change profile information
 {% endblock %}
 
-{% block content %}
+{% block css %}
+<script src="{% static 'assets/plg/phoneinput.js' %}"></script>
+{% endblock %}
+
+
+{% block main %}
 
     <div class="Middle Middle_top">
 
