@@ -1,8 +1,6 @@
 from typing import Optional
-
 from beartype import beartype
 from django.core.exceptions import ObjectDoesNotExist
-
 from auth_app.models import User
 from profile_app.interfaces.seller_interface import ISeller
 from profile_app.models.seller import Seller

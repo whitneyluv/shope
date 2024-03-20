@@ -5,7 +5,7 @@ from catalog.interfaces.product_interface import IProduct
 from services.add_products_to_cart import AddProductsToCart
 from services.add_review import AddReview
 from services.recently_viewed_products import RecentlyViewedProductsService
-from ..utils import add_product_to_session_cart
+from catalog.utils import add_product_to_session_cart
 
 
 class ProductDetailView(generic.DetailView):

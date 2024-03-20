@@ -2,8 +2,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.views.generic import UpdateView
 from django.shortcuts import render
-from ..models import Profile
-from ..forms import UserProfileChangeForm
+from profile_app.models import Profile
+from profile_app.forms import UserProfileChangeForm
 
 
 class ProfileChangeView(LoginRequiredMixin, UpdateView):

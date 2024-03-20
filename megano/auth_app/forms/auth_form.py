@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import AuthenticationForm
 import inject
-from ..interfaces.auth_interface import IAuth
+from auth_app.interfaces.auth_interface import IAuth
 
 
 class UserAuthenticationForm(AuthenticationForm):

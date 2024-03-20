@@ -19,13 +19,13 @@ class CalculatingTotalAmountCart:
         products = []
         sellers = []
 
-        [(products.append(item.product.id), sellers.append(item.seller.id)) for item in self.cart_items]
+        [(products.append(item.product.pk), sellers.append(item.seller.pk)) for item in self.cart_items]
 
         prices = self.__price.get_prices_for_calc_total_amount_in_dto_cart(
             products=products, sellers=sellers)
         prices_dict = {(price.product.pk, price.seller.pk): price for price in prices}
 
         for item in self.cart_items:
-            price = prices_dict.get((item.product.id, item.seller.id))
+            price = prices_dict.get((item.product.pk, item.seller.pk))
             total_amount += item.quantity * price.price if price else 0
         return total_amount

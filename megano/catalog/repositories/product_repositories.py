@@ -1,9 +1,7 @@
 from typing import Optional
-
 from beartype import beartype
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Min, F
-
 from catalog.interfaces.product_interface import IProduct
 from catalog.models import Product
 

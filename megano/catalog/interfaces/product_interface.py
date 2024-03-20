@@ -1,6 +1,5 @@
 from abc import abstractmethod, ABC
 from typing import Optional
-
 from catalog.models import Product
 
 

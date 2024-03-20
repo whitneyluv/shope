@@ -1,10 +1,10 @@
 import inject
-from ..interfaces.auth_interface import IAuth
+from auth_app.interfaces.auth_interface import IAuth
 from django.views import View
 from django.shortcuts import redirect, render
 from django.http import HttpRequest
-from ..utils import send_email_for_verify, get_activation_key
-from datetime import date, timedelta
+from auth_app.utils import send_email_for_verify, get_activation_key
+from datetime import date
 
 
 class ResendActivationKey(View):

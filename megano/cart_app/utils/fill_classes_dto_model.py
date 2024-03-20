@@ -16,7 +16,7 @@ class FillingSeller:
         """
         seller = self._seller.get_seller(seller_id)
         return Seller(
-            id=seller.pk,
+            pk=seller.pk,
             name=seller.name
         )
 
@@ -25,7 +25,7 @@ class FillingSeller:
             Функция заполнения всей информации для модели выгружая информацию из базы данных
         """
         return Seller(
-            id=seller.pk,
+            pk=seller.pk,
             name=seller.name
         )
 
@@ -44,7 +44,7 @@ class FillingProduct:
         product = self._product.get_product(product_id)
 
         return Product(
-            id=product.pk,
+            pk=product.pk,
             title=product.title,
             description=product.description,
             image=product.product_images.first().image.url
@@ -56,7 +56,7 @@ class FillingProduct:
         """
 
         return Product(
-            id=product.pk,
+            pk=product.pk,
             title=product.title,
             description=product.description,
             image=product.product_images.first().image.url

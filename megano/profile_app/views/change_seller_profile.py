@@ -2,8 +2,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.views.generic import UpdateView
 from django.shortcuts import render
-from ..models import Seller
-from ..forms import SellerForm
+from profile_app.models import Seller
+from profile_app.forms import SellerForm
 
 
 class SellerProfileChangeView(LoginRequiredMixin, UpdateView):

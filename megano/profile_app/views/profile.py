@@ -1,4 +1,4 @@
-from ..models import Profile
+from profile_app.models import Profile
 from django.views.generic import DetailView
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.core.exceptions import PermissionDenied

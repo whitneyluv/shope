@@ -1,5 +1,5 @@
 from django import forms
-from ..models import Seller
+from profile_app.models import Seller
 
 
 class SellerForm(forms.ModelForm):

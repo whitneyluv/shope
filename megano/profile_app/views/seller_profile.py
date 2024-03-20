@@ -1,4 +1,4 @@
-from ..models import Seller
+from profile_app.models import Seller
 from django.views.generic import DetailView
 
 

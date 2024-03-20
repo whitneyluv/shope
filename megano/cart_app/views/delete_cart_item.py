@@ -1,6 +1,6 @@
 import inject
 from django.shortcuts import redirect
-from ..interfaces.cart_item_interface import ICartItem
+from cart_app.interfaces.cart_item_interface import ICartItem
 from cart_app.models import CartItem
 _cart_item: ICartItem = inject.attr(ICartItem)
 

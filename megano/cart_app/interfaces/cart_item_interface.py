@@ -1,5 +1,4 @@
 from abc import abstractmethod, ABC
-
 from django.db.models import QuerySet
 from typing import Optional
 from cart_app.models import CartItem, Cart
