@@ -7,7 +7,7 @@ from django.views.generic import ListView
 
 from catalog.interfaces.comparison_list_interface import IComparisonList
 from catalog.models import Product
-from ..interfaces.catalog_interface import ICatalogRepository
+from catalog.interfaces.catalog_interface import ICatalogRepository
 
 
 class CatalogPageView(ListView):
@@ -80,8 +80,8 @@ class CatalogPageView(ListView):
         """Метод для обработки POST запросов"""
         try:
             product_id = int(request.POST.get('product_id'))
-        except (ValueError, TypeError):
-            pass
+        except (ValueError, TypeError) as exc:
+            raise exc
         else:
             self.__comparison_list.add_to_comparison_list(request, product_id)
         return self.get(request, **kwargs)
