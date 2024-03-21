@@ -2,7 +2,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
 from django.http import HttpRequest
 from django.template.loader import render_to_string
-from ..models import User
+from auth_app.models import User
 
 
 def send_email_for_verify(request: HttpRequest, user: User) -> None:

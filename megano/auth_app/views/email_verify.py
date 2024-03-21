@@ -2,7 +2,7 @@ import inject
 from django.views import View
 from django.shortcuts import redirect
 from django.http import HttpRequest
-from ..interfaces.auth_interface import IAuth
+from auth_app.interfaces.auth_interface import IAuth
 from django.contrib.auth import login
 from datetime import date, timedelta
 

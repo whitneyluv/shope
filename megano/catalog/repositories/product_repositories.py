@@ -1,9 +1,7 @@
 from typing import Optional
-
 from beartype import beartype
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Min, F
-
 from catalog.interfaces.product_interface import IProduct
 from catalog.models import Product
 
@@ -17,6 +15,14 @@ class ProductRepository(IProduct):
         """Получить экземпляр модели Product"""
         try:
             return Product.objects.get(pk=pk)
+        except ObjectDoesNotExist:
+            return None
+
+    @beartype
+    def get_product_with_image(self, pk: int) -> Optional[Product]:
+        """Получить экземпляр модели Product с изображениями"""
+        try:
+            return Product.objects.get(pk=pk).select_related('product_image')
         except ObjectDoesNotExist:
             return None
 

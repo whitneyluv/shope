@@ -1,8 +1,6 @@
 from typing import Optional
-
 from beartype import beartype
 from django.core.exceptions import ObjectDoesNotExist
-
 from auth_app.models.user import User
 from cart_app.interfaces.cart_interface import ICart
 from cart_app.models import Cart

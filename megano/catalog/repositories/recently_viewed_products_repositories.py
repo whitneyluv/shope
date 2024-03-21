@@ -1,7 +1,5 @@
 from typing import Optional
-
 from beartype import beartype
-
 from auth_app.models.user import User
 from catalog.interfaces.recently_viewed_products_interface import IRecentlyViewedProducts
 from catalog.models import Product

@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import Cart, CartItem
-from services.calculating_total_amount_cart import CalculatingTotalAmountCart
+from services.calculating_total_amount_cart_in_admin_panel import CalculatingTotalAmountCart
 
 
 class CartItemInline(admin.TabularInline):

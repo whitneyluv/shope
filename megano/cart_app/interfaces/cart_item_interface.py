@@ -14,9 +14,35 @@ class ICartItem(ABC):
         pass
 
     @abstractmethod
+    def delete(self, product_id: int, seller_id: int) -> None:
+        """
+        Удалить экземпляр модели CartItem
+        """
+        pass
+
+    @abstractmethod
+    def get_cart_item_by_product_and_seller(self, product_id: int, seller_id: int) -> Optional[CartItem]:
+        """
+        Получить экземпляр модели CartItem по id продукта и продавца
+        """
+        pass
+
+    @abstractmethod
     def get_items_for_calc_total_amount_cart(self, cart: Cart) -> QuerySet[CartItem]:
         """Получить экземпляры модели CartItem связанные с корзиной cart,
         для расчёта общей стоимости корзины"""
+        pass
+
+    @abstractmethod
+    def get_all_items_in_cart(self, cart: Cart) -> QuerySet[CartItem]:
+        """Получить экземпляры модели CartItem связанные с корзиной cart
+        """
+        pass
+
+    @abstractmethod
+    def sum_all_items_in_cart(self, cart: Cart) -> int:
+        """Получить количество товаров в корзине
+        """
         pass
 
     @abstractmethod

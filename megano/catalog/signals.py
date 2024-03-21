@@ -3,6 +3,7 @@ from django.dispatch import receiver
 from django.core.cache import cache
 from .models import Product
 
+
 @receiver(post_save, sender=Product)
 @receiver(post_delete, sender=Product)
 def clear_product_cache(sender, instance, **kwargs):

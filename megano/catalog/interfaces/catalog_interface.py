@@ -1,7 +1,8 @@
 from typing import List, Dict, Union
 from django.db.models import QuerySet
-from ..models import Product
+from catalog.models import Product
 from abc import ABC, abstractmethod
+
 
 class ICatalogRepository(ABC):
 
