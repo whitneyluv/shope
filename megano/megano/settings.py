@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
 from pathlib import Path
+
+from django.urls import reverse_lazy
 from dotenv import load_dotenv, find_dotenv
 
 
@@ -158,13 +160,7 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')
 SERVER_EMAIL = os.getenv('SERVER_EMAIL')
 SERVER_ADMIN = os.getenv('SERVER_ADMIN')
-
-CART_STATUSES = [
-    (1, "new"),
-    (2, "paid"),
-    (3, "not_paid"),
-    (4, "pending"),
-]
+TIME_OUT_BANNERS = int(os.getenv("TIME_OUT_BANNERS"))
 
 CACHES = {
    "default": {
@@ -175,3 +171,10 @@ CACHES = {
 CACHE_MIDDLEWARE_SECONDS = int(os.getenv("CACHE_MIDDLEWARE_SECONDS"))
 
 CURRENCY_SYMBOL = '₽'
+
+LOGIN_URL = reverse_lazy("auth_app:login")
+
+WEBHOOKS_URL = os.getenv("URL_FOR_PAYMENT") + 'payment-notification/'
+URL_FOR_PAYMENT = os.getenv("URL_FOR_PAYMENT")
+PAYMENT_ACCOUNT_ID = os.getenv("PAYMENT_ACCOUNT_ID")
+PAYMENT_SECRET_KEY = os.getenv("PAYMENT_SECRET_KEY")

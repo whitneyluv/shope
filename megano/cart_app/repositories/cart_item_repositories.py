@@ -39,6 +39,15 @@ class CartItemRepository(ICartItem):
         return CartItem.objects.filter(cart=cart).all().select_related('product', 'seller')
 
     @beartype
+    def get_cart_items(self, user_pk):
+        return CartItem.objects.filter(cart__user=user_pk)
+
+    @beartype
+    def delete_cart_item_from_cart(self, cart_item):
+        cart_item.delete()
+
+
+    @beartype
     def get_all_items_in_cart(self, cart: Cart) -> QuerySet[CartItem]:
         """
         Получить экземпляры модели CartItem связанные с корзиной cart

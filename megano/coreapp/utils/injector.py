@@ -25,6 +25,10 @@ from profile_app.interfaces import IProfile
 from profile_app.interfaces.seller_interface import ISeller
 from profile_app.repositories import ProfileRepository
 from profile_app.repositories.seller_repositories import SellerRepository
+from order_app.interface.order_interface import IOrder
+from order_app.repositeries.order_repositories import OrderRepository
+from order_app.interface.order_item_interface import IOrderItem
+from order_app.repositeries.order_item_repositories import OrderItemRepository
 
 BINDS = (
     (IAuth, AuthRepository),
@@ -39,6 +43,9 @@ BINDS = (
     (ICart, CartRepository),
     (ICartItem, CartItemRepository),
     (ISeller, SellerRepository),
+    (IOrder, OrderRepository),
+    (IOrderItem, OrderItemRepository),
+
 )
 
 
