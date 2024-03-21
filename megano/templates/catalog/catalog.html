@@ -116,27 +116,34 @@
                                     <div class="Card border rounded">
                                         {% with product_image=product|first_image %}
                                             {% if product_image %}
-                                                <a class="Card-picture" href="{% url 'catalog:product' product_id=product.id %}">
+                                                <a class="Card-picture" href="{% url 'catalog:product' pk=product.id %}">
                                                     <img src="{{ product_image.image.url }}" alt="{{ product.title }}" class="img-fluid" />
                                                 </a>
                                             {% endif %}
                                         {% endwith %}
                                         <div class="Card-content p-3">
                                             <strong class="Card-title">
-                                                <a href="{% url 'catalog:product' product_id=product.id %}" class="text-decoration-none text-dark">{{ product.title }}</a>
+                                                <a href="{% url 'catalog:product' pk=product.id %}" class="text-decoration-none text-dark">{{ product.title }}</a>
                                             </strong>
                                             <div class="Card-description mt-2">
                                                 <div class="Card-cost">
                                                     <span class="Card-price">${{ product.prices.first.price }}</span>
                                                 </div>
                                                 <div class="Card-category text-muted">{{ product.category.title }}</div>
-                                                <div class="Card-hover">
-                                                    <a class="Card-btn" href="{% url 'catalog:product' product_id=product.id %}">
-                                                <img src="/static/assets/img/icons/card/cart.svg" alt="cart.svg" /></a>
-                                                </div>
-<!--                                                <div class="Card-hover mt-3">-->
-<!--                                                    <a class="Card-btn btn btn-dark" href="{% url 'catalog:product' product_id=product.id %}">Add to Cart</a>-->
-<!--                                                </div>-->
+                                                    <div class="Card-hover mt-3">
+                                                            <a class="Card-btn btn btn-dark" href="{% url 'catalog:product' pk=product.id %}">
+                                                                <img src="{% get_static_prefix %}assets/img/icons/card/cart.svg" alt="cart.svg">
+                                                            </a>
+                                                            {% if request.user.is_authenticated %}
+                                                                <form class="add_to_comparison" method="post" id="add_product_to_comparison_from_catalog">
+                                                                    {% csrf_token %}
+                                                                    <input name="product_id" type="text" value="{{ product.pk }}" style="display: none"/>
+                                                                    <button class="Card-btn btn btn-dark" type="submit">
+                                                                        <img src="{% get_static_prefix %}assets/img/icons/exchange.svg" alt="exchange.svg">
+                                                                    </button>
+                                                                </form>
+                                                            {% endif %}
+                                                    </div>
                                             </div>
                                         </div>
                                     </div>

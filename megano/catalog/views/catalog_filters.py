@@ -1,16 +1,20 @@
 from django.shortcuts import render
 import inject
-from django.views.generic import ListView, TemplateView
-from django.db.models import Min  # Добавлен импорт для функции Min
-from catalog.interfaces.catalog_interface import ICatalogRepository
-from catalog.models import Product
+from django.core.handlers.wsgi import WSGIRequest
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Min  # Добавлен импорт для функции Min
+from django.views.generic import ListView
+
+from catalog.interfaces.comparison_list_interface import IComparisonList
+from catalog.models import Product
+from catalog.interfaces.catalog_interface import ICatalogRepository
 
 
 class CatalogPageView(ListView):
     template_name = 'catalog/catalog'
     _catalog_repository: ICatalogRepository = inject.attr(ICatalogRepository)
     paginate_by = 9
+    __comparison_list: IComparisonList = inject.attr(IComparisonList)
 
     def get_queryset(self):
         return self._get_filtered_and_sorted_products()
@@ -69,10 +73,15 @@ class CatalogPageView(ListView):
             return Product.objects.none()
 
     def get(self, request, **kwargs):
+        """Метод для обработки GET запросов"""
         return super().get(request, **kwargs)
 
-
-class ComparisonPageView(TemplateView):
-
-    def get(self, request, *args, **kwargs):
-        return render(request, 'catalog/comparison.html', {})
+    def post(self, request: WSGIRequest, **kwargs):
+        """Метод для обработки POST запросов"""
+        try:
+            product_id = int(request.POST.get('product_id'))
+        except (ValueError, TypeError) as exc:
+            raise exc
+        else:
+            self.__comparison_list.add_to_comparison_list(request, product_id)
+        return self.get(request, **kwargs)
