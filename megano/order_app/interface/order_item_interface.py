@@ -9,3 +9,8 @@ class IOrderItem:
     def get_order_items(self, order_pk):
         """Получить экземпляры модели OrderItems по конкретному заказу"""
         pass
+
+    @abstractmethod
+    def create_order_item(self, order, cart_item):
+        """Cоздать экзeмпляр модели OrderItem"""
+        pass

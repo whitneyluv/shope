@@ -1,5 +1,4 @@
 from django.core.exceptions import ObjectDoesNotExist
-from yookassa import Payment
 import inject
 from order_app.interface.order_interface import IOrder
 
@@ -19,14 +18,13 @@ class PaymentConfirmation:
 
         if payment_info.status == 'succeeded':
             order.payment_status = 'paid'
-            print("order paid")
-            order.save()
+            cls._order.save(order)
             return True
         elif payment_info.status == 'canceled':
             order.payment_status = 'canceled'
-            order.save()
-            print("order canceled")
+            cls._order.save(order)
             return False
 
         else:
-            print('Неизвестная ошибка')
+            raise Exception("Ошибка статуса платежа")
+

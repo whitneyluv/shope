@@ -3,6 +3,7 @@ from abc import abstractmethod, ABC
 from django.db.models import QuerySet
 
 from cart_app.models import CartItem, Cart
+from typing import Optional
 
 
 class ICartItem(ABC):

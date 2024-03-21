@@ -1,14 +1,12 @@
 from beartype import beartype
 from order_app.interface.order_interface import IOrder
 from order_app.models.order import Order
-from order_app.models.order_item import OrderItem
-from cart_app.models import CartItem
 
 
 class OrderRepository(IOrder):
 
     @beartype
-    def save(self, model: Order):
+    def save(self, model):
         model.save()
 
     @beartype
