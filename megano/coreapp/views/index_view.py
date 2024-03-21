@@ -5,6 +5,7 @@ from django.views import View
 import os
 import inject
 from coreapp.interfaces.core_interface import ICore
+from megano.settings import TIME_OUT_BANNERS
 
 
 class IndexView(View):
@@ -29,10 +30,11 @@ class IndexView(View):
             random_pk = random.sample(pks, k=self._BANNERS)
 
             context = {"banners": get_banners.filter(pk__in=random_pk),
-                       "time_out_banners": os.getenv("TIME_OUT_BANNERS"),
+                       "time_out_banners": TIME_OUT_BANNERS,
                            }
         else:
             context = {"banners": None,
+                       "time_out_banners": TIME_OUT_BANNERS,
                        }
 
         return render(request, "coreapp/index.html", context=context)

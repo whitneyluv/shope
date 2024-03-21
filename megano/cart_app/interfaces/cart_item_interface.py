@@ -1,7 +1,9 @@
 from abc import abstractmethod, ABC
+
 from django.db.models import QuerySet
-from typing import Optional
+
 from cart_app.models import CartItem, Cart
+from typing import Optional
 
 
 class ICartItem(ABC):
@@ -42,4 +44,14 @@ class ICartItem(ABC):
     def sum_all_items_in_cart(self, cart: Cart) -> int:
         """Получить количество товаров в корзине
         """
+        pass
+
+    @abstractmethod
+    def get_cart_items(self, user_pk):
+        """Получить все экземпляры CartItem из корзины пользователя"""
+        pass
+
+    @abstractmethod
+    def delete_cart_item_from_cart(self, model: CartItem):
+        """Удаление элемента CartItem из корзины"""
         pass

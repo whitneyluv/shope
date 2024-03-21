@@ -1,8 +1,12 @@
 from django.urls import path
-from . import views
+from .views.order_create_view import CreateOrderView
+from .views.order_detail_view import OrderDetailView
+from .views.webhooks_view import my_webhook_handler
+from .views.history_order_view import HistoryOrdersView
 
 urlpatterns = [
-    path('history/', views.history_order, name='history_order'),
-    path('one/', views.one_order, name='one_order'),
-    path('', views.order, name='order'),
+    path('', CreateOrderView.as_view(),name='order_create'),
+    path('<int:pk>/', OrderDetailView.as_view(), name='order_details'),
+    path('history/', HistoryOrdersView.as_view(), name='history'),
+    path("payment-notification/", my_webhook_handler, name='webhook')
 ]
