@@ -19,7 +19,7 @@
                                 {% endif %}
                             </div>
                             <div class="Cart-block Cart-block_info">
-                                <a class="Cart-title" href="{% url 'catalog:product' product_id=item.product.pk %}">
+                                <a class="Cart-title" href="{% url 'catalog:product' pk=item.product.pk %}">
                                     {{ item.product.title }}
                                 </a>
                                 <div class="Cart-desc">

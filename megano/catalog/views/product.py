@@ -17,7 +17,7 @@ class ProductDetailView(generic.DetailView):
     __product: IProduct = inject.attr(IProduct)
 
     def get_object(self, *args, **kwargs):
-        return self.__product.get_product_for_detail_view(pk=self.kwargs['product_id'])
+        return self.__product.get_product_for_detail_view(pk=self.kwargs['pk'])
 
     def get_context_data(self, **kwargs):
         """Формирует контекст для шаблона"""
@@ -40,7 +40,7 @@ class ProductDetailView(generic.DetailView):
             if review := request.POST.get('review'):
                 self.show_review_modal = True
                 AddReview(user=request.user)(
-                    product_id=kwargs['product_id'],
+                    product_id=kwargs['pk'],
                     review=review
                 )
             else:
@@ -56,7 +56,7 @@ class ProductDetailView(generic.DetailView):
             request.session['cart'] = add_product_to_session_cart(
                 cart=cart,
                 seller_id=int(request.POST.get('seller_id')),
-                product_id=kwargs['product_id'],
+                product_id=kwargs['pk'],
                 num_products=int(request.POST.get('num_products'))
             )
         return self.get(request, *args, **kwargs)

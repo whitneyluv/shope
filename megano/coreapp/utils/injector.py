@@ -31,6 +31,8 @@ from order_app.interface.order_interface import IOrder
 from order_app.repositeries.order_repositories import OrderRepository
 from order_app.interface.order_item_interface import IOrderItem
 from order_app.repositeries.order_item_repositories import OrderItemRepository
+from catalog.interfaces.category_interface import ICategory
+from catalog.repositories.category_repositories import CategoryRepository
 
 BINDS = (
     (IAuth, AuthRepository),
@@ -48,6 +50,7 @@ BINDS = (
     (IComparisonList, ComparisonListRepository),
     (IOrder, OrderRepository),
     (IOrderItem, OrderItemRepository),
+    (ICategory, CategoryRepository),
 
 )
 

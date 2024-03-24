@@ -41,6 +41,7 @@ class ProductRepository(IProduct):
         except ObjectDoesNotExist:
             return None
 
+    @beartype
     def get_products_for_comparison_list(self, list_pk: list) -> QuerySet:
         """Получить набор экземпляров модели Product для сравнения согласно списка list_pk"""
         queryset = Product.objects.annotate(
@@ -70,3 +71,11 @@ class ProductRepository(IProduct):
                     'characteristic__title', 'value')
 
         return queryset
+
+    @beartype
+    def get_limited_products(self):
+        return Product.objects.filter(is_limited=True)
+
+    @beartype
+    def get_products(self):
+        return Product.objects.filter(is_active=True)

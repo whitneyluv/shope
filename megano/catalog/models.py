@@ -32,7 +32,7 @@ class Category(models.Model):
         return f'Модель категории {self.title}'
 
     title = models.CharField(verbose_name=_('title'), max_length=30, unique=True, blank=False)
-    display_on_index_page = models.BooleanField(verbose_name="display")
+    display_on_index_page = models.BooleanField(default=True, verbose_name="display")
     image = models.ImageField(
         verbose_name=_('image'),
         upload_to=f'categories/{title.verbose_name}/%Y/%m/%d',
