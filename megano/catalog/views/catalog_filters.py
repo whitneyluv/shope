@@ -1,10 +1,7 @@
-from django.shortcuts import render
 import inject
 from django.core.handlers.wsgi import WSGIRequest
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.db.models import Min  # Добавлен импорт для функции Min
 from django.views.generic import ListView
-
 from catalog.interfaces.comparison_list_interface import IComparisonList
 from catalog.models import Product
 from catalog.interfaces.catalog_interface import ICatalogRepository
@@ -62,7 +59,7 @@ class CatalogPageView(ListView):
                 sort_direction = self.request.GET.get('sort_direction', 'asc')
 
                 sort_field = f'prices__price__min{"-" if sort_direction == "desc" else ""}'
-                products = products.annotate(prices__price__min=Min('prices__price')).order_by(sort_field)
+                products = products.order_by(sort_field)
             elif sort == 'popularity':
                 products = products.order_by('-popularity')
             elif sort == 'created_at':

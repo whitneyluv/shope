@@ -8,7 +8,10 @@ class SellerCreateView(CreateView):
     form_class = SellerForm
 
     def form_valid(self, form):
-        form.instance.user = self.request.user
+        user = self.request.user
+        form.instance.user = user
+        user.is_staff = True
+        user.save()
         return super().form_valid(form)
 
     def get_success_url(self):

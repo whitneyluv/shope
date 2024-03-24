@@ -142,7 +142,7 @@
                   <a class="menu-link" href="{% url 'profile_app:profile' pk=request.user.profile.pk %}">Личный кабинет</a>
                   {% if request.user.seller %}
                     <a class="menu-link" href="{% url 'profile_app:seller_profile' pk=request.user.seller.pk %}">Личный кабинет продавца</a>
-                    <a class="dropdown-content-a" href="#">Административный раздел</a>
+                    <a class="dropdown-content-a" href="/admin/">Административный раздел</a>
                   {% endif %}
                   <a class="ControlPanel-title" href="{% url 'auth_app:logout' %}">Выход</a>
                 {% else %}

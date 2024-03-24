@@ -3,6 +3,7 @@ from beartype import beartype
 from catalog.interfaces.catalog_interface import ICatalogRepository
 from catalog.models import Product
 from catalog.utils.filter_utils import filter_products
+from django.db.models import Min
 
 
 class CatalogRepository(ICatalogRepository):
@@ -23,4 +24,4 @@ class CatalogRepository(ICatalogRepository):
         products = self.get_all_products()
         products = filter_products(products, filters)
 
-        return products
+        return products.annotate(prices__price__min=Min('prices__price'))

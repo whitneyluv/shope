@@ -19,7 +19,7 @@
                                 {% endif %}
                             </div>
                             <div class="Cart-block Cart-block_info">
-                                <a class="Cart-title" href="{% url 'catalog:product' product_id=item.product.pk %}">
+                                <a class="Cart-title" href="{% url 'catalog:product' pk=item.product.pk %}">
                                     {{ item.product.title }}
                                 </a>
                                 <div class="Cart-desc">
@@ -60,11 +60,26 @@
                     <div class="Cart-total">
                         <div class="Cart-block Cart-block_total">
                             <strong class="Cart-title">Итого:
-                            </strong><span class="Cart-price">{{ cart.total_amount | price_format }}</span>
+                            </strong>
+                            <span class="Cart-price">{{ cart.total_amount | price_format }}</span>
+                            <div>
+                            <strong class="Cart-title">Цена со скидкой:
+                            </strong>
+                            {% if sale_price %}
+                            <span class="Cart-price"> {{ sale_price | price_format }}</span>
+                            {% endif %}
+                        </div>
                         </div>
 
-                        <div class="Cart-block"><a class="btn btn_success btn_lg" href="{% url 'order:order_create' %}">Оформить заказ</a>
+                        {% if request.user.is_authenticated %}
+                            <div class="Cart-block">
+                                <a class="btn btn_success btn_lg" href="{% url 'order:order_create' %}">Оформить заказ</a>
+                            </div>
+                        {% else %}
+                        <div class="Cart-block">
+                            <a class="btn btn_success btn_lg" href="{% url 'auth_app:login' %}">Оформить заказ</a>
                         </div>
+                        {% endif %}
                     </div>
                 </form>
             </div>
