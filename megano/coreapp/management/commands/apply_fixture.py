@@ -26,8 +26,8 @@ class Command(BaseCommand):
             "catalog/fixtures/category.json",
             "catalog/fixtures/characteristic.json",
             "catalog/fixtures/product.json",
-            "catalog/fixtures/productcharacteristic.json",
             "catalog/fixtures/productimage.json",
+            "catalog/fixtures/productcharacteristic.json",
             "catalog/fixtures/price.json",
         ]
         for path in paths:
