@@ -45,7 +45,7 @@ BINDS = (
     (ICart, CartRepository),
     (ICartItem, CartItemRepository),
     (ISeller, SellerRepository),
-    (IComparisonList, ComparisonListRepository)
+    (IComparisonList, ComparisonListRepository),
     (IOrder, OrderRepository),
     (IOrderItem, OrderItemRepository),
 
