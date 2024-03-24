@@ -18,7 +18,7 @@ class Command(BaseCommand):
             # dumpdata выгрузить - python -Xutf8 manage.py  dumpdata coreapp.banner --output data.json
             # приминять фикстуры  python manage.py apply_fixture
 
-            "auth_app/fixtures/group_fixtures.json",
+            "auth_app/fixtures/group.json",
             "auth_app/fixtures/permissions.json",
             "auth_app/fixtures/user_fixtures.json",
             "auth_app/fixtures/user_groups_fixtures.json",
@@ -26,6 +26,8 @@ class Command(BaseCommand):
             "catalog/fixtures/category.json",
             "catalog/fixtures/characteristic.json",
             "catalog/fixtures/product.json",
+            "catalog/fixtures/taggit_tag.json",
+            "catalog/fixtures/taggit_taggeditem.json",
             "catalog/fixtures/productimage.json",
             "catalog/fixtures/productcharacteristic.json",
             "profile_app/fixtures/seller_fixtures.json",

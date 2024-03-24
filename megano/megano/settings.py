@@ -166,12 +166,12 @@ SERVER_EMAIL = os.getenv('SERVER_EMAIL')
 SERVER_ADMIN = os.getenv('SERVER_ADMIN')
 TIME_OUT_BANNERS = int(os.getenv("TIME_OUT_BANNERS"))
 
-CACHES = {
-   "default": {
-       "BACKEND": "django.core.cache.backends.memcached.PyMemcacheCache",
-       "LOCATION": "127.0.0.1:11211",
-   }
-}
+# CACHES = {
+#    "default": {
+#        "BACKEND": "django.core.cache.backends.memcached.PyMemcacheCache",
+#        "LOCATION": "127.0.0.1:11211",
+#    }
+# }
 CACHE_MIDDLEWARE_SECONDS = int(os.getenv("CACHE_MIDDLEWARE_SECONDS"))
 
 CURRENCY_SYMBOL = '₽'
