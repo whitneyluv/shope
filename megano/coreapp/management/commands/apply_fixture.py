@@ -17,8 +17,6 @@ class Command(BaseCommand):
             #dumpdata выгрузить - python -Xutf8 manage.py  dumpdata coreapp.banner --output data.json
             #приминять фикстуры  python manage.py apply_fixture
 
-            "coreapp/fixtures/groups.json",
-            "coreapp/fixtures/banners.json",
             "auth_app/fixtures/user_fixtures.json",
             "auth_app/fixtures/group_fixtures.json",
             "auth_app/fixtures/user_groups_fixtures.json",
@@ -26,11 +24,11 @@ class Command(BaseCommand):
             "profile_app/fixtures/profile_fixtures.json",
             "profile_app/fixtures/seller_fixtures.json",
             "catalog/fixtures/category.json",
-            "catalog/fixtures/price.json",
             "catalog/fixtures/characteristic.json",
             "catalog/fixtures/product.json",
             "catalog/fixtures/productcharacteristic.json",
             "catalog/fixtures/productimage.json",
+            "catalog/fixtures/price.json",
         ]
         for path in paths:
             is_error = os.system(f"python -Xutf8 manage.py loaddata {path}")
