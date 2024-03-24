@@ -39,19 +39,40 @@
     <link rel="stylesheet" href="{% get_static_prefix %}assets/css/extra.css?v=35945634">
     <script src="{% get_static_prefix %}assets/plg/CountDown/countdown.js"></script><!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-<style>
-    .Card-picture {
-        width: 160px;
-        height: 160px;
-        overflow: hidden;
-    }
+    <style>
+        .Card {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #ccc;
+        }
 
-    .Card-picture img {
-        width: 100%;
-        height: auto;
-        object-fit: contain;
-    }
-</style>
+        .Card-picture {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .Card-picture img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        .Card-details {
+            padding: 10px;
+        }
+
+        .Card-title {
+            margin-bottom: 5px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .Card-description {
+            font-size: 14px;
+        }
+    </style>
 
 
 
