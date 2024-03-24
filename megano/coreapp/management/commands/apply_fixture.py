@@ -23,7 +23,6 @@ class Command(BaseCommand):
             "auth_app/fixtures/group_fixtures.json",
             "auth_app/fixtures/user_groups_fixtures.json",
             "auth_app/fixtures/permissions.json",
-            "auth_app/fixtures/group_permissions.json",
             "profile_app/fixtures/profile_fixtures.json",
             "profile_app/fixtures/seller_fixtures.json",
             "catalog/fixtures/category.json",

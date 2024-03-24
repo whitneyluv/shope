@@ -1,90 +1,90 @@
 [
 {
-    "model": "catalog.category",
-    "pk": 1,
-    "fields": {
-        "title": "Телевизоры",
-        "image": ""
-    }
+  "model": "catalog.category",
+  "pk": 1,
+  "fields": {
+    "title": "РўРµР»РµРІРёР·РѕСЂС‹",
+    "image": ""
+  }
 },
 {
-    "model": "catalog.category",
-    "pk": 2,
-    "fields": {
-        "title": "Наушники",
-        "image": ""
-    }
+  "model": "catalog.category",
+  "pk": 2,
+  "fields": {
+    "title": "РќР°СѓС€РЅРёРєРё",
+    "image": ""
+  }
 },
 {
-    "model": "catalog.category",
-    "pk": 3,
-    "fields": {
-        "title": "Стиральные машины",
-        "image": ""
-    }
+  "model": "catalog.category",
+  "pk": 3,
+  "fields": {
+    "title": "РЎС‚РёСЂР°Р»СЊРЅС‹Рµ РјР°С€РёРЅС‹",
+    "image": ""
+  }
 },
 {
-    "model": "catalog.category",
-    "pk": 4,
-    "fields": {
-        "title": "Фотоаппараты",
-        "image": ""
-    }
+  "model": "catalog.category",
+  "pk": 4,
+  "fields": {
+    "title": "Р¤РѕС‚РѕР°РїРїР°СЂР°С‚С‹",
+    "image": ""
+  }
 },
 {
-    "model": "catalog.category",
-    "pk": 5,
-    "fields": {
-        "title": "Мобильные телефоны",
-        "image": ""
-    }
+  "model": "catalog.category",
+  "pk": 5,
+  "fields": {
+    "title": "РњРѕР±РёР»СЊРЅС‹Рµ С‚РµР»РµС„РѕРЅС‹",
+    "image": ""
+  }
 },
 {
-    "model": "catalog.category",
-    "pk": 6,
-    "fields": {
-        "title": "Микроволновые печи",
-        "image": ""
-    }
+  "model": "catalog.category",
+  "pk": 6,
+  "fields": {
+    "title": "РњРёРєСЂРѕРІРѕР»РЅРѕРІС‹Рµ РїРµС‡Рё",
+    "image": ""
+  }
 },
 {
-    "model": "catalog.category",
-    "pk": 7,
-    "fields": {
-        "title": "Торшеры",
-        "image": ""
-    }
+  "model": "catalog.category",
+  "pk": 7,
+  "fields": {
+    "title": "РўРѕСЂС€РµСЂС‹",
+    "image": ""
+  }
 },
 {
-    "model": "catalog.category",
-    "pk": 8,
-    "fields": {
-        "title": "Холодильники",
-        "image": ""
-    }
+  "model": "catalog.category",
+  "pk": 8,
+  "fields": {
+    "title": "РҐРѕР»РѕРґРёР»СЊРЅРёРєРё",
+    "image": ""
+  }
 },
 {
-    "model": "catalog.category",
-    "pk": 9,
-    "fields": {
-        "title": "Пылесосы",
-        "image": ""
-    }
+  "model": "catalog.category",
+  "pk": 9,
+  "fields": {
+    "title": "РџС‹Р»РµСЃРѕСЃС‹",
+    "image": ""
+  }
 },
 {
-    "model": "catalog.category",
-    "pk": 10,
-    "fields": {
-        "title": "Кондиционеры",
-        "image": ""
-    }
+  "model": "catalog.category",
+  "pk": 10,
+  "fields": {
+    "title": "РљРѕРЅРґРёС†РёРѕРЅРµСЂС‹",
+    "image": ""
+  }
 },
 {
-    "model": "catalog.category",
-    "pk": 11,
-    "fields": {
-        "title": "Утюги",
-        "image": ""
-    }
+  "model": "catalog.category",
+  "pk": 11,
+  "fields": {
+    "title": "РЈС‚СЋРіРё",
+    "image": ""
+  }
 }
 ]
