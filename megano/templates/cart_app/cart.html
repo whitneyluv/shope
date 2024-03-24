@@ -65,8 +65,12 @@
                             <div>
                             <strong class="Cart-title">Цена со скидкой:
                             </strong>
+                            {% if request.user.is_authenticated %}
                             {% if sale_price %}
                             <span class="Cart-price"> {{ sale_price | price_format }}</span>
+                            {% endif %}
+                            {% else %}
+                                <p>Войдите в свой аккаунт, чтобы оформить заказ со скидкой</p>
                             {% endif %}
                         </div>
                         </div>

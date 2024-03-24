@@ -5,6 +5,7 @@ from django.views.generic import ListView
 from catalog.interfaces.comparison_list_interface import IComparisonList
 from catalog.models import Product
 from catalog.interfaces.catalog_interface import ICatalogRepository
+from catalog.utils import add_product_from_catalog
 
 
 class CatalogPageView(ListView):
@@ -12,6 +13,7 @@ class CatalogPageView(ListView):
     _catalog_repository: ICatalogRepository = inject.attr(ICatalogRepository)
     paginate_by = 9
     __comparison_list: IComparisonList = inject.attr(IComparisonList)
+    show_buy_modal = False
 
     def get_queryset(self):
         return self._get_filtered_and_sorted_products()
@@ -20,7 +22,6 @@ class CatalogPageView(ListView):
         context = super().get_context_data(**kwargs)
         products = self._get_filtered_and_sorted_products()
         context['products'] = products
-
         paginator = Paginator(products, self.paginate_by)
         page = self.request.GET.get('page')
 
@@ -32,6 +33,8 @@ class CatalogPageView(ListView):
             products_page = paginator.page(paginator.num_pages)
 
         context['products_page'] = products_page
+        context['show_buy_modal'] = self.show_buy_modal
+        self.show_buy_modal = False
         return context
 
     def _get_filtered_and_sorted_products(self):
@@ -75,10 +78,18 @@ class CatalogPageView(ListView):
 
     def post(self, request: WSGIRequest, **kwargs):
         """Метод для обработки POST запросов"""
-        try:
-            product_id = int(request.POST.get('product_id'))
-        except (ValueError, TypeError) as exc:
-            raise exc
-        else:
-            self.__comparison_list.add_to_comparison_list(request, product_id)
-        return self.get(request, **kwargs)
+        if 'add_product_to_comparison_from_catalog' in request.POST:
+            try:
+                product_id = int(request.POST.get('product_id'))
+            except (ValueError, TypeError) as exc:
+                raise exc
+            else:
+                self.__comparison_list.add_to_comparison_list(request, product_id)
+            return self.get(request, **kwargs)
+        elif 'add_product_to_cart_from_catalog' in request.POST:
+            add_product_from_catalog(
+                request=request,
+                product_id=int(request.POST.get('product_id')),
+                price=request.POST.get('price'))
+            self.show_buy_modal = True
+            return self.get(request, **kwargs)
