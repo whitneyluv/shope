@@ -24,4 +24,5 @@ beartype==0.15.0
 django_extensions==3.2.3
 djangorestframework==3.14.0
 django-debug-toolbar==4.2.0
-var-dump==1.2
+var_dump==1.2
+

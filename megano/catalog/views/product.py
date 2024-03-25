@@ -47,7 +47,7 @@ class ProductDetailView(generic.DetailView):
                 self.show_buy_modal = True
                 AddProductsToCart(user=request.user)(
                     quantity=int(request.POST.get('num_products')),
-                    product_id=kwargs['product_id'],
+                    product_id=kwargs['pk'],
                     seller_id=int(request.POST.get('seller_id'))
                 )
         else:
