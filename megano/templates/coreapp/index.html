@@ -55,13 +55,15 @@
                                 <div class="BannersHomeBlock-block">
                                     <strong class="BannersHomeBlock-title">{{category.title}}
                                     </strong>
-                                    <div class="BannersHomeBlock-content">from&#32;<span class="BannersHomeBlock-price">{{category.price}}</span>
+                                    <div class="BannersHomeBlock-content">от&#32;<span class="BannersHomeBlock-price">{{category.price}}</span>
                                     </div>
                                 </div>
+                                {% if category.image  %}
                                 <div class="BannersHomeBlock-block">
                                     <div class="BannersHomeBlock-img"><img src="{{ category.image.url }}" alt="{{ category.image.name }}" />
                                     </div>
                                 </div>
+                                {% endif %}
                             </div>
                         </a>
                     </div>
@@ -76,12 +78,12 @@
                         <strong class="Section-columnTitle">ОГРАНИЧЕННЫЕ ПРЕДЛОЖЕНИЯ
                         </strong>
                       </header>
-                      <div class="Card"><a class="Card-picture" href="{% url 'catalog:product' pk=limited_product.pk %}"><img src="{{ product.product_images.first.image.url }}" alt="{{ product.name }}" /></a>
+                      <div class="Card"><a class="Card-picture" href="{% url 'catalog:product' pk=limited_product.pk %}"><img src="{{ limited_product.product_images.first.image.url }}" alt="{{ limited_product.product.title }}" /></a>
                         <div class="Card-content">
                           <strong class="Card-title"><a href="{% url 'catalog:product' pk=limited_product.pk %}">{{limited_product.title}}</a>
                           </strong>
                           <div class="Card-description">
-                            <div class="Card-cost"><span class="Card-priceOld">{{limited_product.prices.first.price}}</span><span class="Card-price">{{limited_product.prices.first.price}}</span>
+                            <div class="Card-cost"><span class="Card-priceOld">{{limited_product.prices.first.price}}</span><span class="Card-price">{{discount_price_lp}}</span>
                             </div>
                             <div class="Card-category">{{category.title}}
                             </div>

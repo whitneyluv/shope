@@ -10,7 +10,8 @@ from catalog.interfaces.category_interface import ICategory
 from catalog.interfaces.product_interface import IProduct
 from discounts_app.interfaces.discounts_interface import IDiscounts
 from megano.settings import TIME_OUT_BANNERS
-from megano.coreapp.utils.update_limited_product import check_time
+from coreapp.utils.update_limited_product import check_time
+from discounts_app.services.product_discount_calculation import ProductDiscountCalculations
 
 
 class IndexView(View):
@@ -19,6 +20,7 @@ class IndexView(View):
     _BANNERS = 3
     _TOP_PRODUCTS = 8
     _LIMITED_PRODUCTS = 16
+    _CATEGORIES_TO_DISPLAY = 3
     _banner: ICore = inject.attr(ICore)
     _category: ICategory = inject.attr(ICategory)
     _product: IProduct = inject.attr(IProduct)
@@ -48,27 +50,30 @@ class IndexView(View):
                        "time_out_banners": TIME_OUT_BANNERS,
                        }
 
-        categories= self._category.get_categories_to_display()
+        categories = self._category.get_categories_to_display()[:self._CATEGORIES_TO_DISPLAY]
 
         all_lim_products = self._product.get_limited_products()
 
         pks_products = list(all_lim_products.values_list('pk', flat=True))
 
-        if check_time():
-            pk_for_1_limited_product = random.choice(pks_products)
 
-            limited_product = all_lim_products.get(pk=pk_for_1_limited_product)
-            date_end = (datetime.datetime.now() + datetime.timedelta(days=1))
-            date_string = str(f'{date_end:%d.%m.%Y %H:%M}')
-            print(date_string)
+        pk_for_1_limited_product = random.choice(pks_products)
+        limited_product = all_lim_products.get(pk=pk_for_1_limited_product)
+        discount_price_lp = ProductDiscountCalculations.apply_product_discount_for_one_product(limited_product)
 
-        many_limited_products = all_lim_products.exclude(pk=pk_for_1_limited_product)[:(self._LIMITED_PRODUCTS-1)]
-        popular_products = self._product.get_products()[:(self._TOP_PRODUCTS-1)]
+
+        date_end = (datetime.datetime.now() + datetime.timedelta(days=1))
+        date_string = str(f'{date_end:%d.%m.%Y %H:%M}')
+        print(date_string)
+
+        many_limited_products = all_lim_products.exclude(pk=pk_for_1_limited_product)[:self._LIMITED_PRODUCTS]
+        popular_products = self._product.get_products()[:self._TOP_PRODUCTS]
 
         context["categories"] = categories
         context["limited_product"] = limited_product
         context['many_limited_products'] = many_limited_products
         context['popular_products'] = popular_products
         context['lp_date_start'] = date_string
+        context["discount_price_lp"] = discount_price_lp
 
         return render(request, "coreapp/index.html", context=context)

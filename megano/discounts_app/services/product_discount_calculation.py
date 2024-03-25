@@ -2,6 +2,7 @@
 from discounts_app.services.cart_discount_calculations import CartDiscountCalculations
 from discounts_app.interfaces.discounts_interface import IDiscounts
 import inject
+from django.forms.models import model_to_dict
 
 
 class ProductDiscountCalculations:
@@ -25,5 +26,19 @@ class ProductDiscountCalculations:
             result = CartDiscountCalculations.calculate_cart_sum(cart)
 
             return result
+        else:
+            return None
+
+    @classmethod
+    def apply_product_discount_for_one_product(cls, limited_product):
+        item = limited_product.__dict__
+        product_discounts = cls._discount.get_all_active_product_discounts()
+        new_price=0
+        if product_discounts:
+            for discount in product_discounts:
+                if item['id'] == discount.product.id and item['seller_id'] == discount.seller.all()[0].id:
+                    new_price = CartDiscountCalculations.apply_discount(discount, item['price'])
+            return new_price
+
         else:
             return None
