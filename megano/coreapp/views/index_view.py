@@ -10,9 +10,11 @@ from catalog.interfaces.category_interface import ICategory
 from catalog.interfaces.product_interface import IProduct
 from discounts_app.interfaces.discounts_interface import IDiscounts
 from megano.settings import TIME_OUT_BANNERS
+from megano.coreapp.utils.update_limited_product import check_time
 
 
 class IndexView(View):
+
 
     _BANNERS = 3
     _TOP_PRODUCTS = 8
@@ -48,17 +50,17 @@ class IndexView(View):
 
         categories= self._category.get_categories_to_display()
 
-
         all_lim_products = self._product.get_limited_products()
 
         pks_products = list(all_lim_products.values_list('pk', flat=True))
 
-        pk_for_1_limited_product = random.choice(pks_products)
+        if check_time():
+            pk_for_1_limited_product = random.choice(pks_products)
 
-        limited_product = all_lim_products.get(pk=pk_for_1_limited_product)
-        date_end = (datetime.datetime.now() + datetime.timedelta(days=1))
-        date_string = str(f'{date_end:%d.%m.%Y %H:%M}')
-        print(date_string)
+            limited_product = all_lim_products.get(pk=pk_for_1_limited_product)
+            date_end = (datetime.datetime.now() + datetime.timedelta(days=1))
+            date_string = str(f'{date_end:%d.%m.%Y %H:%M}')
+            print(date_string)
 
         many_limited_products = all_lim_products.exclude(pk=pk_for_1_limited_product)[:(self._LIMITED_PRODUCTS-1)]
         popular_products = self._product.get_products()[:(self._TOP_PRODUCTS-1)]
