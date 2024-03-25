@@ -102,5 +102,45 @@
     "name": "кондиционер",
     "slug": "кондиционер"
   }
+},
+{
+  "model": "taggit.tag",
+  "pk": 14,
+  "fields": {
+    "name": "vacuum_cleaners",
+    "slug": "vacuum_cleaners"
+  }
+},
+{
+  "model": "taggit.tag",
+  "pk": 15,
+  "fields": {
+    "name": "микроволновка",
+    "slug": "микроволновка"
+  }
+},
+{
+  "model": "taggit.tag",
+  "pk": 16,
+  "fields": {
+    "name": "наушник",
+    "slug": "наушник"
+  }
+},
+{
+  "model": "taggit.tag",
+  "pk": 17,
+  "fields": {
+    "name": "машина_стиральная",
+    "slug": "машина_стиральная"
+  }
+},
+{
+  "model": "taggit.tag",
+  "pk": 18,
+  "fields": {
+    "name": "микроволновая_печь",
+    "slug": "микроволновая_печь"
+  }
 }
 ]

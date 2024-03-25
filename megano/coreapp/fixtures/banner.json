@@ -1,0 +1,66 @@
+[
+{
+  "model": "coreapp.banner",
+  "pk": 3,
+  "fields": {
+    "created_at": "2024-03-25T09:44:58.309Z",
+    "updated_at": "2024-03-25T09:44:58.309Z",
+    "is_active": true,
+    "title1": "Скидка 10%!",
+    "title2": "На Samsung Galaxy",
+    "title3": null,
+    "text": "Не упустите шанс купить смартфон Samsung Galaxy со скидкой 10%!",
+    "button": "Get Started",
+    "image": "banners/banner_None/product-6_Samsung_1.png",
+    "link": null
+  }
+},
+{
+  "model": "coreapp.banner",
+  "pk": 4,
+  "fields": {
+    "created_at": "2024-03-25T09:46:07.773Z",
+    "updated_at": "2024-03-25T09:46:07.773Z",
+    "is_active": true,
+    "title1": "Скидка 15%!",
+    "title2": "На Ballu BSIR/SU-18",
+    "title3": null,
+    "text": "Не упустите шанс купить инфракрасный обогреватель Ballu BSIR/SU-18 со скидкой 15%!",
+    "button": "Get Started",
+    "image": "banners/banner_None/product-1_Ballu_1.png",
+    "link": null
+  }
+},
+{
+  "model": "coreapp.banner",
+  "pk": 5,
+  "fields": {
+    "created_at": "2024-03-25T09:48:41.813Z",
+    "updated_at": "2024-03-25T09:48:55.763Z",
+    "is_active": true,
+    "title1": "Скидка 5000 рублей!",
+    "title2": "Electrolux EACM-12EG",
+    "title3": null,
+    "text": "Не упустите шанс купить инфракрасный обогреватель Ballu BSIR/SU-18 со скидкой 5000 рублей!",
+    "button": "Get Started",
+    "image": "banners/banner_None/product-2_Electrolux_1_zTp4nlL.jpeg",
+    "link": null
+  }
+},
+{
+  "model": "coreapp.banner",
+  "pk": 6,
+  "fields": {
+    "created_at": "2024-03-25T09:50:04.553Z",
+    "updated_at": "2024-03-25T09:50:04.553Z",
+    "is_active": true,
+    "title1": "Погрузитесь в мир музыки",
+    "title2": "Sony WH-1000XM5 - бесшумное со",
+    "title3": null,
+    "text": "Насладитесь непревзойденным шумоподавлением с новейшей технологией Sony.\r\nПогрузитесь в любимую музыку с высококачественным звуком.\r\nОщутите комфорт благодаря эргономичному дизайну и мягким амбушюрам.",
+    "button": "Get Started",
+    "image": "banners/banner_None/product-7_Sony_1_N1JS4k5.png",
+    "link": null
+  }
+}
+]

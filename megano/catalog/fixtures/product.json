@@ -4,12 +4,12 @@
   "pk": 1,
   "fields": {
     "created_at": "2024-03-24T06:20:03.687Z",
-    "updated_at": "2024-03-24T16:50:02.646Z",
+    "updated_at": "2024-03-25T06:53:06.134Z",
     "is_active": true,
     "title": "Ballu BSIR/SU-18HN1",
     "category": 10,
     "description": "Инверторный кондиционер с Wi-Fi управлением, охлаждением и обогревом.",
-    "is_limited": false,
+    "is_limited": true,
     "free_delivery": false
   }
 },
@@ -88,12 +88,12 @@
   "pk": 7,
   "fields": {
     "created_at": "2024-03-24T06:51:18.166Z",
-    "updated_at": "2024-03-24T16:49:24.408Z",
+    "updated_at": "2024-03-25T06:53:39.855Z",
     "is_active": true,
     "title": "Sony WH-1000XM5",
     "category": 2,
     "description": "Беспроводные наушники с активным шумоподавлением и Hi-Res звуком.",
-    "is_limited": false,
+    "is_limited": true,
     "free_delivery": false
   }
 },
@@ -102,12 +102,12 @@
   "pk": 8,
   "fields": {
     "created_at": "2024-03-24T06:53:31.826Z",
-    "updated_at": "2024-03-24T16:49:20.837Z",
+    "updated_at": "2024-03-25T06:53:45.430Z",
     "is_active": true,
     "title": "Apple AirPods Pro",
     "category": 2,
     "description": "Беспроводные наушники с активным шумоподавлением и пространственным звуком.",
-    "is_limited": false,
+    "is_limited": true,
     "free_delivery": true
   }
 },
@@ -130,12 +130,12 @@
   "pk": 10,
   "fields": {
     "created_at": "2024-03-24T10:29:58.519Z",
-    "updated_at": "2024-03-24T16:49:13.062Z",
+    "updated_at": "2024-03-25T06:53:54.820Z",
     "is_active": true,
     "title": "Xiaomi Roborock S7 MaxV Ultra",
     "category": 9,
     "description": "Робот-пылесос с влажной уборкой, автоматической зарядкой и станцией самоочистки.",
-    "is_limited": false,
+    "is_limited": true,
     "free_delivery": true
   }
 },
@@ -172,12 +172,12 @@
   "pk": 13,
   "fields": {
     "created_at": "2024-03-24T10:35:49.074Z",
-    "updated_at": "2024-03-24T16:48:51.855Z",
+    "updated_at": "2024-03-25T06:52:52.680Z",
     "is_active": true,
     "title": "Samsung UE55TU7000U",
     "category": 1,
     "description": "Телевизор с разрешением 4K UHD, HDR и Smart TV.",
-    "is_limited": false,
+    "is_limited": true,
     "free_delivery": false
   }
 },
@@ -242,12 +242,12 @@
   "pk": 18,
   "fields": {
     "created_at": "2024-03-24T10:46:36.358Z",
-    "updated_at": "2024-03-24T16:48:01.817Z",
+    "updated_at": "2024-03-25T06:52:31.487Z",
     "is_active": true,
     "title": "Canon PowerShot SX740 HS",
     "category": 4,
     "description": "Цифровая фотокамера с 40-кратным оптическим зумом, Wi-Fi и 3-дюймовым экраном.",
-    "is_limited": false,
+    "is_limited": true,
     "free_delivery": false
   }
 },
@@ -270,12 +270,12 @@
   "pk": 20,
   "fields": {
     "created_at": "2024-03-24T10:51:14.460Z",
-    "updated_at": "2024-03-24T16:47:23.808Z",
+    "updated_at": "2024-03-25T06:52:18.057Z",
     "is_active": true,
     "title": "Indesit XIT8 T2E W",
     "category": 8,
     "description": "Двухкамерный холодильник с капельной системой разморозки, низким уровнем шума и ящиком для овощей.",
-    "is_limited": false,
+    "is_limited": true,
     "free_delivery": false
   }
 }
