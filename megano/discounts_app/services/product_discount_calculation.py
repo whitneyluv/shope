@@ -31,14 +31,19 @@ class ProductDiscountCalculations:
 
     @classmethod
     def apply_product_discount_for_one_product(cls, limited_product):
-        item = limited_product.__dict__
+        item = model_to_dict(limited_product)
         product_discounts = cls._discount.get_all_active_product_discounts()
-        new_price=0
         if product_discounts:
+
             for discount in product_discounts:
-                if item['id'] == discount.product.id and item['seller_id'] == discount.seller.all()[0].id:
+                print(discount)
+                print(item['id'])
+                print(discount.product.id)
+                if item['id'] == discount.product.pk:
                     new_price = CartDiscountCalculations.apply_discount(discount, item['price'])
-            return new_price
+                    print(new_price)
+                    return new_price
+                break
 
         else:
             return None

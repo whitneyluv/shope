@@ -12,6 +12,7 @@ from discounts_app.interfaces.discounts_interface import IDiscounts
 from megano.settings import TIME_OUT_BANNERS
 from coreapp.utils.update_limited_product import check_time
 from discounts_app.services.product_discount_calculation import ProductDiscountCalculations
+from coreapp.utils.get_list_lp import LimitedProducts
 
 
 class IndexView(View):
@@ -52,15 +53,14 @@ class IndexView(View):
 
         categories = self._category.get_categories_to_display()[:self._CATEGORIES_TO_DISPLAY]
 
-        all_lim_products = self._product.get_limited_products()
+        # all_lim_products = self._product.get_limited_products()
+        all_lim_products = LimitedProducts.get_lp_with_product_discounts(self)
 
         pks_products = list(all_lim_products.values_list('pk', flat=True))
-
 
         pk_for_1_limited_product = random.choice(pks_products)
         limited_product = all_lim_products.get(pk=pk_for_1_limited_product)
         discount_price_lp = ProductDiscountCalculations.apply_product_discount_for_one_product(limited_product)
-
 
         date_end = (datetime.datetime.now() + datetime.timedelta(days=1))
         date_string = str(f'{date_end:%d.%m.%Y %H:%M}')

@@ -36,3 +36,4 @@ class IProduct(ABC):
     def get_products(self) -> Optional[Product]:
         """Получить все экземплары категории Product"""
         pass
+
