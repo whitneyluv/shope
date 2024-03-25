@@ -2,6 +2,7 @@ from typing import Dict, Union, List
 from django.db.models import Q
 from catalog.models import Product
 
+
 def filter_products(products: List[Product], filters: Dict[str, Union[str, float, List[int]]]) -> List[Product]:
     title = filters.get('title')
     price_min = filters.get('price_min')

@@ -41,3 +41,7 @@ class AuthRepository(IAuth):
             return User.objects.get(activation_key=_activation_key)
         except ObjectDoesNotExist:
             return None
+
+    #
+    # @beartype
+    # def add_permissions(self, ):

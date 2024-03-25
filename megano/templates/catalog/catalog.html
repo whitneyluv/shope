@@ -1,7 +1,7 @@
 {% extends 'coreapp/base.html' %}
 {% load static %}
 {% load custom_filters %}
-
+{% load i18n %}
 {% block title %}
       Catalog
 {% endblock %}
@@ -10,7 +10,9 @@
         <script>
         document.addEventListener("DOMContentLoaded", function () {
             var sortLinks = document.querySelectorAll('.Sort-variants a');
-
+            if ("{{ show_buy_modal }}" === 'True') {
+                document.getElementById('open_buy_modal').style.display = 'block';
+            }
             sortLinks.forEach(function (link) {
                 link.addEventListener('click', function (event) {
                     event.preventDefault();
@@ -34,7 +36,19 @@
             }
         });
     </script>
-
+<div id="open_buy_modal" class="my_modal">
+        <div class="my_modal-dialog">
+            <div class="my_modal-content">
+                <div class="my_modal-header">
+                    <p class="my_modal-title">{% translate "Congratulations!" %}</p>
+                    <a href="" title="{% translate 'Close a window' %}" class="close">×</a>
+                </div>
+                <div class="my_modal-body">
+                    <p>{% translate "Product successfully added to cart" %}</p>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="Middle Middle_top">
         <div class="Section Section_column Section_columnLeft">
             <div class="wrap">
@@ -127,18 +141,23 @@
                                             </strong>
                                             <div class="Card-description mt-2">
                                                 <div class="Card-cost">
-                                                    <span class="Card-price">${{ product.prices.first.price }}</span>
+                                                    <span class="Card-price">{{ product.prices__price__min|price_format }}</span>
                                                 </div>
-                                                <div class="Card-category text-muted">{{ product.category.title }}</div>
+                                                <div class="Card-category text-muted">{{ product.category.title }}  {{ product }}</div>
                                                     <div class="Card-hover mt-3">
-                                                            <a class="Card-btn btn btn-dark" href="{% url 'catalog:product' pk=product.id %}">
+                                                        <form class="add_to_comparison" method="post" id="add_product_to_cart_from_catalog">
+                                                                {% csrf_token %}
+                                                                <input name="product_id" type="text" value="{{ product.pk }}" style="display: none"/>
+                                                                <input name="price" type="text" value="{{ product.prices__price__min }}" style="display: none"/>
+                                                                <button class="Card-btn btn btn-dark" name="add_product_to_cart_from_catalog" type="submit">
                                                                 <img src="{% get_static_prefix %}assets/img/icons/card/cart.svg" alt="cart.svg">
-                                                            </a>
+                                                                </button>
+                                                        </form>
                                                             {% if request.user.is_authenticated %}
                                                                 <form class="add_to_comparison" method="post" id="add_product_to_comparison_from_catalog">
                                                                     {% csrf_token %}
                                                                     <input name="product_id" type="text" value="{{ product.pk }}" style="display: none"/>
-                                                                    <button class="Card-btn btn btn-dark" type="submit">
+                                                                    <button class="Card-btn btn btn-dark" name="add_product_to_comparison_from_catalog" type="submit">
                                                                         <img src="{% get_static_prefix %}assets/img/icons/exchange.svg" alt="exchange.svg">
                                                                     </button>
                                                                 </form>

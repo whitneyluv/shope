@@ -17,7 +17,7 @@ class ProductDetailView(generic.DetailView):
     __product: IProduct = inject.attr(IProduct)
 
     def get_object(self, *args, **kwargs):
-        return self.__product.get_product_for_detail_view(pk=self.kwargs['product_id'])
+        return self.__product.get_product_for_detail_view(pk=self.kwargs['pk'])
 
     def get_context_data(self, **kwargs):
         """Формирует контекст для шаблона"""
@@ -31,7 +31,7 @@ class ProductDetailView(generic.DetailView):
     def get(self, request: WSGIRequest, *args, **kwargs):
         """Метод обработки GET запросов"""
         if request.user.is_authenticated:
-            RecentlyViewedProductsService(user=request.user).add(product_id=kwargs['product_id'])
+            RecentlyViewedProductsService(user=request.user).add(product_id=kwargs['pk'])
         return super().get(request, *args, **kwargs)
 
     def post(self, request: WSGIRequest, *args, **kwargs):
@@ -40,14 +40,14 @@ class ProductDetailView(generic.DetailView):
             if review := request.POST.get('review'):
                 self.show_review_modal = True
                 AddReview(user=request.user)(
-                    product_id=kwargs['product_id'],
+                    product_id=kwargs['pk'],
                     review=review
                 )
             else:
                 self.show_buy_modal = True
                 AddProductsToCart(user=request.user)(
                     quantity=int(request.POST.get('num_products')),
-                    product_id=kwargs['product_id'],
+                    product_id=kwargs['pk'],
                     seller_id=int(request.POST.get('seller_id'))
                 )
         else:
@@ -56,7 +56,7 @@ class ProductDetailView(generic.DetailView):
             request.session['cart'] = add_product_to_session_cart(
                 cart=cart,
                 seller_id=int(request.POST.get('seller_id')),
-                product_id=kwargs['product_id'],
+                product_id=kwargs['pk'],
                 num_products=int(request.POST.get('num_products'))
             )
         return self.get(request, *args, **kwargs)
