@@ -4,7 +4,7 @@
   "pk": 1,
   "fields": {
     "title": "Телевизоры",
-    "image": ""
+    "image": "categories/title/2024/03/25/Телевизоры.png"
   }
 },
 {
@@ -12,7 +12,7 @@
   "pk": 2,
   "fields": {
     "title": "Наушники",
-    "image": ""
+    "image": "categories/title/2024/03/25/Наушники.png.png"
   }
 },
 {
@@ -20,7 +20,7 @@
   "pk": 3,
   "fields": {
     "title": "Стиральные машины",
-    "image": ""
+    "image": "categories/title/2024/03/25/Стиральные_машины.png"
   }
 },
 {
@@ -28,7 +28,7 @@
   "pk": 4,
   "fields": {
     "title": "Фотоаппараты",
-    "image": ""
+    "image": "categories/title/2024/03/25/Фотоаппараты.png.png"
   }
 },
 {
@@ -36,7 +36,7 @@
   "pk": 5,
   "fields": {
     "title": "Мобильные телефоны",
-    "image": ""
+    "image": "categories/title/2024/03/25/Мобильные_телефоны.png"
   }
 },
 {
@@ -44,7 +44,7 @@
   "pk": 6,
   "fields": {
     "title": "Микроволновые печи",
-    "image": ""
+    "image": "categories/title/2024/03/25/Микроволновые_печи.png.png"
   }
 },
 {
@@ -52,7 +52,7 @@
   "pk": 7,
   "fields": {
     "title": "Торшеры",
-    "image": ""
+    "image": "categories/title/2024/03/25/Торшеры.png.png"
   }
 },
 {
@@ -60,7 +60,7 @@
   "pk": 8,
   "fields": {
     "title": "Холодильники",
-    "image": ""
+    "image": "categories/title/2024/03/25/Холодильники.png"
   }
 },
 {
@@ -68,7 +68,7 @@
   "pk": 9,
   "fields": {
     "title": "Пылесосы",
-    "image": ""
+    "image": "categories/title/2024/03/25/Пылесосы.png"
   }
 },
 {
@@ -76,7 +76,7 @@
   "pk": 10,
   "fields": {
     "title": "Кондиционеры",
-    "image": ""
+    "image": "categories/title/2024/03/25/Кондиционеры_Gehxxfp.png"
   }
 },
 {
@@ -84,7 +84,7 @@
   "pk": 11,
   "fields": {
     "title": "Утюги",
-    "image": ""
+    "image": "categories/title/2024/03/25/Утюги.png"
   }
 }
 ]
