@@ -22,5 +22,13 @@
     "productdiscount": 3,
     "seller": 3
   }
+},
+{
+  "model": "discounts_app.productdiscount_seller",
+  "pk": 7,
+  "fields": {
+    "productdiscount": 7,
+    "seller": 3
+  }
 }
 ]
