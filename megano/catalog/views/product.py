@@ -31,7 +31,7 @@ class ProductDetailView(generic.DetailView):
     def get(self, request: WSGIRequest, *args, **kwargs):
         """Метод обработки GET запросов"""
         if request.user.is_authenticated:
-            RecentlyViewedProductsService(user=request.user).add(product_id=kwargs['product_id'])
+            RecentlyViewedProductsService(user=request.user).add(product_id=kwargs['pk'])
         return super().get(request, *args, **kwargs)
 
     def post(self, request: WSGIRequest, *args, **kwargs):

@@ -168,7 +168,8 @@ TIME_OUT_BANNERS = int(os.getenv("TIME_OUT_BANNERS"))
 
 CACHES = {
    "default": {
-       "BACKEND": "django.core.cache.backends.memcached.PyMemcacheCache",
+        "BACKEND": "django.core.cache.backends.dummy.DummyCache",
+       # "BACKEND": "django.core.cache.backends.memcached.PyMemcacheCache",
        "LOCATION": "127.0.0.1:11211",
    }
 }
@@ -185,3 +186,4 @@ WEBHOOKS_URL = os.getenv("URL_FOR_PAYMENT") + 'payment-notification/'
 URL_FOR_PAYMENT = os.getenv("URL_FOR_PAYMENT")
 PAYMENT_ACCOUNT_ID = os.getenv("PAYMENT_ACCOUNT_ID")
 PAYMENT_SECRET_KEY = os.getenv("PAYMENT_SECRET_KEY")
+

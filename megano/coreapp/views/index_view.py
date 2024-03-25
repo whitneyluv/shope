@@ -1,3 +1,4 @@
+import datetime
 import random
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
@@ -55,7 +56,9 @@ class IndexView(View):
         pk_for_1_limited_product = random.choice(pks_products)
 
         limited_product = all_lim_products.get(pk=pk_for_1_limited_product)
-        #Сделать расчет цены и цены со скидкой, таймер
+        date_end = (datetime.datetime.now() + datetime.timedelta(days=1))
+        date_string = str(f'{date_end:%d.%m.%Y %H:%M}')
+        print(date_string)
 
         many_limited_products = all_lim_products.exclude(pk=pk_for_1_limited_product)[:(self._LIMITED_PRODUCTS-1)]
         popular_products = self._product.get_products()[:(self._TOP_PRODUCTS-1)]
@@ -64,7 +67,6 @@ class IndexView(View):
         context["limited_product"] = limited_product
         context['many_limited_products'] = many_limited_products
         context['popular_products'] = popular_products
-
-
+        context['lp_date_start'] = date_string
 
         return render(request, "coreapp/index.html", context=context)
