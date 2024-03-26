@@ -29,3 +29,7 @@ class PriceRepository(IPrice):
             product__in=products,
             seller__in=sellers
         )
+
+    @beartype
+    def get_price_for_product(self, product_id):
+        return Price.objects.filter(product_id=product_id)

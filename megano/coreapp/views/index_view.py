@@ -1,18 +1,18 @@
 import datetime
 import random
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.views import View
-import os
 import inject
 from coreapp.interfaces.core_interface import ICore
 from catalog.interfaces.category_interface import ICategory
 from catalog.interfaces.product_interface import IProduct
 from discounts_app.interfaces.discounts_interface import IDiscounts
 from megano.settings import TIME_OUT_BANNERS
-from coreapp.utils.update_limited_product import check_time
+from coreapp.utils.category_with_min_price import CategoryDisplay
 from discounts_app.services.product_discount_calculation import ProductDiscountCalculations
 from coreapp.utils.get_list_lp import LimitedProducts
+
 
 
 class IndexView(View):
@@ -51,18 +51,16 @@ class IndexView(View):
                        "time_out_banners": TIME_OUT_BANNERS,
                        }
 
-        categories = self._category.get_categories_to_display()[:self._CATEGORIES_TO_DISPLAY]
+        categories = CategoryDisplay.cat_with_min_price(q_cat=self._CATEGORIES_TO_DISPLAY)
 
-        # all_lim_products = self._product.get_limited_products()
-        all_lim_products = LimitedProducts.get_lp_with_product_discounts(self)
-
+        all_lim_products = LimitedProducts.get_lp_with_product_discounts()
         pks_products = list(all_lim_products.values_list('pk', flat=True))
-
         pk_for_1_limited_product = random.choice(pks_products)
         limited_product = all_lim_products.get(pk=pk_for_1_limited_product)
+
         discount_price_lp = ProductDiscountCalculations.apply_product_discount_for_one_product(limited_product)
 
-        date_end = (datetime.datetime.now() + datetime.timedelta(days=1))
+        date_end = (datetime.datetime.now() + datetime.timedelta(days=2))
         date_string = str(f'{date_end:%d.%m.%Y %H:%M}')
         print(date_string)
 

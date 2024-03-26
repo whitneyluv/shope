@@ -30,7 +30,7 @@ class CreateOrderView(View, LoginRequiredMixin):
             'city': request.POST.get('city'),
             'address': request.POST.get('address'),
             'payment_type': request.POST.get('pay'),
-            'total_amount': DiscountProcessing.get_cart_sum_with_discounts(user_id=user.pk)
+            'total_amount': round(DiscountProcessing.get_cart_sum_with_discounts(user_id=user.pk), 1)
         }
         form = OrderForm(data)
 

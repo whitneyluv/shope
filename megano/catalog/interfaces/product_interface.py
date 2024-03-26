@@ -37,3 +37,8 @@ class IProduct(ABC):
         """Получить все экземплары категории Product"""
         pass
 
+    @abstractmethod
+    def get_products_from_lst_categories(self, cat_pk):
+        """Получить экземпляры модели Product определенной категории """
+        pass
+

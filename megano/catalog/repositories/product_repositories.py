@@ -79,3 +79,7 @@ class ProductRepository(IProduct):
     @beartype
     def get_products(self):
         return Product.objects.filter(is_active=True)
+
+    @beartype
+    def get_products_from_lst_categories(self, cat_pk):
+        return Product.objects.select_related('category').filter(category_id=cat_pk)
