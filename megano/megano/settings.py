@@ -185,4 +185,3 @@ WEBHOOKS_URL = os.getenv("URL_FOR_PAYMENT") + 'payment-notification/'
 URL_FOR_PAYMENT = os.getenv("URL_FOR_PAYMENT")
 PAYMENT_ACCOUNT_ID = os.getenv("PAYMENT_ACCOUNT_ID")
 PAYMENT_SECRET_KEY = os.getenv("PAYMENT_SECRET_KEY")
-
