@@ -14,9 +14,7 @@ from discounts_app.services.product_discount_calculation import ProductDiscountC
 from coreapp.utils.get_list_lp import LimitedProducts
 
 
-
 class IndexView(View):
-
 
     _BANNERS = 3
     _TOP_PRODUCTS = 8
@@ -62,7 +60,6 @@ class IndexView(View):
 
         date_end = (datetime.datetime.now() + datetime.timedelta(days=2))
         date_string = str(f'{date_end:%d.%m.%Y %H:%M}')
-        print(date_string)
 
         many_limited_products = all_lim_products.exclude(pk=pk_for_1_limited_product)[:self._LIMITED_PRODUCTS]
         popular_products = self._product.get_products()[:self._TOP_PRODUCTS]
