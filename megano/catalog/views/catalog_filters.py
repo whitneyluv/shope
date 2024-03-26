@@ -1,11 +1,13 @@
+from django.shortcuts import render
 import inject
 from django.core.handlers.wsgi import WSGIRequest
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Min
 from django.views.generic import ListView
+
 from catalog.interfaces.comparison_list_interface import IComparisonList
 from catalog.models import Product
 from catalog.interfaces.catalog_interface import ICatalogRepository
-from catalog.utils import add_product_from_catalog
 
 
 class CatalogPageView(ListView):
@@ -22,6 +24,7 @@ class CatalogPageView(ListView):
         context = super().get_context_data(**kwargs)
         products = self._get_filtered_and_sorted_products()
         context['products'] = products
+
         paginator = Paginator(products, self.paginate_by)
         page = self.request.GET.get('page')
 
@@ -62,15 +65,18 @@ class CatalogPageView(ListView):
                 sort_direction = self.request.GET.get('sort_direction', 'asc')
 
                 sort_field = f'prices__price__min{"-" if sort_direction == "desc" else ""}'
-                products = products.order_by(sort_field)
+                products = products.annotate(prices__price__min=Min('prices__price')).order_by(sort_field)
             elif sort == 'popularity':
-                products = products.order_by('-popularity')
-            elif sort == 'created_at':
+                products = products.order_by('-views')
+            elif sort == 'reviews':
+                products = products.order_by('-reviews')
+            elif sort == 'newness':
                 products = products.order_by('-created_at')
 
             return products
         except KeyError:
             return Product.objects.none()
+
 
     def get(self, request, **kwargs):
         """Метод для обработки GET запросов"""
