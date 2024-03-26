@@ -2,6 +2,7 @@ import inject
 from profile_app.interfaces import ISeller
 from catalog.interfaces import IProduct
 from .dto import Product, Seller
+from discounts_app.services.product_discount_calculation import ProductDiscountCalculations
 
 
 class FillingSeller:
@@ -47,7 +48,8 @@ class FillingProduct:
             pk=product.pk,
             title=product.title,
             description=product.description,
-            image=product.product_images.first().image.url
+            image=product.product_images.first().image.url,
+            product_discounts=ProductDiscountCalculations.apply_product_discount_for_one_product(product)
         )
 
     def filling_from_db(self, product):
@@ -59,5 +61,6 @@ class FillingProduct:
             pk=product.pk,
             title=product.title,
             description=product.description,
-            image=product.product_images.first().image.url
+            image=product.product_images.first().image.url,
+            product_discounts=ProductDiscountCalculations.apply_product_discount_for_one_product(product)
         )

@@ -27,9 +27,9 @@
                     </div>
                 </div>
                 <div class="Section-content">
-                    {% for order in orders %}
-                    <div class="Orders">
 
+                    <div class="Orders">
+                        {% for order in orders %}
                         <div class="Order Order_anons">
                             <div class="Order-personal">
                                 <div class="row">
@@ -37,28 +37,46 @@
                                     </div>
                                     <div class="row-block">
                                         <div class="Order-info Order-info_delivery">
-                                            <div class="Order-infoType">Тип доставки:
+                                            <div class="Order-infoType">
+                                                Тип доставки:
                                             </div>
-                                            <div class="Order-infoContent">{{order.delivery_type}}
-                                            </div>
+                                            {% if order.delivery_type == "ordinary" %}
+                                                <div class="Order-infoContent">
+                                                    Стандартная доставка
+                                                </div>
+                                            {% elif order.delivery_type == "express" %}
+                                             <div class="Order-infoContent">
+                                                 Экспресс доставка
+                                             </div>
+                                            {% endif %}
                                         </div>
                                         <div class="Order-info Order-info_pay">
                                             <div class="Order-infoType">Оплата:
                                             </div>
-                                            <div class="Order-infoContent">{{order.payment_type}}
-                                            </div>
+                                            {% if order.payment_type == "online" %}
+                                                <div class="Order-infoContent">Онлайн оплата (Яндекс-касса)
+                                                </div>
+                                            {% elif order.delivery_type == "someone" %}
+                                                 <div class="Order-infoContent">Оплата с чужого счета
+                                                    </div>
+                                            {% endif %}
                                         </div>
                                         <div class="Order-info">
                                             <div class="Order-infoType">Общая стоимость:
                                             </div>
-                                            <div class="Order-infoContent"><span class="Order-price">{{order.total_amount}}</span>
+                                            <div class="Order-infoContent">{{order.total_amount}} ₽
                                             </div>
                                         </div>
                                         <div class="Order-info Order-info_status">
                                             <div class="Order-infoType">Статус:
                                             </div>
-                                            <div class="Order-infoContent">{{order.payment_status}}
-                                            </div>
+                                            {% if order.payment_status == "unpaid" %}
+                                                <div class="Order-infoContent">НЕ ОПЛАЧЕН
+                                                </div>
+                                            {% elif order.payment_status == "paid" %}
+                                                <div class="Order-infoContent">ОПЛАЧЕН
+                                                </div>
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>
