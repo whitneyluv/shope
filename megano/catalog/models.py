@@ -41,6 +41,7 @@ class Category(models.Model):
             "unique": _("A user with that username already exists."),
         },
     )
+    display_on_index_page = models.BooleanField(default=True, verbose_name="display")
 
 
 class Product(BaseModel):
