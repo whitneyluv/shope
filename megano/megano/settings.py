@@ -33,7 +33,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*", "https://8f83-178-34-160-5.ngrok-free.app",]
+ALLOWED_HOSTS = ["*"]
 
 INTERNAL_IPS = []
 
@@ -168,8 +168,7 @@ TIME_OUT_BANNERS = int(os.getenv("TIME_OUT_BANNERS"))
 
 CACHES = {
    "default": {
-        "BACKEND": "django.core.cache.backends.dummy.DummyCache",
-       # "BACKEND": "django.core.cache.backends.memcached.PyMemcacheCache",
+       "BACKEND": "django.core.cache.backends.memcached.PyMemcacheCache",
        "LOCATION": "127.0.0.1:11211",
    }
 }
@@ -187,14 +186,3 @@ URL_FOR_PAYMENT = os.getenv("URL_FOR_PAYMENT")
 PAYMENT_ACCOUNT_ID = os.getenv("PAYMENT_ACCOUNT_ID")
 PAYMENT_SECRET_KEY = os.getenv("PAYMENT_SECRET_KEY")
 
-CSRF_TRUSTED_ORIGINS = ['http://...',
-                        'https://8f83-178-34-160-5.ngrok-free.app',
-                        'https://...',
-                        'http://185.71.76.0/27',
-                        'http://185.71.77.0/27',
-                        'http://77.75.153.0/25',
-                        'http://77.75.156.11',
-                        'http://77.75.156.35',
-                        'http://77.75.154.128/25',
-                        'http://2a02:5180::/32',
-]
