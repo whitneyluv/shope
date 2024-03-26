@@ -113,13 +113,13 @@
                                     <div class="Cart-block Cart-block_row">
                                         {% with product_image=order_item.product|first_image %}
                                             {% if product_image %}
-                                        <div class="Cart-block Cart-block_pict"><a class="Cart-pict" href="{% url 'catalog:product' product_id=order_item.product.id %}"><img class="Cart-img" src="{{product_image.image.url }}" alt={{order_item.product.title}} /></a>
+                                        <div class="Cart-block Cart-block_pict"><a class="Cart-pict" href="{% url 'catalog:product' pk=order_item.product.pk %}"><img class="Cart-img" src="{{product_image.image.url }}" alt={{order_item.product.title}} /></a>
                                         </div>
                                             {% endif %}
                                         {% endwith %}
 
-                                        <div class="Cart-block Cart-block_info"><a class="Cart-title" href="{% url 'catalog:product' product_id=order_item.product.id %}">{{order_item.product.title}} </a>
-                                            <div class="Cart-desc">{{order_item.product.description}}
+                                        <div class="Cart-block Cart-block_info"><a class="Cart-title" href="{% url 'catalog:product' pk=order_item.product.pk %}">{{order_item.product.title}} </a>
+                                            <div class="Cart-desc">{{order_item.product.description}} 
                                             </div>
                                         </div>
                                         <div class="Cart-block Cart-block_price">
@@ -150,4 +150,5 @@
                 </div>
             </div>
         </div>
+    </div>
 {% endblock %}

@@ -21,3 +21,8 @@ class IPrice(ABC):
         """Получить экземпляры модели Price связанные с продуктами и продавцами из списков,
         для расчёта общей стоимости корзины для DTO"""
         pass
+
+    @abstractmethod
+    def get_price_for_product(self, product_id):
+        """Получить цены на продукт"""
+        pass
