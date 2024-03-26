@@ -1,4 +1,3 @@
-from django.shortcuts import render
 import inject
 from django.core.handlers.wsgi import WSGIRequest
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger

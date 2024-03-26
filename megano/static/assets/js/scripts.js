@@ -304,6 +304,7 @@ var range = function(){
         }
     };
 };
+
 range().init();
 var table = function(){
     return {
