@@ -7,6 +7,7 @@ from django.views.generic import ListView
 from catalog.interfaces.comparison_list_interface import IComparisonList
 from catalog.models import Product
 from catalog.interfaces.catalog_interface import ICatalogRepository
+from catalog.utils import add_product_from_catalog
 
 
 class CatalogPageView(ListView):
