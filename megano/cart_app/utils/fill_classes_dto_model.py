@@ -44,23 +44,40 @@ class FillingProduct:
 
         product = self._product.get_product(product_id)
 
-        return Product(
-            pk=product.pk,
-            title=product.title,
-            description=product.description,
-            image=product.product_images.first().image.url,
-            product_discounts=ProductDiscountCalculations.apply_product_discount_for_one_product(product)
-        )
+        if product.product_images.first():
+            return Product(
+                pk=product.pk,
+                title=product.title,
+                description=product.description,
+                image=product.product_images.first().image.url,
+                product_discounts=ProductDiscountCalculations.apply_product_discount_for_one_product(product)
+            )
+        else:
+            return Product(
+                pk=product.pk,
+                title=product.title,
+                description=product.description,
+                image='No url',
+                product_discounts=ProductDiscountCalculations.apply_product_discount_for_one_product(product)
+            )
 
     def filling_from_db(self, product):
         """
             Функция заполнения всей информации для модели выгружая информацию из базы данных
         """
-
-        return Product(
-            pk=product.pk,
-            title=product.title,
-            description=product.description,
-            image=product.product_images.first().image.url,
-            product_discounts=ProductDiscountCalculations.apply_product_discount_for_one_product(product)
-        )
+        if product.product_images.first():
+            return Product(
+                pk=product.pk,
+                title=product.title,
+                description=product.description,
+                image=product.product_images.first().image.url,
+                product_discounts=ProductDiscountCalculations.apply_product_discount_for_one_product(product)
+            )
+        else:
+            return Product(
+                pk=product.pk,
+                title=product.title,
+                description=product.description,
+                image='No url',
+                product_discounts=ProductDiscountCalculations.apply_product_discount_for_one_product(product)
+            )
