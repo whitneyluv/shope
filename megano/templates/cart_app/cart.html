@@ -30,10 +30,24 @@
                                 </div>
                             </div>
                             <div class="Cart-block Cart-block_price">
+                                {% if item.product.product_discounts %}
+                                <div class="Cart-price" style="width:150px">
+                                    <s>{{ item.product.pk | get_last_price:item.seller.pk | price_format }}</s>
+                                </div>
+
+                            </div>
+                            <div class="Cart-block Cart-block_price">
+                                <div class="Cart-price" style="width:150px">
+                                    Со скидкой <br/>
+                                    {{ item.product.product_discounts | price_format }}
+                                </div>
+                                {% else %}
                                 <div class="Cart-price" style="width:150px">
                                     {{ item.product.pk | get_last_price:item.seller.pk | price_format }}
                                 </div>
+                                {% endif %}
                             </div>
+
                         </div>
                         <div class="Cart-block Cart-block_row">
 
@@ -63,14 +77,14 @@
                             </strong>
                             <span class="Cart-price">{{ cart.total_amount | price_format }}</span>
                             <div>
-                            <strong class="Cart-title">Цена со скидкой:
+                            <strong class="Cart-title">Общая стоимость с учетом всех скидок:
                             </strong>
                             {% if request.user.is_authenticated %}
                             {% if sale_price %}
                             <span class="Cart-price"> {{ sale_price | price_format }}</span>
                             {% endif %}
                             {% else %}
-                                <p>Войдите в свой аккаунт, чтобы оформить заказ со скидкой</p>
+                                <p>Войдите в свой аккаунт, чтобы оформить заказ и получить скидку</p>
                             {% endif %}
                         </div>
                         </div>
@@ -81,7 +95,7 @@
                             </div>
                         {% else %}
                         <div class="Cart-block">
-                            <a class="btn btn_success btn_lg" href="{% url 'auth_app:login' %}">Оформить заказ</a>
+                            <a class="btn btn_success btn_lg" href="{% url 'auth_app:login' %}">Авторизоваться</a>
                         </div>
                         {% endif %}
                     </div>

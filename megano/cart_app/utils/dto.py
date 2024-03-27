@@ -1,9 +1,6 @@
-import inject
 from typing import List
 from dataclasses import dataclass
 from decimal import Decimal
-from profile_app.interfaces import ISeller
-from catalog.interfaces import IProduct
 
 
 @dataclass
@@ -13,7 +10,6 @@ class Seller(object):
     """
     pk: int = 0
     name: str = ''
-    _seller: ISeller = inject.attr(ISeller)
 
 
 @dataclass
@@ -25,7 +21,7 @@ class Product(object):
     title: str = ''
     description: str = ''
     image: str = ''
-    _product: IProduct = inject.attr(IProduct)
+    product_discounts: int = 0
 
 
 @dataclass

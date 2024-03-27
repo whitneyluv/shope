@@ -38,6 +38,8 @@ class Command(BaseCommand):
             "discounts_app/fixtures/productdiscount.json",
             "discounts_app/fixtures/productdiscount_seller.json",
             "discounts_app/fixtures/cartdiscount.json",
+            "order_app/fixtures/order.json",
+            "order_app/fixtures/orderitems.json"
         ]
         for path in paths:
             is_error = os.system(f"python -Xutf8 manage.py loaddata {path}")
